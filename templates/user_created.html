@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ "Succès" if success else "Erreur" }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1 style="color: {{ 'green' if success else 'red' }}">{{ message }}</h1>
+    <a href="/admin">↩ Retour au dashboard</a>
+</body>
+</html>
