@@ -33,3 +33,7 @@ def process_login(request: Request, email: str, password: str, is_admin: bool):
             "user_created.html",
             {"request": request, "message": "Utilisateur créé avec succès", "success": True},
         )
+
+@router.get("/delete_user", response_class=HTMLResponse)
+def create_user_page(request: Request):
+    return templates.TemplateResponse("delete_user.html", {"request": request})
