@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Journal du lycée – Accueil</title>
+
+  <!-- Optionnel : si tu as déjà un style global -->
+  <link rel="stylesheet" href="/static/style.css">
+
+  <style>
+    /* Styles basiques intégrés (au cas où /static/style.css n’existe pas) */
+    :root { --bg:#fff; --text:#111; --muted:#666; --radius:14px; }
+    *{ box-sizing:border-box; }
+    body{ margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial; background:var(--bg); color:var(--text);}
+    .container{ max-width:1000px; margin:auto; padding:16px;}
+    header{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 0; }
+    .brand{ font-weight:800; font-size:20px; text-decoration:none; color:inherit;}
+    nav a{ text-decoration:none; color:var(--muted); margin-left:14px; }
+    .hero{ border:1px solid #eee; border-radius:var(--radius); padding:20px; background:#fafafa; }
+    .hero h2{ margin:0 0 6px; }
+    .grid{ list-style:none; margin:16px 0 0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:16px; }
+    .card{ border:1px solid #eee; border-radius:var(--radius); overflow:hidden; background:#fff; }
+    .thumb{ width:100%; height:140px; background:linear-gradient(135deg,#e9ecef,#f8f9fa); }
+    .card-body{ padding:14px; }
+    .card h4{ margin:0 0 6px; font-size:18px; }
+    .muted{ color:var(--muted); font-size:14px; }
+    .taglist{ margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;}
+    .tag{ font-size:12px; padding:4px 8px; border-radius:999px; background:#f2f2f2; }
+    footer{ color:var(--muted); font-size:14px; padding:24px 0; }
+    @media (max-width:640px){ header{flex-direction:column; align-items:flex-start;} nav{margin-top:6px;} }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <a class="brand" href="/">Journal du lycée</a>
+    <nav>
+      <a href="/">Accueil</a>
+      <a href="/categories">Rubriques</a>
+      <a href="/login">Connexion</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h2>Bienvenue 👋</h2>
+      <p class="muted">Les dernières actus du lycée : projets, sport, culture, vie scolaire…</p>
+    </section>
+
+    <section style="margin-top:16px;">
+      <h3>Derniers articles</h3>
+      <ul class="grid">
+        <!-- Carte d’article 1 -->
+        <li class="card">
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="card-body">
+            <h4><a href="/articles/rentree-2025">Rentrée : ce qu’il faut savoir</a></h4>
+            <p class="muted">Horaires, clubs, nouveautés à la cantine…</p>
+            <div class="taglist">
+              <span class="tag">Vie du lycée</span>
+              <span class="tag">Infos</span>
+            </div>
+          </div>
+        </li>
+
+        <!-- Carte d’article 2 -->
+        <li class="card">
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="card-body">
+            <h4><a href="/articles/victoire-hand">Victoire de l’équipe de hand</a></h4>
+            <p class="muted">Retour sur le match et interview des joueurs.</p>
+            <div class="taglist">
+              <span class="tag">Sport</span>
+            </div>
+          </div>
+        </li>
+
+        <!-- Carte d’article 3 -->
+        <li class="card">
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="card-body">
+            <h4><a href="/articles/club-photo">Le club photo expose</a></h4>
+            <p class="muted">Une sélection d’images prises par les élèves.</p>
+            <div class="taglist">
+              <span class="tag">Culture</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="container">
+    © Journal du lycée — Tous droits réservés
+  </footer>
+</body>
+</html>
