@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+
+from services.delete_user import delete_user
 from services.user_exist import user_exist
 from services.create_user import create_user
 
@@ -37,3 +39,17 @@ def process_login(request: Request, email: str, password: str, is_admin: bool):
 @router.get("/delete_user", response_class=HTMLResponse)
 def create_user_page(request: Request):
     return templates.TemplateResponse("delete_user.html", {"request": request})
+
+@router.get("/endpoint_delete_user", response_class=HTMLResponse)
+def process_deleting(request: Request, email: str):
+    if user_exist(email):
+        return templates.TemplateResponse(
+            "user_created.html",
+            {"request": request, "message": "Utilisateur déjà existant", "success": False},
+        )
+    else:
+        delete_user(email=email)
+        return templates.TemplateResponse(
+            "user_created.html",
+            {"request": request, "message": "Utilisateur créé avec succès", "success": True},
+        )
