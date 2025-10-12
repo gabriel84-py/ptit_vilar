@@ -6,6 +6,7 @@ from itsdangerous import URLSafeSerializer
 from services.delete_user import delete_user
 from services.user_exist import user_exist
 from services.create_user import create_user
+from services.view_users import get_all_users
 
 SECRET_KEY = "ma_cle_super_secrete"
 serializer = URLSafeSerializer(SECRET_KEY)
@@ -66,3 +67,8 @@ def process_delete_user(request: Request, email: str):
         "user_created.html",
         {"request": request, "message": "Utilisateur supprimé avec succès", "success": True},
     )
+
+@router.get("/users", response_class=HTMLResponse, dependencies=[Depends(require_login)])
+def viewusers(request: Request):
+    users = get_all_users()  # récupère tous les utilisateurs
+    return templates.TemplateResponse("view_users.html", {"request": request, "users": users})
