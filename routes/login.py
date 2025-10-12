@@ -11,15 +11,15 @@ templates = Jinja2Templates(directory="templates")
 def show_login_form(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
-#Vérification du login
 @router.post("/check", response_class=HTMLResponse)
 def process_login(request: Request, email: str = Form(...), password: str = Form(...)):
     if auth_user(email, password):
-        # Si ok → redirige vers le dashboard admin
-        return RedirectResponse(url="/admin", status_code=303)
+        response = RedirectResponse(url="/admin", status_code=303)
+        response.set_cookie(key="auth", value="true")  # ✅ cookie de session
+        return response
     else:
-        # Sinon → affiche une erreur
         return templates.TemplateResponse(
             "login_error.html",
             {"request": request, "email": email},
         )
+
