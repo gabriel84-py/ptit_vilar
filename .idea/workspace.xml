@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5def55ea-ee84-459c-9302-0c2c20706b2f" name="Changes" comment="html parsed">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_backend/ptit_vilar.db" beforeDir="false" afterPath="$PROJECT_DIR$/db_backend/ptit_vilar.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/__pycache__/login.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/routes/__pycache__/login.cpython-312.pyc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/login.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
