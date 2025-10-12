@@ -6,7 +6,7 @@ from services.create_user import create_user
 
 router = APIRouter(prefix="/admin", tags=["Auth"])
 
-# 🔹 On configure les templates
+#On configure les templates
 templates = Jinja2Templates(directory="templates")
 
 
