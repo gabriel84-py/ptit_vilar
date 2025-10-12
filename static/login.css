@@ -1,27 +1,371 @@
+/* ====== Fond animé + tokens ====== */
+:root {
+  --bg1: #0e0f1a;
+  --bg2: #111b2e;
+  --glass: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.16);
+  --text: #e7ecf3;
+  --muted: #a7b0c2;
+  --n1: #6c63ff;
+  --n2: #48c6ef;
+  --radius: 18px;
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
 body {
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 100px;
+  height: 100%;
+}
+body {
+  font-family: "Inter", system-ui, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: radial-gradient(
+      1200px 800px at 10% 10%,
+      #19203a 0%,
+      transparent 60%
+    ),
+    radial-gradient(1200px 800px at 90% 90%, #121a2c 0%, transparent 60%),
+    linear-gradient(120deg, var(--bg1), var(--bg2));
+  overflow: hidden;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(108, 99, 255, 0.35),
+    rgba(72, 198, 239, 0.35),
+    transparent 35%,
+    rgba(108, 99, 255, 0.35),
+    rgba(72, 198, 239, 0.35)
+  );
+  filter: blur(60px) saturate(120%);
+  animation: swirl 18s linear infinite;
+  opacity: 0.55;
+  pointer-events: none;
+}
+@keyframes swirl {
+  to {
+    transform: rotate(360deg);
+  }
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+      220px 220px at 20% 30%,
+      rgba(108, 99, 255, 0.45) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      260px 260px at 80% 70%,
+      rgba(72, 198, 239, 0.45) 0%,
+      transparent 65%
+    );
+  mix-blend-mode: screen;
+  filter: blur(20px);
+  animation: floaty 10s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes floaty {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(0, -12px, 0) scale(1.03);
+  }
 }
 
+/* ====== Layout 2 colonnes ====== */
+.page {
+  display: grid;
+  grid-template-columns: minmax(480px, 1fr) 420px;
+  gap: 28px;
+  align-items: center;
+  height: 100%;
+  padding: 28px;
+}
+.left {
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.right {
+  display: grid;
+  place-items: center;
+}
+
+/* ====== Effet glass réutilisable ====== */
+.glass {
+  background: linear-gradient(180deg, var(--glass), rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px) saturate(120%);
+  position: relative;
+}
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius) + 2px);
+  background: linear-gradient(
+    135deg,
+    rgba(108, 99, 255, 0.7),
+    rgba(72, 198, 239, 0.7)
+  );
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
+  opacity: 0.18;
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+/* ====== Carrousel ====== */
+.carousel {
+  width: min(100%, 980px);
+  aspect-ratio: 16/10;
+  position: relative;
+}
+.cr-input {
+  display: none;
+}
+
+/* Slides wrapper */
+.slides {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+/* Une slide */
+.slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 62% 38%;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.slide .media {
+  overflow: hidden;
+}
+.slide .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(108%);
+  transform: scale(1.02);
+}
+.slide .content {
+  padding: 18px 22px;
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 14, 24, 0.35),
+    rgba(10, 14, 24, 0.55)
+  );
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.slide h2 {
+  font-size: clamp(20px, 2.4vw, 28px);
+  line-height: 1.15;
+}
+.slide p {
+  color: var(--muted);
+}
+
+/* Affichage conditionnel selon radio */
+#cr-1:checked ~ .slides .slide:nth-child(1),
+#cr-2:checked ~ .slides .slide:nth-child(2),
+#cr-3:checked ~ .slides .slide:nth-child(3) {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Flèches */
+.arrows {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  pointer-events: none;
+}
+.arrow {
+  pointer-events: auto;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  color: #0c1220;
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--n2), var(--n1));
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(72, 198, 239, 0.35);
+  transition: transform 0.15s ease, filter 0.2s ease;
+  user-select: none;
+}
+.arrow:hover {
+  transform: translateY(-2px);
+  filter: saturate(115%);
+}
+.arrow.prev {
+  position: absolute;
+  left: 12px;
+}
+.arrow.next {
+  position: absolute;
+  right: 12px;
+}
+
+/* Pastilles */
+.dots {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15) inset;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+.dot:hover {
+  transform: scale(1.1);
+}
+#cr-1:checked ~ .dots .dot:nth-child(1),
+#cr-2:checked ~ .dots .dot:nth-child(2),
+#cr-3:checked ~ .dots .dot:nth-child(3) {
+  background: linear-gradient(135deg, var(--n2), var(--n1));
+}
+
+/* ====== Login (colonne droite) ====== */
+.login-container {
+  width: min(420px, 94vw);
+  padding: 38px 30px;
+}
+h1 {
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2rem);
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #fff 0%, #cfe8ff 50%, #fff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 form {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    gap: 10px;
+  display: grid;
+  gap: 16px;
 }
-
-input, button {
-    padding: 10px;
-    font-size: 16px;
+input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 16px;
+  color: var(--text);
+  background: rgba(8, 12, 22, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.1s;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
-
+input::placeholder {
+  color: var(--muted);
+}
+input:focus {
+  border-color: rgba(108, 99, 255, 0.8);
+  box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.15),
+    0 6px 24px -8px rgba(72, 198, 239, 0.45);
+  transform: translateY(-1px);
+}
 button {
-    background-color: royalblue;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+  position: relative;
+  padding: 14px 16px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: #0c1220;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--n2), var(--n1));
+  box-shadow: 0 10px 30px rgba(72, 198, 239, 0.35),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  overflow: hidden;
+}
+button:hover {
+  transform: translateY(-2px);
+  filter: saturate(115%);
+}
+button:active {
+  transform: translateY(0);
+}
+.quick-links {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+.quick-links a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.quick-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 1024px) {
+  .page {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 20px;
+  }
+  .left {
+    order: 2;
+  }
+  .right {
+    order: 1;
+  }
+  .carousel {
+    aspect-ratio: 16/11;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  body::before,
+  body::after {
+    display: none;
+  }
 }
