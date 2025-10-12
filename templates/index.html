@@ -1,3 +1,11 @@
+<!--
+====== Développé par TEAM LogicPulse ======
+| YouTube :                               |
+| Discord :                               |
+| Instagram :                             |
+===========================================
+-->
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -5,21 +13,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Journal du lycée — Accueil</title>
 
+    <!-- Police -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- CSS dédié à CETTE page -->
     <link rel="stylesheet" href="/static/index.css" />
   </head>
   <body>
-    <header class="container header">
+    <!-- Barre supérieure -->
+    <header class="container header" role="banner">
       <a class="brand" href="/">Journal du lycée</a>
-      <nav class="nav">
-        <a href="/">Accueil</a>
-        <a href="/categories">Rubriques</a>
-        <a href="/login">Connexion</a>
+      <nav class="nav" aria-label="Navigation principale">
+        <a class="nav-link is-active" href="/">
+          Accueil
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5
+           A18.5,18.5 0 0 1 78.5,38.5
+           H21.5
+           A18.5,18.5 0 0 1 21.5,1.5
+           H50 Z"
+            />
+          </svg>
+        </a>
+        <a class="nav-link" href="/categories">
+          Rubriques
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5
+           A18.5,18.5 0 0 1 78.5,38.5
+           H21.5
+           A18.5,18.5 0 0 1 21.5,1.5
+           H50 Z"
+            />
+          </svg>
+        </a>
+        <a class="nav-link" href="/login">
+          Connexion
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5
+           A18.5,18.5 0 0 1 78.5,38.5
+           H21.5
+           A18.5,18.5 0 0 1 21.5,1.5
+           H50 Z"
+            />
+          </svg>
+        </a>
       </nav>
     </header>
 
-    <main class="container main">
-      <!-- ARTICLE À LA UNE -->
+    <main class="container main" role="main">
+      <!-- HERO / À LA UNE -->
       <section class="featured" aria-labelledby="a-la-une">
         <h2 id="a-la-une" class="sr-only">Article à la une</h2>
 
@@ -29,7 +103,13 @@
             href="/articles/rentree-2025"
             aria-label="Lire l’article à la une"
           >
-            <img src="/static/img.png" alt="" loading="lazy" />
+            <img
+              src="/static/img.png"
+              alt="Illustration de l'article à la une"
+              loading="lazy"
+            />
+            <span class="media-overlay"></span>
+            <span class="media-chip">À la une</span>
           </a>
           <div class="featured-body">
             <a class="chip" href="/categories/vie-lycee">Vie du lycée</a>
@@ -47,17 +127,26 @@
         </article>
       </section>
 
-      <!-- LES 3 ARTICLES SUIVANTS (ordre chronologique, du + récent au + ancien) -->
+      <!-- DERNIERS ARTICLES -->
       <section class="latest" aria-labelledby="derniers-articles">
         <div class="section-head">
           <h2 id="derniers-articles">Derniers articles</h2>
+          <a class="see-all" href="/categories">Tout voir</a>
         </div>
 
         <ul class="articles-grid">
           <li>
             <article class="card">
-              <a class="card-media" href="/articles/victoire-hand">
-                <img src="/static/hand.png" alt="" loading="lazy" />
+              <a
+                class="card-media"
+                href="/articles/victoire-hand"
+                aria-label="Lire : Victoire de l’équipe de hand"
+              >
+                <img
+                  src="/static/hand.png"
+                  alt="Victoire de l’équipe de hand"
+                  loading="lazy"
+                />
               </a>
               <div class="card-body">
                 <h3 class="card-title">
@@ -75,8 +164,16 @@
 
           <li>
             <article class="card">
-              <a class="card-media" href="/articles/club-photo">
-                <img src="/static/photo.png" alt="" loading="lazy" />
+              <a
+                class="card-media"
+                href="/articles/club-photo"
+                aria-label="Lire : Le club photo expose"
+              >
+                <img
+                  src="/static/photo.png"
+                  alt="Le club photo expose"
+                  loading="lazy"
+                />
               </a>
               <div class="card-body">
                 <h3 class="card-title">
@@ -92,8 +189,16 @@
 
           <li>
             <article class="card">
-              <a class="card-media" href="/articles/atelier-debat">
-                <img src="/static/debat.png" alt="" loading="lazy" />
+              <a
+                class="card-media"
+                href="/articles/atelier-debat"
+                aria-label="Lire : Atelier débat : écologie"
+              >
+                <img
+                  src="/static/debat.png"
+                  alt="Atelier débat : écologie"
+                  loading="lazy"
+                />
               </a>
               <div class="card-body">
                 <h3 class="card-title">
@@ -110,10 +215,9 @@
       </section>
     </main>
 
-    <footer class="container footer">
-      © Journal du lycée Jean VILAR — Tous droits réservés
-      <br>
-      © Made by Team LogicPulse
+    <footer class="container footer" role="contentinfo">
+      <div>© Journal du lycée Jean VILAR — Tous droits réservés</div>
+      <div class="by">© Made by Team LogicPulse</div>
     </footer>
   </body>
 </html>
