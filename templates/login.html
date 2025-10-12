@@ -1,344 +1,114 @@
+<!-- 
+====== Développé par TEAM LogicPulse ======
+| YouTube :                               |
+| Discord :                               |
+| Instagram :                             |
+===========================================  
+-->
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
+    <!-- Responsive : viewport mobile/desktop -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Connexion — Journal du lycée</title>
 
+    <!-- Police Inter (maquette) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
       rel="stylesheet"
     />
-
-    <style>
-      :root {
-        --bg: #2f2a39;
-        --card: #342f40;
-        --text: #eceaf3;
-        --muted: #b8b4c6;
-        --brand: #8e7cf8;
-        --brand-2: #6c63ff;
-        --radius: 26px; /* + */
-        --shadow: 0 40px 100px rgba(10, 10, 20, 0.55); /* + */
-      }
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      html,
-      body {
-        height: 100%;
-      }
-      body {
-        font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial,
-          sans-serif;
-        background: radial-gradient(
-            1100px 700px at 15% 15%,
-            #3b3650 0%,
-            transparent 60%
-          ),
-          radial-gradient(1100px 700px at 85% 85%, #2a2537 0%, transparent 60%),
-          linear-gradient(180deg, #2a2435, #201c27 60%, #1a1620);
-        color: var(--text);
-        display: grid;
-        place-items: center;
-        padding: 32px; /* + */
-        overflow: hidden;
-      }
-      body::before {
-        content: "";
-        position: fixed;
-        inset: -30%;
-        background: conic-gradient(
-          from 0deg at 50% 50%,
-          rgba(142, 124, 248, 0.28),
-          rgba(108, 99, 255, 0.24),
-          transparent 40%,
-          rgba(142, 124, 248, 0.28)
-        );
-        filter: blur(80px) saturate(120%); /* + */
-        animation: spin 28s linear infinite;
-        pointer-events: none;
-        opacity: 0.6;
-      }
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      /* ====== Carte principale agrandie ====== */
-      .shell {
-        width: min(1240px, 96vw); /* + plus large */
-        display: grid;
-        grid-template-columns: 1.08fr 0.92fr; /* + un poil plus de place au visuel */
-        gap: 0;
-        border-radius: var(--radius);
-        background: linear-gradient(180deg, #3a3347, #312c3b);
-        box-shadow: var(--shadow);
-        position: relative;
-        isolation: isolate;
-        min-height: 640px; /* + hauteur */
-      }
-      .shell::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        pointer-events: none;
-        padding: 1px;
-        background: linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.12),
-          rgba(142, 124, 248, 0.35),
-          rgba(255, 255, 255, 0.05)
-        );
-        -webkit-mask: linear-gradient(#000 0 0) content-box,
-          linear-gradient(#000 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        opacity: 0.6;
-      }
-
-      .media {
-        position: relative;
-        overflow: hidden;
-        border-top-left-radius: var(--radius);
-        border-bottom-left-radius: var(--radius);
-        min-height: 640px; /* + */
-        background: #15121b;
-      }
-      .brand {
-        position: absolute;
-        inset: 22px auto auto 26px;
-        z-index: 2;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-        font-size: 20px;
-        color: #fff;
-        opacity: 0.95;
-      }
-      .backbtn {
-        position: absolute;
-        inset: 22px 22px auto auto;
-        z-index: 2;
-        text-decoration: none;
-        color: #12121a;
-        font-weight: 600;
-        background: #fff;
-        padding: 10px 14px;
-        border-radius: 999px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 14px;
-        opacity: 0.92;
-        transition: transform 0.15s ease;
-      }
-      .backbtn:hover {
-        transform: translateY(-1px);
-      }
-      .carousel {
-        position: absolute;
-        inset: 0;
-      }
-      .slide {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        transform: scale(1.02);
-        transition: opacity 0.7s ease, transform 0.7s ease;
-      }
-      .slide.active {
-        opacity: 1;
-        transform: scale(1);
-      }
-      .slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        filter: contrast(1.05) saturate(1.05);
-      }
-      .caption {
-        position: absolute;
-        left: 32px;
-        bottom: 28px;
-        color: #fff;
-        font-size: 22px;
-        font-weight: 700;
-        text-shadow: 0 6px 26px rgba(0, 0, 0, 0.7);
-      }
-      .dots {
-        position: absolute;
-        left: 32px;
-        bottom: 22px;
-        transform: translateY(28px);
-        display: flex;
-        gap: 10px;
-      }
-      .dot {
-        width: 28px;
-        height: 6px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.38);
-        cursor: pointer;
-        transition: all 0.25s ease;
-      }
-      .dot.active {
-        background: linear-gradient(90deg, var(--brand), var(--brand-2));
-        width: 44px;
-      }
-
-      /* ====== Colonne connexion : plus spacieuse ====== */
-      .panel {
-        padding: 64px 56px; /* ++ espace interne */
-        background: linear-gradient(180deg, #3f3950, #2f2a39 65%, #2b2533);
-        border-top-right-radius: var(--radius);
-        border-bottom-right-radius: var(--radius);
-        display: grid;
-        align-content: start;
-        gap: 18px; /* + */
-      }
-      .panel h1 {
-        font-size: 36px;
-        line-height: 1.08;
-        margin-bottom: 8px;
-        font-weight: 800;
-      }
-      .panel .muted {
-        color: var(--muted);
-        font-size: 15px;
-        margin-bottom: 8px;
-      }
-
-      form {
-        display: grid;
-        gap: 18px; /* ++ espacement entre champs/bouton */
-      }
-      .field {
-        position: relative;
-      }
-      .field input {
-        width: 100%;
-        padding: 16px 48px 16px 16px; /* + */
-        background: #2a2433;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        color: var(--text);
-        border-radius: 16px;
-        outline: 0;
-        transition: border-color 0.2s, box-shadow 0.2s;
-      }
-      .field input::placeholder {
-        color: #a6a1b6;
-      }
-      .field input:focus {
-        border-color: rgba(142, 124, 248, 0.85);
-        box-shadow: 0 0 0 6px rgba(142, 124, 248, 0.22);
-      }
-      .eye {
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: transparent;
-        border: 0;
-        color: #cfcbe2;
-        cursor: pointer;
-        font-size: 18px;
-      }
-
-      .primary {
-        margin-top: 6px;
-        padding: 16px 18px; /* + */
-        border: 0;
-        border-radius: 16px;
-        cursor: pointer;
-        font-weight: 800;
-        font-size: 17px;
-        letter-spacing: 0.2px;
-        color: #13131a;
-        background: linear-gradient(135deg, var(--brand), var(--brand-2));
-        box-shadow: 0 22px 56px rgba(110, 98, 255, 0.35),
-          inset 0 -2px 6px rgba(0, 0, 0, 0.25);
-        transition: transform 0.15s ease, filter 0.2s ease;
-      }
-      .primary:hover {
-        transform: translateY(-2px);
-        filter: saturate(1.05);
-      }
-
-      .links {
-        display: flex;
-        justify-content: flex-start;
-        margin-top: 10px;
-      }
-      .links a {
-        color: var(--muted);
-        text-decoration: none;
-        font-size: 14.5px;
-      }
-      .links a:hover {
-        color: #fff;
-        text-decoration: underline;
-      }
-
-      @media (max-width: 980px) {
-        .shell {
-          grid-template-columns: 1fr;
-          width: min(96vw, 760px);
-          min-height: unset;
-        }
-        .media {
-          border-radius: var(--radius) var(--radius) 0 0;
-          min-height: 300px;
-        }
-        .panel {
-          border-radius: 0 0 var(--radius) var(--radius);
-          padding: 40px 28px;
-        }
-      }
-    </style>
   </head>
+
+  <!--
+    CSS dédié à CETTE page.
+    Contient :
+    - layout (.shell, .media, .panel)
+    - styles du carrousel (.frame, .slide, .caption, .dots)
+    - styles du bouton "Retour au site" (.back-pill)
+    - styles du formulaire (champs, bouton, liens)
+  -->
+  <link rel="stylesheet" href="/static/login.css" />
+
   <body>
     <main class="shell" role="main">
+      <!-- =========================================
+           COLONNE GAUCHE : CARROUSEL D'IMAGES
+           ========================================= -->
       <section class="media">
-        <div class="brand">AMU</div>
-        <a class="backbtn" href="{{ request.url_for('home') }}"
-          >Retour au site →</a
-        >
-        <div class="carousel" id="carousel">
-          <figure class="slide active">
-            <img src="/static/photo.png" alt="Dune désert au crépuscule" />
-            <figcaption class="caption">
-              Capturer l'instant, créer des souvenirs
-            </figcaption>
-          </figure>
-          <figure class="slide">
-            <img src="/static/hand.png" alt="Sport scolaire" />
-            <figcaption class="caption">
-              Vie du lycée, clubs & événements
-            </figcaption>
-          </figure>
-          <figure class="slide">
-            <img src="/static/debat.png" alt="Débat écologie" />
-            <figcaption class="caption">
-              Actus, débats, reportages des élèves
-            </figcaption>
-          </figure>
+        <!-- .frame crée une carte interne (coins arrondis, bordure fine, ombre) -->
+        <div class="frame">
+          <!-- viewport = conteneur des slides -->
+          <div class="viewport" id="carousel">
+            <!-- Slide 1 (active par défaut) -->
+            <figure class="slide active">
+              <img src="/static/photo.png" alt="Dune désert au crépuscule" />
+              <!-- Voile dégradé pour améliorer la lisibilité du texte en bas -->
+              <div class="gradient-bottom"></div>
+              <!-- Légende (positionnée au-dessus des tirets) -->
+              <figcaption class="caption">
+                Capturer l'instant, créer des souvenirs
+              </figcaption>
+            </figure>
+
+            <!-- Slide 2 -->
+            <figure class="slide">
+              <img src="/static/hand.png" alt="Sport scolaire" />
+              <div class="gradient-bottom"></div>
+              <figcaption class="caption">
+                Vie du lycée, clubs & événements
+              </figcaption>
+            </figure>
+
+            <!-- Slide 3 -->
+            <figure class="slide">
+              <img src="/static/debat.png" alt="Débat écologie" />
+              <div class="gradient-bottom"></div>
+              <figcaption class="caption">
+                Actus, débats, reportages des élèves
+              </figcaption>
+            </figure>
+
+            <!-- Bouton "Retour au site" (style pill translucide) -->
+            <!-- Le style est dans /static/login.css via .back-pill -->
+            <div class="top-controls">
+              <a
+                class="back-pill"
+                href="{{ request.url_for('home') }}"
+                aria-label="Retour à l’accueil du site"
+              >
+                Retour au site <span class="arr">→</span>
+              </a>
+            </div>
+
+            <!-- Indicateurs (petits tirets) pilotés en JS -->
+            <div class="dots" id="dots"></div>
+          </div>
         </div>
-        <div class="dots" id="dots"></div>
       </section>
 
-      <aside class="panel">
-        <h1>Se connecter</h1>
+      <!-- =========================================
+           COLONNE DROITE : FORMULAIRE DE CONNEXION
+           ========================================= -->
+      <aside class="panel" aria-labelledby="login-title">
+        <h1 id="login-title">Se connecter</h1>
         <p class="muted">Veuillez saisir vos identifiants pour continuer</p>
+
+        <!--
+          Important :
+          - action="/login/check" côté serveur
+          - autocomplete="off" pour éviter l'auto-fill agressif (optionnel)
+        -->
         <form action="/login/check" method="post" autocomplete="off">
+          <!-- Email -->
           <label class="field">
             <input type="email" name="email" placeholder="Email" required />
           </label>
+
+          <!-- Mot de passe + œil pour afficher/masquer -->
           <label class="field">
             <input
               id="pwd"
@@ -347,9 +117,21 @@
               placeholder="Mot de passe"
               required
             />
-            <button class="eye" type="button" id="togglePwd">👁️</button>
+            <!-- Le bouton ne soumet pas le formulaire (type="button") -->
+            <button
+              class="eye"
+              type="button"
+              id="togglePwd"
+              aria-label="Afficher/masquer le mot de passe"
+            >
+              👁️
+            </button>
           </label>
+
+          <!-- CTA -->
           <button class="primary" type="submit">Connexion</button>
+
+          <!-- Liens auxiliaires -->
           <div class="links">
             <a href="#">Mot de passe oublié ?</a>
           </div>
@@ -358,43 +140,72 @@
     </main>
 
     <script>
+      // ============================
+      // Carrousel minimal (CSS + JS)
+      // ============================
+
+      // Récupère toutes les slides et le conteneur des indicateurs
       const slides = [...document.querySelectorAll(".slide")];
       const dotsWrap = document.getElementById("dots");
+
+      // Index de la slide affichée + timer pour l'auto-play
       let index = 0,
         timer;
+
+      // Crée les "tirets" (dots) et branche le clic pour naviguer
       function renderDots() {
         dotsWrap.innerHTML = slides
           .map(
             (_, i) => `<button class="dot${i === 0 ? " active" : ""}"></button>`
           )
           .join("");
+
+        // Clic sur un dot => aller à la slide correspondante
         [...dotsWrap.children].forEach((d, i) =>
           d.addEventListener("click", () => go(i))
         );
       }
+
+      // Affiche la slide n°i (avec wrap-around)
       function go(i) {
         slides[index].classList.remove("active");
         dotsWrap.children[index].classList.remove("active");
+
         index = (i + slides.length) % slides.length;
+
         slides[index].classList.add("active");
         dotsWrap.children[index].classList.add("active");
+
+        // Relance l'auto-play après une interaction
         restart();
       }
+
+      // Passe à la slide suivante
       function next() {
         go(index + 1);
       }
+
+      // Lance l'auto-play (toutes les 4,5s)
       function start() {
         timer = setInterval(next, 4500);
       }
+
+      // Stoppe l'auto-play
       function stop() {
         clearInterval(timer);
       }
+
+      // Redémarre l'auto-play
       function restart() {
         stop();
         start();
       }
+
+      // Initialisation
       renderDots();
       start();
+
+      // Pause auto-play quand la souris survole les images
       document
         .getElementById("carousel")
         .addEventListener("pointerenter", stop);
@@ -402,6 +213,9 @@
         .getElementById("carousel")
         .addEventListener("pointerleave", start);
 
+      // ======================================
+      // Œil : afficher/masquer le mot de passe
+      // ======================================
       const togglePwd = document.getElementById("togglePwd");
       const pwd = document.getElementById("pwd");
       togglePwd.addEventListener("click", () => {
