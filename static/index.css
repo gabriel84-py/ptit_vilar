@@ -96,9 +96,18 @@ ul {
 .nav-link {
   color: var(--muted);
   padding: 8px 12px;
-  border-radius: 10px;
   overflow: hidden;
   transition: color 0.3s ease, background 0.3s ease;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  isolation: isolate;
+  background-clip: padding-box;
+  min-height: 40px;
+  min-width: 100px;
+  justify-content: center;
 }
 .nav-link:hover {
   color: #fff;
@@ -323,18 +332,6 @@ ul {
   --ring-gap: 3px;
 }
 
-/* Le lien reste en “pilule” */
-.nav-link {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  isolation: isolate;
-  background-clip: padding-box;
-}
-
 /* Le SVG occupe 100% du lien et suit sa forme */
 .nav-ring {
   position: absolute;
@@ -380,12 +377,4 @@ ul {
   opacity: 1;
   stroke-dashoffset: 0;
   animation: none;
-}
-
-/* même hauteur et même largeur mini pour tous les boutons du header */
-.nav-link {
-  min-height: 40px; /* hauteur visuelle du cadre (comme ton viewBox 40) */
-  min-width: 100px; /* ⟵ ajuste cette valeur pour égaler "Rubriques" */
-  justify-content: center; /* centre le texte dans le cadre */
-  padding: 8px 12px; /* garde ton confort à l'intérieur */
 }
