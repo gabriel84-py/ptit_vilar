@@ -1,4 +1,4 @@
-from models.visitor import Visitor
+from models.visitors import Visitor
 from database import SessionLocal
 
 def register_visitor(ip: str, user_agent: str):

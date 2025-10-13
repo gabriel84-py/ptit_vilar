@@ -16,4 +16,4 @@ def user_exist(email: str):
 
 
 if __name__ == "__main__":
-    print(auth_user("test@hello.com"))
+    print(user_exist("test@hello.com"))
