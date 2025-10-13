@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5def55ea-ee84-459c-9302-0c2c20706b2f" name="Changes" comment="css added">
-      <change beforePath="$PROJECT_DIR$/models/__pycache__/article.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/models/__pycache__/article.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/__pycache__/articles.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/routes/__pycache__/articles.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/__pycache__/article_admin.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/services/__pycache__/article_admin.cpython-312.pyc" afterDir="false" />
+    <list default="true" id="5def55ea-ee84-459c-9302-0c2c20706b2f" name="Changes" comment="/ et pas home">
+      <change afterPath="$PROJECT_DIR$/logologicpulse.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_backend/ptit_vilar.db" beforeDir="false" afterPath="$PROJECT_DIR$/db_backend/ptit_vilar.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,23 +48,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.article.executor&quot;: &quot;Run&quot;,
-    &quot;Python.auth_user.executor&quot;: &quot;Run&quot;,
-    &quot;Python.create_user.executor&quot;: &quot;Run&quot;,
-    &quot;Python.database.executor&quot;: &quot;Run&quot;,
-    &quot;Python.delete_user.executor&quot;: &quot;Run&quot;,
-    &quot;Python.login.executor&quot;: &quot;Run&quot;,
-    &quot;Python.view_users.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.article.executor": "Run",
+    "Python.auth_user.executor": "Run",
+    "Python.create_user.executor": "Run",
+    "Python.database.executor": "Run",
+    "Python.delete_user.executor": "Run",
+    "Python.login.executor": "Run",
+    "Python.view_users.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/gabrieljeanvermeille/PycharmProjects/ptit_vilar"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/routes" />
     </key>
@@ -113,13 +120,22 @@
       <option name="project" value="LOCAL" />
       <updated>1760271042762</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="/ et pas home">
+      <option name="closed" value="true" />
+      <created>1760299755982</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1760299755982</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update on authentification" />
     <MESSAGE value="html parsed" />
     <MESSAGE value="css added" />
-    <option name="LAST_COMMIT_MESSAGE" value="css added" />
+    <MESSAGE value="/ et pas home" />
+    <option name="LAST_COMMIT_MESSAGE" value="/ et pas home" />
   </component>
 </project>
