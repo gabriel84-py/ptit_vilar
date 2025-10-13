@@ -7,6 +7,7 @@ from services.delete_user import delete_user
 from services.user_exist import user_exist
 from services.create_user import create_user
 from services.view_users import get_all_users
+from services.visitor_service import get_total_visitors
 
 SECRET_KEY = "ma_cle_super_secrete"
 serializer = URLSafeSerializer(SECRET_KEY)
@@ -28,9 +29,14 @@ def require_login(request: Request):
     return data
 
 # ------------------- ADMIN DASHBOARD -------------------
-@router.get("/", response_class=HTMLResponse, dependencies=[Depends(require_login)])
-def dashboard(request: Request):
-    return templates.TemplateResponse("admin_dashboard.html", {"request": request})
+@router.get("/", response_class=HTMLResponse)
+def admin_dashboard(request: Request):
+    total_visitors = get_total_visitors()
+    return templates.TemplateResponse(
+        "admin_dashboard.html",
+        {"request": request, "total_visitors": total_visitors}
+    )
+
 
 # ------------------- CREATE USER -------------------
 @router.get("/create_user", response_class=HTMLResponse, dependencies=[Depends(require_login)])
