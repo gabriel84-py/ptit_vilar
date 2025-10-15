@@ -1,0 +1,108 @@
+<!-- 
+====== Développé par TEAM LogicPulse ======
+| YouTube :                               |
+| Discord :                               |
+| Instagram : @team_LogicPulse            |
+===========================================  
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <!-- Responsive : viewport mobile/desktop -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rubriques — Journal du lycée</title>
+
+    <!-- Police Inter (maquette) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <!--
+    CSS dédié à CETTE page.
+    Contient :
+    - layout (.shell, .media, .panel)
+    - styles du carrousel (.frame, .slide, .caption, .dots)
+    - styles du bouton "Retour au site" (.back-pill)
+    - styles du formulaire (champs, bouton, liens)
+  -->
+  <link rel="stylesheet" href="/static/categories.css" />
+
+  <body>
+    <!-- Barre supérieure -->
+    <header class="container header" role="banner">
+      <a class="brand" href="/">Journal du lycée</a>
+      <nav class="nav" aria-label="Navigation principale">
+        <a class="nav-link" href="/">
+          Accueil
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5
+           A18.5,18.5 0 0 1 78.5,38.5
+           H21.5
+           A18.5,18.5 0 0 1 21.5,1.5
+           H50 Z"
+            />
+          </svg>
+        </a>
+        <a class="nav-link is-active" href="/categories">
+          Rubriques
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5
+           A18.5,18.5 0 0 1 78.5,38.5
+           H21.5
+           A18.5,18.5 0 0 1 21.5,1.5
+           H50 Z"
+            />
+          </svg>
+        </a>
+        <a class="nav-link" href="/login">
+          Connexion
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5
+           A18.5,18.5 0 0 1 78.5,38.5
+           H21.5
+           A18.5,18.5 0 0 1 21.5,1.5
+           H50 Z"
+            />
+          </svg>
+        </a>
+      </nav>
+    </header>
+    <footer class="container footer" role="contentinfo">
+      <div>© Journal du lycée Jean VILAR — Tous droits réservés</div>
+      <div class="by">© Made by Team LogicPulse</div>
+    </footer>
+  </body>
+</html>
