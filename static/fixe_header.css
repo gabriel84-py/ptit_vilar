@@ -1,0 +1,10 @@
+/* Firefox */
+html {
+  scrollbar-width: none; /* cache la barre */
+}
+
+/* Chrome/Edge/Safari (WebKit/Blink) */
+html::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

@@ -29,9 +29,7 @@ body {
   margin: 0;
   padding: 0;
 }
-html {
-  scrollbar-gutter: stable;
-}
+
 body {
   font: 16px/1.6 "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial,
     sans-serif;

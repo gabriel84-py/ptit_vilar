@@ -29,6 +29,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 body {
   font: 16px/1.6 "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial,
     sans-serif;
@@ -258,7 +259,7 @@ ul {
 }
 
 .card-title {
-  font-size: 18px;
+  font-size: 23px;
   margin: 0;
   line-height: 1.25;
 }
@@ -268,6 +269,7 @@ ul {
 }
 
 .card-excerpt {
+  font-size: 15px;
   color: var(--muted);
   margin: 0;
 }
