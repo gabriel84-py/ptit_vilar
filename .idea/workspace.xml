@@ -4,19 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5def55ea-ee84-459c-9302-0c2c20706b2f" name="Changes" comment="/ et pas home">
+    <list default="true" id="5def55ea-ee84-459c-9302-0c2c20706b2f" name="Changes" comment="visitor count added !">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__pycache__/main.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/__pycache__/main.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/data/app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_backend/ptit_vilar.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/__pycache__/login.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/routes/__pycache__/login.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/__pycache__/user_exist.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/services/__pycache__/user_exist.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/__pycache__/visitor_service.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/services/__pycache__/visitor_service.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/user_exist.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/user_exist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/visitor_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/visitor_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/__pycache__/article.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/models/__pycache__/article.cpython-312.pyc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,25 +44,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.article.executor": "Run",
-    "Python.auth_user.executor": "Run",
-    "Python.create_user.executor": "Run",
-    "Python.database.executor": "Run",
-    "Python.delete_user.executor": "Run",
-    "Python.login.executor": "Run",
-    "Python.user_exist.executor": "Run",
-    "Python.view_users.executor": "Run",
-    "Python.visitor_service.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/gabrieljeanvermeille/PycharmProjects/ptit_vilar"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.article.executor&quot;: &quot;Run&quot;,
+    &quot;Python.auth_user.executor&quot;: &quot;Run&quot;,
+    &quot;Python.create_user.executor&quot;: &quot;Run&quot;,
+    &quot;Python.database.executor&quot;: &quot;Run&quot;,
+    &quot;Python.delete_user.executor&quot;: &quot;Run&quot;,
+    &quot;Python.login.executor&quot;: &quot;Run&quot;,
+    &quot;Python.user_exist.executor&quot;: &quot;Run&quot;,
+    &quot;Python.view_users.executor&quot;: &quot;Run&quot;,
+    &quot;Python.visitor_service.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/gabrieljeanvermeille/PycharmProjects/ptit_vilar&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -136,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760299755982</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="visitor count added !">
+      <option name="closed" value="true" />
+      <created>1760387021175</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1760387021175</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -144,6 +142,18 @@
     <MESSAGE value="html parsed" />
     <MESSAGE value="css added" />
     <MESSAGE value="/ et pas home" />
-    <option name="LAST_COMMIT_MESSAGE" value="/ et pas home" />
+    <MESSAGE value="visitor count added !" />
+    <option name="LAST_COMMIT_MESSAGE" value="visitor count added !" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/.venv/bin/email_validator</url>
+          <line>2</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
