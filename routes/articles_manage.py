@@ -59,6 +59,9 @@ async def process_create_article(
         shutil.copyfileobj(image.file, buffer)
     image_url = f"/{image_path}"
 
+    if len(subtitle) > 42:
+        raise HTTPException(status_code=400, detail="Le sous-titre ne peut pas dépasser 42 caractères.")
+
     # Création en base
     create_article(
         title=title,

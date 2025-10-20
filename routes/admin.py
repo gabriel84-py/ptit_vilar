@@ -12,9 +12,6 @@ from services.visitor_service import get_total_visitors
 SECRET_KEY = "ma_cle_super_secrete"
 serializer = URLSafeSerializer(SECRET_KEY)
 
-router = APIRouter(prefix="/admin", tags=["Auth"])
-templates = Jinja2Templates(directory="templates")
-
 # Dépendance pour vérifier connexion et rôle admin
 def require_login(request: Request):
     token = request.cookies.get("auth")
@@ -27,6 +24,9 @@ def require_login(request: Request):
     if not data.get("is_admin"):
         raise HTTPException(status_code=403, detail="Accès refusé")
     return data
+
+router = APIRouter(prefix="/admin", tags=["Auth"], dependencies=[Depends(require_login)])
+templates = Jinja2Templates(directory="templates")
 
 # ------------------- ADMIN DASHBOARD -------------------
 @router.get("/", response_class=HTMLResponse)
