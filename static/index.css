@@ -230,6 +230,7 @@ ul {
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
 }
+
 .card {
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -249,19 +250,23 @@ ul {
   height: 180px;
   object-fit: cover;
 }
+
 .card-body {
   padding: 14px;
   display: grid;
   gap: 6px;
 }
+
 .card-title {
   font-size: 18px;
   margin: 0;
   line-height: 1.25;
 }
+
 .card-title a:hover {
   text-decoration: underline;
 }
+
 .card-excerpt {
   color: var(--muted);
   margin: 0;
@@ -271,6 +276,17 @@ ul {
   color: var(--muted);
   font-size: 13px;
   margin: 0;
+}
+
+@media (max-width: 720px) {
+  .articles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 520px) {
+  .articles-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Footer */
