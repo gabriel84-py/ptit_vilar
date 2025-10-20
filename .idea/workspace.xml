@@ -6,7 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="5def55ea-ee84-459c-9302-0c2c20706b2f" name="Changes" comment="visitor count added !">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__pycache__/main.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/__pycache__/main.cpython-312.pyc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/app.db" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/models/__pycache__/article.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/models/__pycache__/article.cpython-312.pyc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/article.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/article.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/__pycache__/articles.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/routes/__pycache__/articles.cpython-312.pyc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/__pycache__/articles_manage.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/routes/__pycache__/articles_manage.cpython-312.pyc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/articles.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/articles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/articles_manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/articles_manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/__pycache__/article_admin.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/services/__pycache__/article_admin.cpython-312.pyc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/article_admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/article_admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/article_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/article_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/create_article.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create_article.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
