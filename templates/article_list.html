@@ -119,7 +119,7 @@
               </h3>
               <p class="card-excerpt">{{ article.excerpt }}</p>
               <p class="card-meta">
-                {{ article.created_at }} • {{ article.category }}
+                {{ article.created_at.strftime("%d/%m/%Y") }} • {{ article.category }}
               </p>
             </div>
           </article>
