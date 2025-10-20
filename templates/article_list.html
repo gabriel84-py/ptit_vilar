@@ -95,26 +95,38 @@
     </header>
 
     <div class="container">
-      <h1>Tout les Articles</h1>
+      <h1>Tous les articles</h1>
 
-      {% for article in articles %}
+      <ul class="articles-grid">
+        {% for article in articles %}
 
-      <div class="article">
-        <a
-          class="card-media"
-          href="/articles/{{ article.id }}"
-          aria-label="Lire : Atelier débat : écologie"
-        >
-          <img
-            src="/static/debat.png"
-            alt="Atelier débat : écologie"
-            loading="lazy"
-          />
-        </a>
-        <h2 class="article-title">{{ article.title }}</h2>
-      </div>
+        <li>
+          <article class="card">
+            <a
+              class="card-media"
+              href="/articles/{{ article.id }}"
+              aria-label="Lire : {{ article.title }}"
+            >
+              <img
+                src="/static/debat.png"
+                alt="{{ article.title }}"
+                loading="lazy"
+              />
+            </a>
+            <div class="card-body">
+              <h3 class="card-title">
+                <a href="/articles/{{ article.id }}">{{ article.title }}</a>
+              </h3>
+              <p class="card-excerpt">{{ article.excerpt }}</p>
+              <p class="card-meta">
+                {{ article.created_at }} • {{ article.category }}
+              </p>
+            </div>
+          </article>
+        </li>
 
-      {% endfor %}
+        {% endfor %}
+      </ul>
     </div>
 
     <footer class="container footer" role="contentinfo">
