@@ -50,6 +50,7 @@ async def process_create_article(
     title: str = Form(...),
     subtitle: str = Form(""),
     content: str = Form(...),
+    category: str = Form(""),  # ✅ Nouveau champ
     image: UploadFile = File(...)
 ):
     # Sauvegarde de l'image
@@ -59,8 +60,15 @@ async def process_create_article(
     image_url = f"/{image_path}"
 
     # Création en base
-    create_article(title=title, subtitle=subtitle, content=content, image_url=image_url)
+    create_article(
+        title=title,
+        subtitle=subtitle,
+        content=content,
+        category=category,  # ✅ On envoie la catégorie à la BDD
+        image_url=image_url
+    )
     return RedirectResponse("/admin/articles", status_code=303)
+
 
 
 # ------------------- MODIFIER UN ARTICLE -------------------
@@ -79,9 +87,10 @@ async def process_edit_article(
     title: str = Form(...),
     subtitle: str = Form(""),
     content: str = Form(...),
+    category: str = Form(""),  # ✅ Nouveau champ
     image: UploadFile = File(None)
 ):
-    # Gestion d'une nouvelle image (si l'utilisateur en upload une)
+    # Gestion d'une nouvelle image (si upload)
     image_url = None
     if image and image.filename != "":
         image_path = f"{UPLOAD_DIR}/{image.filename}"
@@ -90,8 +99,16 @@ async def process_edit_article(
         image_url = f"/{image_path}"
 
     # Mise à jour de l'article
-    update_article(article_id, title, subtitle, content, image_url or get_article(article_id).image_url)
+    update_article(
+        article_id,
+        title,
+        subtitle,
+        content,
+        category,  # ✅ Mettre à jour la catégorie
+        image_url or get_article(article_id).image_url
+    )
     return RedirectResponse("/admin/articles", status_code=303)
+
 
 
 # ------------------- SUPPRIMER UN ARTICLE -------------------

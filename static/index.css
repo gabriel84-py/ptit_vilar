@@ -203,12 +203,16 @@ ul {
   margin-top: 26px;
   margin-bottom: 12px;
 }
+.section-head h1,
 .section-head h2 {
-  font-size: 20px;
   margin: 0;
+  line-height: 1.2;
+  font-size: 25px;
 }
 .see-all {
   color: #fff;
+  display: inline-flex;
+  align-items: center;
   background: transparent;
   padding: 10px 20px;
   border: 2px solid #9b5cff;
@@ -219,6 +223,9 @@ ul {
   cursor: pointer;
   transition: border-color 0.3s ease, background-color 0.3s ease,
     color 0.3s ease;
+}
+.see-all {
+  transform: translateY(-8px);
 }
 .see-all:hover {
   background: rgba(255, 255, 255, 0.06);
