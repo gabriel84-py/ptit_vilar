@@ -1,3 +1,4 @@
+#main.py
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from routes import login, admin, index, articles_manage, articles, categories
