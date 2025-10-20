@@ -11,3 +11,4 @@ class Article(Base):
     content = Column(Text, nullable=False)
     image_url = Column(String(255))  # ✅ nouveau champ image
     created_at = Column(DateTime, default=datetime.utcnow)
+    category = Column(String(200))
