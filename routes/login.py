@@ -33,7 +33,7 @@ def process_login(request: Request, email: str = Form(...), password: str = Form
 # Logout
 @router.get("/logout")
 def logout():
-    response = RedirectResponse(url="/login", status_code=303)
+    response = RedirectResponse(url="/", status_code=303)
     response.delete_cookie("auth")
     return response
 
