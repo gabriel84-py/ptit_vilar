@@ -3,6 +3,8 @@ from fastapi.staticfiles import StaticFiles
 from routes import login, admin, index, articles_manage, articles, categories
 from services.visitor_service import register_visitor
 from database import Base, engine
+from itsdangerous import URLSafeSerializer, BadSignature
+from config import serializer
 
 Base.metadata.create_all(bind=engine)
 
@@ -22,6 +24,17 @@ async def count_unique_visitors(request: Request, call_next):
 
     response = await call_next(request)
     return response
+
+@app.middleware("http")
+async def load_user_from_cookie(request: Request, call_next):
+    request.state.user = None
+    token = request.cookies.get("auth")
+    if token:
+        try:
+            request.state.user = serializer.loads(token)
+        except BadSignature:
+            pass
+    return await call_next(request)
 
 app.include_router(login.router)
 app.include_router(admin.router)

@@ -8,9 +8,7 @@ from services.user_exist import user_exist
 from services.create_user import create_user
 from services.view_users import get_all_users
 from services.visitor_service import get_total_visitors
-
-SECRET_KEY = "ma_cle_super_secrete"
-serializer = URLSafeSerializer(SECRET_KEY)
+from config import serializer
 
 # Dépendance pour vérifier connexion et rôle admin
 def require_login(request: Request):

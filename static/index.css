@@ -106,7 +106,7 @@ ul {
   border-radius: 999px;
   isolation: isolate;
   background-clip: padding-box;
-  min-height: 40px;
+  height: 40px;
   min-width: 100px;
   justify-content: center;
 }

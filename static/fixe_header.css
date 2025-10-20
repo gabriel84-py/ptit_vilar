@@ -8,3 +8,45 @@ html::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
+
+/* Hauteur verrouillée du nav */
+:root {
+  --nav-h: 40px;
+}
+
+.header {
+  /* tu gardes ton padding 14px */
+  padding-block: 14px;
+}
+
+.nav {
+  display: flex;
+  align-items: center; /* centre verticalement les liens */
+}
+
+/* Chaque bouton = pile la même hauteur, sans dépendre de la ligne de base */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--nav-h); /* au lieu de min-height */
+  line-height: 1; /* coupe l’influence de la baseline */
+  padding: 0 12px; /* pas de padding vertical, on fixe la hauteur */
+  position: relative;
+}
+
+/* Le ring n'influe pas le flux et ne crée pas de “gap” */
+.nav-ring {
+  position: absolute;
+  inset: calc(var(--ring-w) / -2);
+  width: calc(100% + var(--ring-w));
+  height: calc(100% + var(--ring-w));
+  pointer-events: none;
+  border-radius: inherit;
+  display: block; /* IMPORTANT: évite le 1px dû à la baseline */
+}
+
+/* Par sécurité : tous les SVG du header hors baseline */
+.header svg {
+  display: block;
+} /* évite le “gap” d’élément inline */

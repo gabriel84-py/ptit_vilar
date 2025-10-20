@@ -38,8 +38,12 @@
     <!-- Barre supérieure -->
     <header class="container header" role="banner">
       <a class="brand" href="/">Journal du lycée</a>
+
       <nav class="nav" aria-label="Navigation principale">
-        <a class="nav-link" href="/">
+        <a
+          class="nav-link {% if request.url.path == '/' %}is-active{% endif %}"
+          href="/"
+        >
           Accueil
           <svg
             class="nav-ring"
@@ -51,15 +55,15 @@
             <path
               class="nav-ring__stroke"
               pathLength="100"
-              d="M50,1.5 H78.5
-           A18.5,18.5 0 0 1 78.5,38.5
-           H21.5
-           A18.5,18.5 0 0 1 21.5,1.5
-           H50 Z"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
             />
           </svg>
         </a>
-        <a class="nav-link is-active" href="/categories">
+
+        <a
+          class="nav-link {% if request.url.path.startswith('/categories') %}is-active{% endif %}"
+          href="/categories"
+        >
           Rubriques
           <svg
             class="nav-ring"
@@ -71,15 +75,52 @@
             <path
               class="nav-ring__stroke"
               pathLength="100"
-              d="M50,1.5 H78.5
-           A18.5,18.5 0 0 1 78.5,38.5
-           H21.5
-           A18.5,18.5 0 0 1 21.5,1.5
-           H50 Z"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
             />
           </svg>
         </a>
-        <a class="nav-link" href="/login">
+
+        {% if request.state.user %}
+        <a
+          class="nav-link {% if request.url.path.startswith('/admin') %}is-active{% endif %}"
+          href="/admin"
+        >
+          Admin Panel
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+        <a class="nav-link" href="/login/logout">
+          Déconnexion
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+        {% else %}
+        <a
+          class="nav-link {% if request.url.path.startswith('/login') %}is-active{% endif %}"
+          href="/login"
+        >
           Connexion
           <svg
             class="nav-ring"
@@ -91,16 +132,14 @@
             <path
               class="nav-ring__stroke"
               pathLength="100"
-              d="M50,1.5 H78.5
-           A18.5,18.5 0 0 1 78.5,38.5
-           H21.5
-           A18.5,18.5 0 0 1 21.5,1.5
-           H50 Z"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
             />
           </svg>
         </a>
+        {% endif %}
       </nav>
     </header>
+
     <footer class="container footer" role="contentinfo">
       <div>© Journal du lycée Jean VILAR — Tous droits réservés</div>
       <div class="by">© Made by Team LogicPulse</div>
