@@ -20,23 +20,21 @@
 <div class="container">
     <h1>Modifier l'article</h1>
     <form action="/admin/articles/edit/{{ article.id }}" method="post" enctype="multipart/form-data">
-        <label for="title">Titre</label>
-        <input type="text" id="title" name="title" value="{{ article.title }}" required>
+        <input type="text" name="title" value="{{ article.title }}" required>
+        <input type="text" name="subtitle" value="{{ article.subtitle }}">
+        <textarea name="content" required>{{ article.content }}</textarea>
 
-        <label for="subtitle">Sous-titre</label>
-        <input type="text" id="subtitle" name="subtitle" value="{{ article.subtitle or '' }}">
+        <label for="category">Catégorie :</label>
+        <select name="category" id="category" required>
+            <option value="">-- Choisir une catégorie --</option>
+            <option value="Vie du lycée" {% if article.category=='Vie du lycée' %}selected{% endif %}>Vie du lycée</option>
+            <option value="Événements" {% if article.category=='Événements' %}selected{% endif %}>Événements</option>
+            <option value="Culture" {% if article.category=='Culture' %}selected{% endif %}>Culture</option>
+            <option value="Sport" {% if article.category=='Sport' %}selected{% endif %}>Sport</option>
+        </select>
 
-        <label for="content">Contenu</label>
-        <textarea id="content" name="content" required>{{ article.content }}</textarea>
-
-        <label for="category">Catégorie</label>
-        <input type="text" id="category" name="category" value="{{ article.category or '' }}">
-
-        <label for="image">Image</label>
-        <input type="file" id="image" name="image">
-        {% if article.image_url %}
-            <img src="{{ article.image_url }}" alt="Image actuelle" style="width:100%;border-radius:10px;margin-top:10px;">
-        {% endif %}
+        <label for="image">Modifier l'image :</label>
+        <input type="file" name="image" id="image">
 
         <button type="submit">Mettre à jour</button>
     </form>

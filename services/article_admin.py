@@ -13,28 +13,30 @@ def get_article(article_id: int):
     db.close()
     return article
 
-def create_article(title: str, subtitle: str, content: str, image_url: str):
+def create_article(title, subtitle, content, category, image_url):
     db = SessionLocal()
-    article = Article(title=title, subtitle=subtitle, content=content, image_url=image_url)
+    article = Article(
+        title=title,
+        subtitle=subtitle,
+        content=content,
+        category=category,
+        image_url=image_url
+    )
     db.add(article)
     db.commit()
     db.refresh(article)
-    db.close()
     return article
 
-def update_article(article_id: int, title: str, subtitle: str, content: str, image_url: str):
+def update_article(article_id, title, subtitle, content, category, image_url):
     db = SessionLocal()
-    article = db.query(Article).filter(Article.id == article_id).first()
-    if not article:
-        db.close()
-        return None
+    article = db.query(Article).get(article_id)
     article.title = title
     article.subtitle = subtitle
     article.content = content
+    article.category = category
     article.image_url = image_url
     db.commit()
     db.refresh(article)
-    db.close()
     return article
 
 def delete_article(article_id: int):

@@ -9,24 +9,33 @@
         .container{background:white;padding:40px;border-radius:15px;box-shadow:0 15px 35px rgba(0,0,0,0.2);width:400px;}
         h1{margin-bottom:25px;color:#333;}
         form{display:flex;flex-direction:column;gap:15px;}
-        input,textarea{padding:12px;border:1px solid #ddd;border-radius:10px;font-size:16px;}
+        input,textarea,select{padding:12px;border:1px solid #ddd;border-radius:10px;font-size:16px;}
         textarea{height:120px;resize:none;}
-        button{padding:12px;background:#6c63ff;color:white;border:none;border-radius:10px;font-weight:600;cursor:pointer;transition:all .3s;}
-        button:hover{transform:translateY(-2px);box-shadow:0 8px 15px rgba(108,99,255,0.3);}
+        button{padding:12px;background:#10b981;color:white;border:none;border-radius:10px;font-weight:600;cursor:pointer;transition:all .3s;}
+        button:hover{transform:translateY(-2px);box-shadow:0 8px 15px rgba(16,185,129,0.3);}
         a{display:inline-block;margin-top:15px;color:#6c63ff;text-decoration:none;}
     </style>
 </head>
 <body>
 <div class="container">
     <h1>Créer un article</h1>
-    <!-- ajouter enctype pour uploader un fichier -->
     <form action="/admin/articles/create" method="post" enctype="multipart/form-data">
-        <input type="text" name="title" placeholder="Titre de l'article" required>
-        <input type="text" name="subtitle" placeholder="Sous-titre de l'article (optionnel)">
-        <input type="text" name="category" id="category" value="{{ article.category if article else '' }}" placeholder="Catégorie de l'article (obligatoire)">
+        <input type="text" name="title" placeholder="Titre" required>
+        <input type="text" name="subtitle" placeholder="Sous-titre">
         <textarea name="content" placeholder="Contenu de l'article" required></textarea>
-        <label for="image">Image de l'article :</label>
-        <input type="file" name="image" accept="image/*">
+
+        <label for="category">Catégorie :</label>
+        <select name="category" id="category" required>
+            <option value="">-- Choisir une catégorie --</option>
+            <option value="Vie du lycée">Vie du lycée</option>
+            <option value="Événements">Événements</option>
+            <option value="Culture">Culture</option>
+            <option value="Sport">Sport</option>
+        </select>
+
+        <label for="image">Image :</label>
+        <input type="file" name="image" id="image" required>
+
         <button type="submit">Créer</button>
     </form>
     <a href="/admin/articles">← Retour</a>
