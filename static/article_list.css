@@ -29,9 +29,6 @@ body {
   margin: 0;
   padding: 0;
 }
-html {
-  scrollbar-gutter: stable;
-}
 body {
   font: 16px/1.6 "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial,
     sans-serif;
@@ -44,6 +41,9 @@ body {
     linear-gradient(180deg, #2a2435, #201c27 60%, #1a1620);
   color: var(--text);
   min-height: 100dvh;
+}
+html {
+  scrollbar-gutter: stable;
 }
 img {
   max-width: 100%;
@@ -225,4 +225,33 @@ ul {
   opacity: 1;
   stroke-dashoffset: 0;
   animation: none;
+}
+
+/* ===================
+Design Articles card
+=================== */
+h1 {
+  color: #fff;
+  text-align: center;
+}
+.article {
+  background: 333a47;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.article a {
+  text-decoration: none;
+  color: #6c63ff;
+  font-weight: 600;
+}
+.article a:hover {
+  text-decoration: underline;
+}
+
+.card-media img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
 }
