@@ -23,6 +23,7 @@
     <form action="/admin/articles/create" method="post" enctype="multipart/form-data">
         <input type="text" name="title" placeholder="Titre de l'article" required>
         <input type="text" name="subtitle" placeholder="Sous-titre de l'article (optionnel)">
+        <input type="text" name="category" id="category" value="{{ article.category if article else '' }}" placeholder="Catégorie de l'article (obligatoire)">
         <textarea name="content" placeholder="Contenu de l'article" required></textarea>
         <label for="image">Image de l'article :</label>
         <input type="file" name="image" accept="image/*">
