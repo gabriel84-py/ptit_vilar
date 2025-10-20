@@ -11,5 +11,5 @@ templates = Jinja2Templates(directory="templates")
 
 @router.get("/", response_class=HTMLResponse)
 def dashboard(request: Request):
-    articles = get_all_articles()
-    return templates.TemplateResponse("index.html", {"request": request, "article": articles})
+    article = get_all_articles()
+    return templates.TemplateResponse("index.html", {"request": request, "articles": article})
