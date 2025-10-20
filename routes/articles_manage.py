@@ -1,18 +1,23 @@
 # routes/articles_manage.py
-from fastapi import APIRouter, Request, Depends, Form, HTTPException, status
+from fastapi import APIRouter, Request, Depends, Form, HTTPException, status, UploadFile, File
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from itsdangerous import URLSafeSerializer
+import os, shutil
 
 from services.article_admin import get_all_articles, get_article, create_article, update_article, delete_article
 
+# ------------------- CONFIGURATION -------------------
 SECRET_KEY = "ma_cle_super_secrete"
 serializer = URLSafeSerializer(SECRET_KEY)
-
-router = APIRouter(prefix="/admin/articles", tags=["Articles"])
 templates = Jinja2Templates(directory="templates")
 
-# ------------------- Dépendance pour vérifier admin -------------------
+router = APIRouter(prefix="/admin/articles", tags=["Admin Articles"])
+UPLOAD_DIR = "static/uploads"
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+
+# ------------------- Vérification admin -------------------
 def require_login(request: Request):
     token = request.cookies.get("auth")
     if not token:
@@ -25,23 +30,40 @@ def require_login(request: Request):
         raise HTTPException(status_code=403, detail="Accès refusé")
     return data
 
-# ------------------- LISTE ARTICLES -------------------
+
+# ------------------- LISTE DES ARTICLES -------------------
 @router.get("/", response_class=HTMLResponse, dependencies=[Depends(require_login)])
 def list_articles(request: Request):
     articles = get_all_articles()
     return templates.TemplateResponse("admin_articles.html", {"request": request, "articles": articles})
 
-# ------------------- CREATE ARTICLE -------------------
+
+# ------------------- CRÉER UN ARTICLE -------------------
 @router.get("/create", response_class=HTMLResponse, dependencies=[Depends(require_login)])
 def create_article_page(request: Request):
     return templates.TemplateResponse("create_article.html", {"request": request})
 
+
 @router.post("/create", dependencies=[Depends(require_login)])
-def process_create_article(title: str = Form(...), content: str = Form(...)):
-    create_article(title=title, content=content)
+async def process_create_article(
+    request: Request,
+    title: str = Form(...),
+    subtitle: str = Form(""),
+    content: str = Form(...),
+    image: UploadFile = File(...)
+):
+    # Sauvegarde de l'image
+    image_path = f"{UPLOAD_DIR}/{image.filename}"
+    with open(image_path, "wb") as buffer:
+        shutil.copyfileobj(image.file, buffer)
+    image_url = f"/{image_path}"
+
+    # Création en base
+    create_article(title=title, subtitle=subtitle, content=content, image_url=image_url)
     return RedirectResponse("/admin/articles", status_code=303)
 
-# ------------------- EDIT ARTICLE -------------------
+
+# ------------------- MODIFIER UN ARTICLE -------------------
 @router.get("/edit/{article_id}", response_class=HTMLResponse, dependencies=[Depends(require_login)])
 def edit_article_page(request: Request, article_id: int):
     article = get_article(article_id)
@@ -49,18 +71,37 @@ def edit_article_page(request: Request, article_id: int):
         raise HTTPException(status_code=404, detail="Article non trouvé")
     return templates.TemplateResponse("edit_article.html", {"request": request, "article": article})
 
+
 @router.post("/edit/{article_id}", dependencies=[Depends(require_login)])
-def process_edit_article(article_id: int, title: str = Form(...), content: str = Form(...)):
-    update_article(article_id, title, content)
+async def process_edit_article(
+    request: Request,
+    article_id: int,
+    title: str = Form(...),
+    subtitle: str = Form(""),
+    content: str = Form(...),
+    image: UploadFile = File(None)
+):
+    # Gestion d'une nouvelle image (si l'utilisateur en upload une)
+    image_url = None
+    if image and image.filename != "":
+        image_path = f"{UPLOAD_DIR}/{image.filename}"
+        with open(image_path, "wb") as buffer:
+            shutil.copyfileobj(image.file, buffer)
+        image_url = f"/{image_path}"
+
+    # Mise à jour de l'article
+    update_article(article_id, title, subtitle, content, image_url or get_article(article_id).image_url)
     return RedirectResponse("/admin/articles", status_code=303)
 
-# ------------------- DELETE ARTICLE -------------------
+
+# ------------------- SUPPRIMER UN ARTICLE -------------------
 @router.post("/delete/{article_id}", dependencies=[Depends(require_login)])
 def process_delete_article(article_id: int):
     delete_article(article_id)
     return RedirectResponse("/admin/articles", status_code=303)
 
-# ------------------- PAGE PUBLIQUE ARTICLE -------------------
+
+# ------------------- PAGE PUBLIQUE DE L’ARTICLE -------------------
 @router.get("/view/{article_id}", response_class=HTMLResponse)
 def article_detail(request: Request, article_id: int):
     article = get_article(article_id)
