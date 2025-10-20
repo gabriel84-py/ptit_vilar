@@ -117,9 +117,10 @@
               <h3 class="card-title">
                 <a href="/articles/{{ article.id }}">{{ article.title }}</a>
               </h3>
-              <p class="card-excerpt">{{ article.excerpt }}</p>
+              <p class="card-excerpt">{{ article.subtitle }}</p>
               <p class="card-meta">
-                {{ article.created_at.strftime("%d/%m/%Y") }} • {{ article.category }}
+                {{ article.created_at.strftime("%d/%m/%Y") }} • {{
+                article.category }}
               </p>
             </div>
           </article>
