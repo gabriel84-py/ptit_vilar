@@ -6,10 +6,9 @@ from itsdangerous import URLSafeSerializer
 import os, shutil
 
 from services.article_admin import get_all_articles, get_article, create_article, update_article, delete_article
+from config import serializer
 
 # ------------------- CONFIGURATION -------------------
-SECRET_KEY = "ma_cle_super_secrete"
-serializer = URLSafeSerializer(SECRET_KEY)
 templates = Jinja2Templates(directory="templates")
 
 router = APIRouter(prefix="/admin/articles", tags=["Admin Articles"])
