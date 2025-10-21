@@ -38,10 +38,13 @@
         <label for="category">Catégorie :</label>
         <select name="category" id="category" required>
             <option value="">-- Choisir une catégorie --</option>
-            <option value="Vie du lycée" {% if article.category=='Vie du lycée' %}selected{% endif %}>Vie du lycée</option>
-            <option value="Événements" {% if article.category=='Événements' %}selected{% endif %}>Événements</option>
-            <option value="Culture" {% if article.category=='Culture' %}selected{% endif %}>Culture</option>
-            <option value="Sport" {% if article.category=='Sport' %}selected{% endif %}>Sport</option>
+            <option value="Vie du lycée">Vie du lycée</option>
+            <option value="Science et Progrès">Science et progrès</option>
+            <option value="Culture et Arts">Culture et Arts</option>
+            <option value="Sport">Sport</option>
+            <option value="Un oeil sur le monde">Un oeil sur le monde</option>
+            <option value="Autres">Autres</option>
+            <option value="Orientation">Orientation</option>
         </select>
 
         <label for="content">Contenu de l’article :</label>
