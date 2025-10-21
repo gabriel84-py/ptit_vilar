@@ -153,14 +153,12 @@
                     class="btn pill success"
                     >Modifier</a
                   >
-                  <form
-                    action="/admin/articles/delete/{{ article.id }}"
-                    method="post"
-                  >
-                    <button type="submit" class="btn pill danger">
-                      Supprimer
-                    </button>
+                  <form action="/admin/articles/delete/{{ article.id }}" method="post" onsubmit="return confirmDelete()">
+                      <button type="submit" class="btn pill danger">
+                        Supprimer
+                      </button>
                   </form>
+
                 </div>
               </td>
             </tr>
@@ -188,5 +186,11 @@
       <div>© Journal du lycée Jean VILAR — Tous droits réservés</div>
       <div class="by">© Made by Team LogicPulse</div>
     </footer>
+    <script>
+      function confirmDelete() {
+      return confirm("Êtes-vous sûr de vouloir supprimer cet article ?");
+      }
+    </script>
+
   </body>
 </html>
