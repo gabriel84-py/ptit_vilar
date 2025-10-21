@@ -63,7 +63,7 @@ ul {
 
 /* Layout global */
 .container {
-  max-width: 1200px;
+  max-width: 65%;
   margin: 0 auto;
   padding: 20px;
 }
@@ -582,4 +582,21 @@ Main Content
     align-items: stretch;
     gap: 10px;
   }
+}
+
+.backcontainer {
+  max-width: 64%;
+  margin: 0 auto;
+}
+
+.back {
+  display: inline-block;
+  margin-top: 20px;
+  color: #6c63ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back:hover {
+  text-decoration: underline;
 }
