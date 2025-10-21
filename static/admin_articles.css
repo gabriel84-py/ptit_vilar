@@ -1,0 +1,585 @@
+/* 
+====== Développé par TEAM LogicPulse ======
+| YouTube :                               |
+| Discord : https://discord.gg/efVfp5A89k |
+| Instagram : @team_LogicPulse            |
+===========================================
+*/
+
+/* ===================
+Reset léger + tokens
+=================== */
+:root {
+  --bg: #0f1117; /* fond global sombre cohérent avec la page login */
+  --surface: #151823; /* surface cartes */
+  --line: rgba(255, 255, 255, 0.08);
+  --text: #e7ecf3;
+  --muted: #9aa3b2;
+  --brand: #8e7cf8; /* gradient brand 1 */
+  --brand-2: #6c63ff; /* gradient brand 2 */
+  --accent: #9b5cff; /* accent secondaire */
+  --radius: 16px;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 16px/1.6 "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+  background: radial-gradient(
+      1100px 700px at 15% 15%,
+      #3b3650 0%,
+      transparent 60%
+    ),
+    radial-gradient(1100px 700px at 85% 85%, #2a2537 0%, transparent 60%),
+    linear-gradient(180deg, #2a2435, #201c27 60%, #1a1620);
+  color: var(--text);
+  min-height: 100dvh;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sr-only {
+  position: absolute;
+  left: -10000px;
+}
+
+/* Layout global */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 14px;
+  margin-bottom: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+.brand {
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.2px;
+  background: linear-gradient(90deg, #fff, #cfe8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.nav {
+  display: flex;
+  gap: 14px;
+}
+.nav-link {
+  color: var(--muted);
+  padding: 8px 12px;
+  overflow: hidden;
+  transition: color 0.3s ease, background 0.3s ease;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  isolation: isolate;
+  background-clip: padding-box;
+  height: 40px;
+  min-width: 100px;
+  justify-content: center;
+}
+.nav-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+.nav-link.is-active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Footer */
+.footer {
+  color: var(--muted);
+  font-size: 14px;
+  padding-block: 28px;
+  border-top: 1px solid var(--line);
+  margin-top: 28px;
+  display: grid;
+  gap: 6px;
+}
+.footer .by {
+  opacity: 0.9;
+}
+
+/* Focus visible (accessibilité) */
+:focus-visible {
+  outline: 3px solid rgba(142, 124, 248, 0.6);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Motion safe */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .container {
+    padding: 16px;
+  }
+  .featured-card {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 720px) {
+  .articles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 520px) {
+  .nav {
+    display: none;
+  }
+  .articles-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ====== Contour animé des boutons du header ====== */
+:root {
+  --violet: #9b5cff;
+  --ring-w: 1.5px; /* épaisseur du trait en px (utilisée ci-dessous) */
+  --ring-gap: 3px;
+}
+
+/* Le SVG occupe 100% du lien et suit sa forme */
+.nav-ring {
+  position: absolute;
+  inset: calc(var(--ring-w) / -2);
+  width: calc(100% + var(--ring-w));
+  height: calc(100% + var(--ring-w));
+  pointer-events: none;
+  border-radius: inherit;
+  display: block;
+}
+
+/* Le rectangle suit la taille du SVG et ses coins sont arrondis.
+   pathLength=100 => dash en pourcentage du périmètre */
+.nav-ring__stroke {
+  fill: none;
+  stroke: var(--violet);
+  stroke-width: var(--ring-w);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  shape-rendering: geometricPrecision;
+
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+/* Survol d’un bouton non actif : on dessine le contour du haut et on fait tout le tour */
+@keyframes nav-stroke-draw {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.nav-link:not(.is-active):hover .nav-ring__stroke {
+  opacity: 1;
+  animation: nav-stroke-draw 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.nav-link.is-active .nav-ring__stroke {
+  opacity: 1;
+  stroke-dashoffset: 0;
+  animation: none;
+}
+
+/* ===================
+Main Content
+=================== */
+
+/* ====== Carte / conteneur ====== */
+.table-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  width: 65%;
+  margin: 24px auto;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* Toolbar */
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(110, 98, 255, 0.15),
+    rgba(155, 92, 255, 0.08)
+  );
+  border-bottom: 1px solid var(--line);
+}
+.table-toolbar h1 {
+  margin: 0;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.2px;
+}
+
+/* Scroll horizontal si trop de colonnes */
+.table-scroll {
+  overflow: auto;
+}
+
+/* ====== Table ====== */
+.table-card .data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 560px;
+  background: transparent;
+}
+
+.table-card thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  text-align: left;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  padding: 14px 16px;
+  font-size: 13.5px;
+  letter-spacing: 0.3px;
+}
+.table-card thead th:first-child {
+  border-top-left-radius: 12px;
+}
+.table-card thead th:last-child {
+  border-top-right-radius: 12px;
+}
+
+/* Lignes */
+.table-card tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  vertical-align: middle;
+  background: rgba(255, 255, 255, 0.02);
+}
+.table-card tbody tr:nth-child(odd) td {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+/* Hover fluide */
+.table-card tbody tr {
+  transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+.table-card tbody tr:hover {
+  background: rgba(142, 124, 248, 0.09);
+  box-shadow: inset 0 0 0 1px rgba(142, 124, 248, 0.25);
+}
+
+/* Liens de titre */
+.row-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.row-link:hover {
+  text-decoration: underline;
+}
+
+/* ====== Actions ====== */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+}
+.actions form {
+  display: inline;
+}
+
+/* Easing & durée harmonisées */
+:root {
+  --elevate-ease: cubic-bezier(0.22, 1, 0.36, 1); /* smooth ease-out */
+  --elevate-ms: 420ms;
+
+  --halo-ms: 900ms;
+  --halo-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --success: #22c55e; /* vert */
+  --success-2: #16a34a; /* vert foncé */
+  --danger: #ef4444; /* rouge */
+  --danger-2: #dc2626; /* rouge foncé */
+}
+
+/* Boutons */
+.btn {
+  display: inline-flex;
+  position: relative;
+  isolation: isolate;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 700;
+  padding: 10px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #eae8ff;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.04)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.18); /* ← bordure visible */
+  border: 0; /* ← 0 = pas de bordure / 1 = bordure  */
+  backdrop-filter: blur(6px) saturate(110%); /* ← effet “verre” */
+  -webkit-backdrop-filter: blur(6px) saturate(110%);
+
+  box-shadow: 0 8px 18px rgba(108, 99, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transform: translateY(0);
+  will-change: transform, box-shadow, filter;
+  transition: transform var(--elevate-ms) var(--elevate-ease),
+    box-shadow var(--elevate-ms) var(--elevate-ease),
+    filter var(--elevate-ms) var(--elevate-ease), background 260ms ease;
+}
+
+.btn.pill {
+  border-radius: 999px;
+}
+
+/* Brand "glass" + halo mobile */
+.btn.brand {
+  background: linear-gradient(
+    180deg,
+    rgba(142, 124, 248, 0.22),
+    rgba(108, 99, 255, 0.18)
+  );
+  border: 1px solid rgba(142, 124, 248, 0.35);
+  color: #eae8ff;
+  box-shadow: 0 8px 18px rgba(108, 99, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  position: relative; /* (au cas où) pour le halo */
+  isolation: isolate;
+}
+
+/* Halo : grand disque flou qui se déplace de A → B au hover */
+.btn.brand::before {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  filter: blur(0.5px);
+  opacity: 0.55;
+
+  /* teinte brand, façon “radial glow” */
+  background: radial-gradient(
+    60% 60% at 50% 50%,
+    rgba(142, 124, 248, 0.26),
+    transparent 70%
+  );
+
+  transform: translate(0, 0);
+  transition: transform var(--halo-ms) var(--halo-ease), opacity 0.3s ease;
+}
+
+.btn.brand:hover::before {
+  transform: translateY(-1px);
+  opacity: 0.72;
+}
+
+/* Hover/active comme les autres boutons glass */
+.btn.brand:hover {
+  box-shadow: 0 14px 28px rgba(108, 99, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+.btn.brand:active {
+  box-shadow: 0 10px 22px rgba(108, 99, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Focus ring dans la teinte brand (pas success) */
+.btn.brand:focus-visible {
+  outline: 3px solid color-mix(in oklab, #8e7cf8 55%, white 0%);
+  outline-offset: 2px;
+}
+
+/* Halo NEUTRE – placé AVANT les variantes pour ne PAS les écraser */
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 140% at 50% 10%,
+    rgba(155, 92, 255, 0.16),
+    transparent 60%
+  );
+  opacity: 0.45;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.btn:hover {
+  transform: translateY(-4px);
+  filter: brightness(1.03) saturate(1.04);
+}
+.btn:hover::before {
+  opacity: 0.65;
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: translateY(-1px);
+}
+
+/* ===== SUCCESS (vert subtil) ===== */
+.btn.success {
+  border-color: color-mix(in oklab, var(--success) 55%, white 0%);
+  box-shadow: 0 8px 18px rgba(34, 197, 94, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.btn.success::before {
+  /* ← déclaré APRÈS le neutre */
+  background: radial-gradient(
+    120% 140% at 50% 10%,
+    color-mix(in oklab, var(--success) 38%, transparent),
+    transparent 60%
+  );
+  opacity: 0.58;
+}
+.btn.success:hover {
+  box-shadow: 0 14px 28px rgba(34, 197, 94, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+.btn.success:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--success) 55%, white 0%);
+  outline-offset: 2px;
+}
+
+/* ===== DANGER (rouge subtil) ===== */
+.btn.danger {
+  border-color: color-mix(in oklab, var(--danger) 55%, white 0%);
+  box-shadow: 0 8px 18px rgba(239, 68, 68, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.btn.danger::before {
+  /* ← déclaré APRÈS le neutre */
+  background: radial-gradient(
+    120% 140% at 50% 10%,
+    color-mix(in oklab, var(--danger) 40%, transparent),
+    transparent 60%
+  );
+  opacity: 0.58;
+}
+.btn.danger:hover {
+  box-shadow: 0 14px 28px rgba(239, 68, 68, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+.btn.danger:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--danger) 55%, white 0%);
+  outline-offset: 2px;
+}
+
+/* ====== Empty state ====== */
+.empty-state {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--muted);
+}
+.empty-state .empty-icon {
+  font-size: 40px;
+}
+.empty-state h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #fff;
+}
+
+/* ====== Responsive : table -> cartes lisibles ====== */
+@media (max-width: 720px) {
+  .table-card thead {
+    display: none;
+  }
+  .table-card .data-table,
+  .table-card tbody,
+  .table-card tr,
+  .table-card td {
+    display: block;
+    width: 100%;
+  }
+  .table-card tbody tr {
+    margin: 12px 12px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+  .table-card tbody td {
+    border: 0;
+    padding: 10px 14px;
+    position: relative;
+  }
+  .table-card tbody td::before {
+    content: attr(data-label);
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 4px;
+    letter-spacing: 0.2px;
+  }
+  .actions {
+    justify-content: flex-start;
+    padding-top: 6px;
+  }
+  .table-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+}
