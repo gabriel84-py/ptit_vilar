@@ -76,6 +76,11 @@
             "guide"
         ]
     });
+
+    // ✅ Assurer que le contenu EasyMDE est envoyé au serveur
+    document.querySelector("form").addEventListener("submit", function () {
+        easyMDE.codemirror.save(); // Met à jour la <textarea> avant l'envoi
+    });
 </script>
 </body>
 </html>
