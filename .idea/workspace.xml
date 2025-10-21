@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5def55ea-ee84-459c-9302-0c2c20706b2f" name="Changes" comment="visitor count added !">
-      <change afterPath="$PROJECT_DIR$/routes/formation_md.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/formation_md.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__pycache__/main.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/__pycache__/main.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/anglais.txt" beforeDir="false" afterPath="$PROJECT_DIR$/anglais.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/__pycache__/article.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/models/__pycache__/article.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/article.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/article.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/__pycache__/articles.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/routes/__pycache__/articles.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/articles.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/articles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/__pycache__/categories.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/routes/__pycache__/categories.cpython-312.pyc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/categories.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/categories.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
