@@ -166,6 +166,8 @@ ul {
   flex-direction: column;
   gap: 12px;
 }
+
+/* Base */
 .chip {
   display: inline-block;
   font-size: 12px;
@@ -176,6 +178,50 @@ ul {
   border: 1px solid rgba(142, 124, 248, 0.35);
   width: fit-content;
 }
+
+/* Couleurs par catégorie */
+.chip[data-category="vie-du-lycée"] {
+  background: rgba(56, 214, 123, 0.14); /* vert vif */
+  color: #c6ffe1;
+  border-color: rgba(56, 214, 123, 0.4);
+}
+
+.chip[data-category="science-et-progrès"] {
+  background: rgba(255, 99, 132, 0.14); /* rose/rouge */
+  color: #ffd6de;
+  border-color: rgba(255, 99, 132, 0.4);
+}
+
+.chip[data-category="culture-et-arts"] {
+  background: rgba(54, 162, 235, 0.14); /* bleu */
+  color: #d2ebff;
+  border-color: rgba(54, 162, 235, 0.4);
+}
+
+.chip[data-category="sport"] {
+  background: rgba(255, 206, 86, 0.14); /* jaune/or */
+  color: #fff2c9;
+  border-color: rgba(255, 206, 86, 0.4);
+}
+
+.chip[data-category="un-oeil-sur-le-monde"] {
+  background: rgba(155, 89, 182, 0.14); /* violet */
+  color: #edd6f6;
+  border-color: rgba(155, 89, 182, 0.4);
+}
+
+.chip[data-category="autres"] {
+  background: rgba(99, 110, 114, 0.14); /* gris neutre */
+  color: #e5e7ea;
+  border-color: rgba(99, 110, 114, 0.4);
+}
+
+.chip[data-category="orientation"] {
+  background: rgba(26, 188, 156, 0.14); /* turquoise */
+  color: #caf7ef;
+  border-color: rgba(26, 188, 156, 0.4);
+}
+
 .featured-title {
   font-size: clamp(26px, 2.6vw, 40px);
   line-height: 1.15;

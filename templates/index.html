@@ -148,8 +148,11 @@
           <a
             class="chip"
             href="/categories?category={{ featured_article.category }}"
-            >{{ featured_article.category }}</a
+            data-category="{{ featured_article.category|lower|replace(' ', '-') }}"
           >
+            {{ featured_article.category }}
+          </a>
+
           <h1 class="featured-h1">{{ featured_article.title }}</h1>
           <h3 class="featured-h3">{{ featured_article.subtitle }}</h3>
           <div class="featured-content is-clamped" id="featured-content">
@@ -190,8 +193,14 @@
                 </h3>
                 <p class="card-excerpt">{{ article.subtitle }}</p>
                 <p class="card-meta">
-                  {{ article.created_at.strftime("%d/%m/%Y") }} • {{
-                  article.category }}
+                  {{ article.created_at.strftime("%d/%m/%Y") }} •
+                  <a
+                    class="chip"
+                    href="/categories?category={{ article.category }}"
+                    data-category="{{ article.category|lower|replace(' ', '-') }}"
+                  >
+                    {{ article.category }}
+                  </a>
                 </p>
               </div>
             </article>

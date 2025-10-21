@@ -158,8 +158,14 @@
               </h3>
               <p class="card-excerpt">{{ article.subtitle }}</p>
               <p class="card-meta">
-                {{ article.created_at.strftime("%d/%m/%Y") }} • {{
-                article.category }}
+                {{ article.created_at.strftime("%d/%m/%Y") }} •
+                <a
+                  class="chip"
+                  href="/categories?category={{ article.category }}"
+                  data-category="{{ article.category|lower|replace(' ', '-') }}"
+                >
+                  {{ article.category }}
+                </a>
               </p>
             </div>
           </article>
