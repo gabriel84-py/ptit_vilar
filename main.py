@@ -6,11 +6,11 @@ from services.visitor_service import register_visitor
 from database import Base, engine
 from itsdangerous import URLSafeSerializer, BadSignature
 from config import serializer
+from fastapi import FastAPI
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-
 #Servir le dossier static
 app.mount("/static", StaticFiles(directory="static"), name="static")
 

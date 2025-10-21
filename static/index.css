@@ -195,6 +195,90 @@ ul {
   margin-top: auto;
 }
 
+.featured-h1 {
+  font-size: 40px;
+  line-height: 1.15;
+  margin: 0;
+}
+.featured-h3 {
+  font-size: 20px;
+  line-height: 1.15;
+  margin: 0;
+}
+.featured-content {
+  font-size: 13px; /* ou 14px, selon ton échelle */
+  color: var(--muted); /* facultatif : teinte plus douce */
+}
+
+/* ===== Clamp + fade ===== */
+.featured-content {
+  --clamp-lines: 8;
+  --line-height: 1.6;
+  --fade-lines: 4; /* ← nombre de lignes fondues */
+  --fade-height: calc(var(--fade-lines) * 1em * var(--line-height));
+}
+
+/* État clamped */
+.featured-content.is-clamped {
+  max-height: calc(var(--clamp-lines) * 1em * var(--line-height));
+  overflow: hidden;
+
+  /* le noir (1) reste visible jusqu'à 100% - fade, puis passe à 0 */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 1) calc(100% - var(--fade-height)),
+    rgb(0 0 0 / 0) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 1) calc(100% - var(--fade-height)),
+    rgb(0 0 0 / 0) 100%
+  );
+}
+
+/* État déplié */
+.featured-content.is-expanded {
+  max-height: 9999px;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+/* Bouton “Lire la suite” */
+.read-more {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  border: 0;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+
+  /* reprends ton style glassy */
+  color: #eae8ff;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.04)
+  );
+  backdrop-filter: blur(6px) saturate(110%);
+  box-shadow: 0 8px 18px rgba(108, 99, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Optionnel: cache le bouton si le contenu n’est pas assez long */
+.read-more[hidden] {
+  display: none;
+}
+
+/* Motion-safe */
+@media (prefers-reduced-motion: reduce) {
+  .featured-content.is-clamped {
+    transition: none;
+  }
+}
+
 /* Section head */
 .section-head {
   display: flex;
