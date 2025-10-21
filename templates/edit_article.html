@@ -4,25 +4,36 @@
     <meta charset="UTF-8">
     <title>Modifier un article</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- ✅ EasyMDE (éditeur Markdown) -->
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+
     <style>
         body{font-family:'Inter',sans-serif;background:#f4f6f8;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;}
-        .container{background:white;padding:40px;border-radius:15px;box-shadow:0 15px 35px rgba(0,0,0,0.2);width:400px;}
+        .container{background:white;padding:40px;border-radius:15px;box-shadow:0 15px 35px rgba(0,0,0,0.2);width:700px;}
         h1{margin-bottom:25px;color:#333;}
         form{display:flex;flex-direction:column;gap:15px;}
         input,textarea,select{padding:12px;border:1px solid #ddd;border-radius:10px;font-size:16px;}
-        textarea{height:120px;resize:none;}
         button{padding:12px;background:#10b981;color:white;border:none;border-radius:10px;font-weight:600;cursor:pointer;transition:all .3s;}
         button:hover{transform:translateY(-2px);box-shadow:0 8px 15px rgba(16,185,129,0.3);}
         a{display:inline-block;margin-top:15px;color:#6c63ff;text-decoration:none;}
+        label{font-weight:600;color:#555;}
     </style>
 </head>
 <body>
 <div class="container">
     <h1>Modifier l'article</h1>
+
     <form action="/admin/articles/edit/{{ article.id }}" method="post" enctype="multipart/form-data">
         <input type="text" name="title" value="{{ article.title }}" required>
-        <input type="text" name="subtitle" value="{{ article.subtitle }}">
-        <textarea name="content" required>{{ article.content }}</textarea>
+
+        <input type="text" name="subtitle"
+               value="{{ article.subtitle }}"
+               maxlength="42"
+               required
+               oninput="this.value = this.value.slice(0, 42)"
+               placeholder="Sous-titre (max 42 caractères)">
 
         <label for="category">Catégorie :</label>
         <select name="category" id="category" required>
@@ -33,12 +44,38 @@
             <option value="Sport" {% if article.category=='Sport' %}selected{% endif %}>Sport</option>
         </select>
 
+        <label for="content">Contenu de l’article :</label>
+        <!-- ✅ Zone Markdown -->
+        <textarea id="markdown-editor" name="content" required>{{ article.content }}</textarea>
+
         <label for="image">Modifier l'image :</label>
         <input type="file" name="image" id="image">
 
         <button type="submit">Mettre à jour</button>
     </form>
+
     <a href="/admin/articles">← Retour</a>
 </div>
+
+<!-- ✅ Script EasyMDE -->
+<script>
+    const easyMDE = new EasyMDE({
+        element: document.getElementById("markdown-editor"),
+        spellChecker: false,
+        placeholder: "Modifiez votre article ici (Markdown pris en charge)…",
+        autosave: {
+            enabled: true,
+            uniqueId: "article-{{ article.id }}",
+            delay: 1000,
+        },
+        toolbar: [
+            "bold", "italic", "heading", "|",
+            "quote", "unordered-list", "ordered-list", "|",
+            "link", "image", "table", "|",
+            "preview", "side-by-side", "fullscreen", "|",
+            "guide"
+        ]
+    });
+</script>
 </body>
 </html>

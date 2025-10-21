@@ -6,17 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="5def55ea-ee84-459c-9302-0c2c20706b2f" name="Changes" comment="visitor count added !">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__pycache__/main.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/__pycache__/main.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/data/app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/__pycache__/visitors.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/models/__pycache__/visitors.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/visitors.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/visitors.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/__pycache__/admin.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/routes/__pycache__/admin.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/__pycache__/articles_manage.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/routes/__pycache__/articles_manage.cpython-312.pyc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/__pycache__/articles.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/routes/__pycache__/articles.cpython-312.pyc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/__pycache__/login.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/routes/__pycache__/login.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/__pycache__/visitor_service.cpython-312.pyc" beforeDir="false" afterPath="$PROJECT_DIR$/services/__pycache__/visitor_service.cpython-312.pyc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/visitor_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/visitor_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/articles.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/articles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/article_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/article_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/create_article.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create_article.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/edit_article.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_article.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
