@@ -130,41 +130,37 @@
       {% if articles and articles|length > 0 %}
       <div class="table-scroll">
         <table class="data-table">
-          <thead>
-            <tr>
-              <th style="width: 110px">ID</th>
-              <th>Titre</th>
-              <th style="width: 260px; text-align: right">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for article in articles %}
-            <tr>
-              <td data-label="ID">#{{ article.id }}</td>
-              <td data-label="Titre">
-                <a class="row-link" href="/articles/{{ article.id }}"
-                  >{{ article.title }}</a
-                >
-              </td>
-              <td data-label="Actions">
-                <div class="actions">
-                  <a
-                    href="/admin/articles/edit/{{ article.id }}"
-                    class="btn pill success"
-                    >Modifier</a
-                  >
-                  <form action="/admin/articles/delete/{{ article.id }}" method="post" onsubmit="return confirmDelete()">
-                      <button type="submit" class="btn pill danger">
-                        Supprimer
-                      </button>
-                  </form>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Titre</th>
+      <th>À la une</th>
+      <th style="text-align: right">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for article in articles %}
+    <tr>
+      <td>#{{ article.id }}</td>
+      <td>{{ article.title }}</td>
+      <td>
+        <form method="post" action="/admin/articles/feature/{{ article.id }}">
+          <input type="checkbox" name="featured" onchange="this.form.submit()" {% if article.featured %}checked{% endif %}>
+        </form>
+      </td>
+      <td>
+        <div class="actions">
+          <a href="/admin/articles/edit/{{ article.id }}" class="btn pill success">Modifier</a>
+          <form action="/admin/articles/delete/{{ article.id }}" method="post" onsubmit="return confirmDelete()">
+            <button type="submit" class="btn pill danger">Supprimer</button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
-                </div>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
       </div>
       {% else %}
       <div class="empty-state">

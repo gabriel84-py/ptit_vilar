@@ -27,17 +27,21 @@ def create_article(title, subtitle, content, category, image_url):
     db.refresh(article)
     return article
 
-def update_article(article_id, title, subtitle, content, category, image_url):
+def update_article(article_id, title, subtitle, content, category, image_url, featured=None):
     db = SessionLocal()
-    article = db.query(Article).get(article_id)
+    article = db.query(Article).filter(Article.id == article_id).first()
+    if not article:
+        return None
     article.title = title
     article.subtitle = subtitle
     article.content = content
     article.category = category
     article.image_url = image_url
+    if featured is not None:
+        article.featured = featured
     db.commit()
-    db.refresh(article)
     return article
+
 
 def delete_article(article_id: int):
     db = SessionLocal()

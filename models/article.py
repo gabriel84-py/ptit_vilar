@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime
+from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean
 from database import Base
 from datetime import datetime
 
@@ -12,3 +12,4 @@ class Article(Base):
     image_url = Column(String(255))  # ✅ nouveau champ image
     created_at = Column(DateTime, default=datetime.utcnow)
     category = Column(String(200))
+    featured = Column(Boolean, default=False)

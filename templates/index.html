@@ -134,38 +134,21 @@
 
     <main class="container main" role="main">
       <!-- HERO / À LA UNE -->
-      <section class="featured" aria-labelledby="a-la-une">
-        <h2 id="a-la-une" class="sr-only">Article à la une</h2>
+      {% set featured_article = articles | selectattr('featured') | first %}
+{% if featured_article %}
+<article class="featured-card">
+  <a href="/articles/{{ featured_article.id }}" class="featured-media">
+    <img src="{{ featured_article.image_url }}" alt="{{ featured_article.title }}" />
+    <span class="media-chip">À la une</span>
+  </a>
+  <div class="featured-body">
+    <a class="chip" href="/categories/{{ featured_article.category }}">{{ featured_article.category }}</a>
+    <h1>{{ featured_article.title }}</h1>
+    <p>{{ featured_article.subtitle }}</p>
+  </div>
+</article>
+{% endif %}
 
-        <article class="featured-card">
-          <a
-            class="featured-media"
-            href="/articles/rentree-2025"
-            aria-label="Lire l’article à la une"
-          >
-            <img
-              src="/static/img.png"
-              alt="Illustration de l'article à la une"
-              loading="lazy"
-            />
-            <span class="media-overlay"></span>
-            <span class="media-chip">À la une</span>
-          </a>
-          <div class="featured-body">
-            <a class="chip" href="/categories/vie-lycee">Vie du lycée</a>
-            <h1 class="featured-title">
-              <a href="/articles/rentree-2025"
-                >Rentrée : ce qu’il faut savoir</a
-              >
-            </h1>
-            <p class="featured-excerpt">
-              Horaires, clubs, nouveautés à la cantine… Tout ce qui change cette
-              année.
-            </p>
-            <p class="featured-meta">Publié le 12/09/2025 — Rédaction</p>
-          </div>
-        </article>
-      </section>
     </main>
 
     <!-- DERNIERS ARTICLES -->

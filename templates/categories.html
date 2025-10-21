@@ -1,148 +1,113 @@
-<!-- 
-====== Développé par TEAM LogicPulse ======
-| YouTube :                               |
-| Discord : https://discord.gg/efVfp5A89k |
-| Instagram : @team_LogicPulse            |
-===========================================  
--->
-
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <!-- Responsive : viewport mobile/desktop -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Rubriques — Journal du lycée</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rubriques — Journal du lycée</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/categories.css">
+  <link rel="stylesheet" href="/static/fixe_header.css">
+</head>
+<body>
 
-    <!-- Police Inter (maquette) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+  <!-- Header identique à celui du site -->
+  <header class="container header" role="banner">
+    <a class="brand" href="/">Journal du lycée</a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a class="nav-link {% if request.url.path == '/' %}is-active{% endif %}" href="/">
+        Accueil
+        <svg class="nav-ring" aria-hidden="true"><path class="nav-ring__stroke" pathLength="100"/></svg>
+      </a>
+      <a class="nav-link {% if request.url.path.startswith('/categories') %}is-active{% endif %}" href="/categories">
+        Rubriques
+        <svg class="nav-ring" aria-hidden="true"><path class="nav-ring__stroke" pathLength="100"/></svg>
+      </a>
+      {% if request.state.user %}
+      <a class="nav-link {% if request.url.path.startswith('/admin') %}is-active{% endif %}" href="/admin">
+        Admin Panel
+        <svg class="nav-ring" aria-hidden="true"><path class="nav-ring__stroke" pathLength="100"/></svg>
+      </a>
+      <a class="nav-link" href="/login/logout">Déconnexion
+        <svg class="nav-ring" aria-hidden="true"><path class="nav-ring__stroke" pathLength="100"/></svg>
+      </a>
+      {% else %}
+      <a class="nav-link {% if request.url.path.startswith('/login') %}is-active{% endif %}" href="/login">Connexion
+        <svg class="nav-ring" aria-hidden="true"><path class="nav-ring__stroke" pathLength="100"/></svg>
+      </a>
+      {% endif %}
+    </nav>
+  </header>
 
-  <!--
-    CSS dédié à CETTE page.
-    Contient :
-    - layout (.shell, .media, .panel)
-    - styles du carrousel (.frame, .slide, .caption, .dots)
-    - styles du bouton "Retour au site" (.back-pill)
-    - styles du formulaire (champs, bouton, liens)
-  -->
-  <link rel="stylesheet" href="/static/categories.css" />
-  <link rel="stylesheet" href="/static/fixe_header.css" />
+  <!-- Conteneur principal -->
+  <div class="container">
+    <h1>Rubriques</h1>
 
-  <body>
-    <!-- Barre supérieure -->
-    <header class="container header" role="banner">
-      <a class="brand" href="/">Journal du lycée</a>
+    <!-- Filtres -->
+    <div class="filters">
+      <input type="text" id="search" placeholder="Rechercher un article…">
+      <select id="categoryFilter">
+        <option value="">-- Toutes les catégories --</option>
+        <option value="Vie du lycée">Vie du lycée</option>
+        <option value="Science et Progrès">Science et progrès</option>
+        <option value="Culture et Arts">Culture et Arts</option>
+        <option value="Sport">Sport</option>
+        <option value="Un oeil sur le monde">Un oeil sur le monde</option>
+        <option value="Autres">Autres</option>
+        <option value="Orientation">Orientation</option>
+      </select>
+    </div>
 
-      <nav class="nav" aria-label="Navigation principale">
-        <a
-          class="nav-link {% if request.url.path == '/' %}is-active{% endif %}"
-          href="/"
-        >
-          Accueil
-          <svg
-            class="nav-ring"
-            aria-hidden="true"
-            focusable="false"
-            viewBox="0 0 100 40"
-            preserveAspectRatio="none"
-          >
-            <path
-              class="nav-ring__stroke"
-              pathLength="100"
-              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
-            />
-          </svg>
-        </a>
+    <!-- Grid des articles -->
+    <div class="articles-grid" id="articlesGrid">
+      {% for article in articles %}
+      <div class="article-card" data-category="{{ article.category }}">
+        <div class="image-wrapper">
+          <img src="{{ article.image_url }}" alt="{{ article.title }}">
+        </div>
+        <div class="content">
+          <h3>{{ article.title }}</h3>
+          <p class="subtitle">{{ article.subtitle }}</p>
+          <a class="read-more" href="/articles/{{ article.id }}">Lire l'article →</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 
-        <a
-          class="nav-link {% if request.url.path.startswith('/categories') %}is-active{% endif %}"
-          href="/categories"
-        >
-          Rubriques
-          <svg
-            class="nav-ring"
-            aria-hidden="true"
-            focusable="false"
-            viewBox="0 0 100 40"
-            preserveAspectRatio="none"
-          >
-            <path
-              class="nav-ring__stroke"
-              pathLength="100"
-              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
-            />
-          </svg>
-        </a>
+  <!-- Footer identique -->
+  <footer class="container footer" role="contentinfo">
+    <div>© Journal du lycée Jean VILAR — Tous droits réservés</div>
+    <div class="by">© Made by Team LogicPulse</div>
+  </footer>
 
-        {% if request.state.user %}
-        <a
-          class="nav-link {% if request.url.path.startswith('/admin') %}is-active{% endif %}"
-          href="/admin"
-        >
-          Admin Panel
-          <svg
-            class="nav-ring"
-            aria-hidden="true"
-            focusable="false"
-            viewBox="0 0 100 40"
-            preserveAspectRatio="none"
-          >
-            <path
-              class="nav-ring__stroke"
-              pathLength="100"
-              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
-            />
-          </svg>
-        </a>
-        <a class="nav-link" href="/login/logout">
-          Déconnexion
-          <svg
-            class="nav-ring"
-            aria-hidden="true"
-            focusable="false"
-            viewBox="0 0 100 40"
-            preserveAspectRatio="none"
-          >
-            <path
-              class="nav-ring__stroke"
-              pathLength="100"
-              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
-            />
-          </svg>
-        </a>
-        {% else %}
-        <a
-          class="nav-link {% if request.url.path.startswith('/login') %}is-active{% endif %}"
-          href="/login"
-        >
-          Connexion
-          <svg
-            class="nav-ring"
-            aria-hidden="true"
-            focusable="false"
-            viewBox="0 0 100 40"
-            preserveAspectRatio="none"
-          >
-            <path
-              class="nav-ring__stroke"
-              pathLength="100"
-              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
-            />
-          </svg>
-        </a>
-        {% endif %}
-      </nav>
-    </header>
+  <!-- Script filtrage par catégorie et recherche -->
+  <script>
+    const searchInput = document.getElementById('search');
+    const categorySelect = document.getElementById('categoryFilter');
+    const articlesGrid = document.getElementById('articlesGrid');
+    const articles = Array.from(articlesGrid.children);
 
-    <footer class="container footer" role="contentinfo">
-      <div>© Journal du lycée Jean VILAR — Tous droits réservés</div>
-      <div class="by">© Made by Team LogicPulse</div>
-    </footer>
-  </body>
+    function filterArticles() {
+      const searchText = searchInput.value.toLowerCase();
+      const category = categorySelect.value;
+
+      articles.forEach(article => {
+        const title = article.querySelector('h3').textContent.toLowerCase();
+        const subtitle = article.querySelector('.subtitle').textContent.toLowerCase();
+        const articleCategory = article.dataset.category;
+
+        if ((title.includes(searchText) || subtitle.includes(searchText)) &&
+            (category === '' || category === articleCategory)) {
+          article.style.display = '';
+        } else {
+          article.style.display = 'none';
+        }
+      });
+    }
+
+    searchInput.addEventListener('input', filterArticles);
+    categorySelect.addEventListener('change', filterArticles);
+  </script>
+
+</body>
 </html>
