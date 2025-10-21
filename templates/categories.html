@@ -10,7 +10,7 @@
 </head>
 <body>
 
-  <!-- Header identique à celui du site -->
+  <!-- Header -->
   <header class="container header" role="banner">
     <a class="brand" href="/">Journal du lycée</a>
     <nav class="nav" aria-label="Navigation principale">
@@ -44,16 +44,12 @@
 
     <!-- Filtres -->
     <div class="filters">
-      <input type="text" id="search" placeholder="Rechercher un article…">
+      <input type="text" id="search" placeholder="Rechercher un article…" value="{{ search }}">
       <select id="categoryFilter">
         <option value="">-- Toutes les catégories --</option>
-        <option value="Vie du lycée">Vie du lycée</option>
-        <option value="Science et Progrès">Science et progrès</option>
-        <option value="Culture et Arts">Culture et Arts</option>
-        <option value="Sport">Sport</option>
-        <option value="Un oeil sur le monde">Un oeil sur le monde</option>
-        <option value="Autres">Autres</option>
-        <option value="Orientation">Orientation</option>
+        {% for cat in categories %}
+        <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>{{ cat }}</option>
+        {% endfor %}
       </select>
     </div>
 
@@ -74,13 +70,13 @@
     </div>
   </div>
 
-  <!-- Footer identique -->
+  <!-- Footer -->
   <footer class="container footer" role="contentinfo">
     <div>© Journal du lycée Jean VILAR — Tous droits réservés</div>
     <div class="by">© Made by Team LogicPulse</div>
   </footer>
 
-  <!-- Script filtrage par catégorie et recherche -->
+  <!-- Script filtrage et redirection -->
   <script>
     const searchInput = document.getElementById('search');
     const categorySelect = document.getElementById('categoryFilter');
@@ -105,8 +101,24 @@
       });
     }
 
-    searchInput.addEventListener('input', filterArticles);
-    categorySelect.addEventListener('change', filterArticles);
+    // Appliquer le filtre au chargement
+    filterArticles();
+
+    // Rediriger côté serveur lors du changement de catégorie
+    categorySelect.addEventListener('change', () => {
+      const cat = encodeURIComponent(categorySelect.value);
+      const s = encodeURIComponent(searchInput.value);
+      window.location.href = `/categories?category=${cat}&search=${s}`;
+    });
+
+    // Rediriger côté serveur quand l'utilisateur appuie sur Enter dans la recherche
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const cat = encodeURIComponent(categorySelect.value);
+        const s = encodeURIComponent(searchInput.value);
+        window.location.href = `/categories?category=${cat}&search=${s}`;
+      }
+    });
   </script>
 
 </body>
