@@ -280,64 +280,125 @@ ul {
   animation: none;
 }
 
-/* ===================
-Design Articles card
-=================== */
-h1 {
-  color: #fff;
-  text-align: center;
-}
+/* ===== 
+Cartes "Tous les articles"
+===== */
+
+/* grille UL propre */
 .articles-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+  padding: 0;
+  list-style: none;
 }
 
-.card {
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--card);
-  overflow: hidden;
-  transition: transform 0.12s ease, box-shadow 0.12s ease,
-    border-color 0.12s ease;
+/* <li> neutre */
+.articles-grid > li {
+  margin: 0;
 }
+
+/* Carte */
+.card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: radial-gradient(
+      100% 140% at 20% 0%,
+      rgba(255, 255, 255, 0.02) 0%,
+      rgba(255, 255, 255, 0) 60%
+    ),
+    var(#201c27);
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) + 4px);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s ease, border-color 0.25s ease,
+    box-shadow 0.25s ease, background 0.25s ease;
+  position: relative;
+}
+
+/* Hover lift + glow + border */
 .card:hover {
   transform: translateY(-3px);
-  box-shadow: var(--shadow);
-  border-color: rgba(255, 255, 255, 0.18);
+  border-color: rgba(142, 124, 248, 0.28);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.52);
 }
 
+/* Media 16/9 + zoom on hover */
+.card-media {
+  display: block;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #0e0f14;
+}
 .card-media img {
   width: 100%;
-  height: 180px;
+  height: 100%;
   object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  opacity: 0.96;
+}
+.card:hover .card-media img {
+  transform: scale(1.06);
+  opacity: 1;
 }
 
+/* Corps */
 .card-body {
-  padding: 14px;
+  padding: 14px 14px 16px;
   display: grid;
-  gap: 6px;
+  gap: 8px;
 }
+
+/* Titre + lien */
 .card-title {
-  font-size: 23px;
   margin: 0;
-  line-height: 1.25;
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 700;
+}
+.card-title a {
+  color: var(--text);
+  text-decoration: none;
 }
 .card-title a:hover {
   text-decoration: underline;
 }
+
+/* Extrait clamped sur 2 lignes */
 .card-excerpt {
-  font-size: 15px;
-  color: var(--muted);
   margin: 0;
-}
-.card-meta {
   color: var(--muted);
-  font-size: 13px;
-  margin: 0;
+  font-size: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-@media (max-width: 720px) {
+/* Meta + chip (laisse les couleurs par data-category s'appliquer) */
+.card-meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.card-meta .chip {
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  /* ne PAS fixer background/color/border ici */
+}
+
+/* Responsive cohérent */
+@media (max-width: 980px) {
   .articles-grid {
     grid-template-columns: repeat(2, 1fr);
   }
