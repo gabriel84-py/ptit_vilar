@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guide Markdown — Journal du lycée</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background-color: #1e2a38;
+      color: #fff;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2, h3 {
+      color: #1e2a38;
+    }
+    h2 {
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.3rem;
+      margin-top: 2rem;
+    }
+    p {
+      line-height: 1.6;
+    }
+    code {
+      background-color: #f1f1f1;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    pre {
+      background-color: #f1f1f1;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    blockquote {
+      border-left: 4px solid #1e2a38;
+      padding-left: 1rem;
+      color: #555;
+      margin: 1rem 0;
+      font-style: italic;
+    }
+    ul, ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    a {
+      color: #1e90ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .example-image {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+    footer {
+      text-align: center;
+      margin: 2rem 0;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Guide Markdown pour Journalistes</h1>
+</header>
+
+<main>
+  <h2>1️⃣ Titres</h2>
+  <p>Hiérarchie pour organiser ton article :</p>
+  <pre><code># Titre principal
+## Sous-titre
+### Sous-sous-titre</code></pre>
+
+  <h2>2️⃣ Gras et Italique</h2>
+  <p><strong>Gras</strong> et <em>Italique</em> pour mettre en valeur du texte :</p>
+  <pre><code>**texte en gras**
+*texte en italique*</code></pre>
+
+  <h2>3️⃣ Listes</h2>
+  <p>Listes à puces :</p>
+  <pre><code>- Premier point
+- Deuxième point</code></pre>
+  <p>Listes numérotées :</p>
+  <pre><code>1. Étape 1
+2. Étape 2</code></pre>
+
+  <h2>4️⃣ Liens et images</h2>
+  <p>Liens :</p>
+  <pre><code>[Google](https://www.google.com)</code></pre>
+  <p>Images :</p>
+  <pre><code>![Texte alternatif](/static/nom_image.png)</code></pre>
+  <img src="/static/img.png" alt="Exemple d'image" class="example-image">
+
+  <h2>5️⃣ Citation</h2>
+  <blockquote>Ceci est une citation pour mettre en avant une phrase importante.</blockquote>
+
+  <h2>6️⃣ Bloc de code</h2>
+  <pre><code>```python
+def salut():
+    print("Bonjour !")
+```</code></pre>
+
+  <h2>7️⃣ Bonnes pratiques</h2>
+  <ul>
+    <li>Respecter les titres et sous-titres pour la lisibilité.</li>
+    <li>Ajouter des <strong>liens</strong> et images pertinentes.</li>
+    <li>Limiter les niveaux de titre (#, ##, ###).</li>
+    <li>Prévisualiser l’article avant publication.</li>
+    <li>Ne pas copier-coller du texte riche depuis Word/Google Docs sans l’adapter.</li>
+  </ul>
+
+  <h2>8️⃣ Exercice pratique</h2>
+  <p>Rédige un article de test (100–150 mots) sur une actualité du lycée, en utilisant :</p>
+  <ul>
+    <li>Un titre principal et au moins un sous-titre</li>
+    <li>1–2 listes (puces ou numérotées)</li>
+    <li>Gras et italique</li>
+    <li>1 lien et 1 image</li>
+    <li>1 citation</li>
+  </ul>
+</main>
+
+<footer>
+  © Journal du lycée Jean VILAR — Guide Markdown
+</footer>
+
+</body>
+</html>

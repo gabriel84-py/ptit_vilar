@@ -1,7 +1,7 @@
 #main.py
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
-from routes import login, admin, index, articles_manage, articles, categories
+from routes import login, admin, index, articles_manage, articles, categories, formation_md
 from services.visitor_service import register_visitor
 from database import Base, engine
 from itsdangerous import URLSafeSerializer, BadSignature
@@ -43,3 +43,4 @@ app.include_router(index.router)
 app.include_router(articles_manage.router)
 app.include_router(articles.router)
 app.include_router(categories.router)
+app.include_router(formation_md.router)

@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from models.article import Article
 from database import SessionLocal
-import markdown  # <--- ici
+import markdown
 
 from services.article_admin import get_article, get_all_articles
 

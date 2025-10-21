@@ -13,3 +13,6 @@ g.	These statues have a message for us.
 h.	WE must remember that this event did take place !
 i.	WE must respect the peoples that died at this event.
 j.	WE must cultivate ourselves on the arboriginal culture in the face of colonisation.
+
+
+uvicorn main:app --reload --host 192.168.1.48 --port 8080
