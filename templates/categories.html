@@ -10,65 +10,158 @@
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Barre supérieure -->
   <header class="container header" role="banner">
-    <a class="brand" href="/">Journal du lycée</a>
-    <nav class="nav" aria-label="Navigation principale">
-      <a class="nav-link {% if request.url.path == '/' %}is-active{% endif %}" href="/">
-        Accueil
-        <svg class="nav-ring" aria-hidden="true"><path class="nav-ring__stroke" pathLength="100"/></svg>
-      </a>
-      <a class="nav-link {% if request.url.path.startswith('/categories') %}is-active{% endif %}" href="/categories">
-        Rubriques
-        <svg class="nav-ring" aria-hidden="true"><path class="nav-ring__stroke" pathLength="100"/></svg>
-      </a>
-      {% if request.state.user %}
-      <a class="nav-link {% if request.url.path.startswith('/admin') %}is-active{% endif %}" href="/admin">
-        Admin Panel
-        <svg class="nav-ring" aria-hidden="true"><path class="nav-ring__stroke" pathLength="100"/></svg>
-      </a>
-      <a class="nav-link" href="/login/logout">Déconnexion
-        <svg class="nav-ring" aria-hidden="true"><path class="nav-ring__stroke" pathLength="100"/></svg>
-      </a>
-      {% else %}
-      <a class="nav-link {% if request.url.path.startswith('/login') %}is-active{% endif %}" href="/login">Connexion
-        <svg class="nav-ring" aria-hidden="true"><path class="nav-ring__stroke" pathLength="100"/></svg>
-      </a>
-      {% endif %}
-    </nav>
+      <a class="brand" href="/">Journal du lycée</a>
+
+      <nav class="nav" aria-label="Navigation principale">
+        <a
+          class="nav-link {% if request.url.path == '/' %}is-active{% endif %}"
+          href="/"
+        >
+          Accueil
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+
+        <a
+          class="nav-link {% if request.url.path.startswith('/categories') %}is-active{% endif %}"
+          href="/categories"
+        >
+          Rubriques
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+
+        {% if request.state.user %}
+        <a
+          class="nav-link {% if request.url.path.startswith('/admin') %}is-active{% endif %}"
+          href="/admin"
+        >
+          Admin Panel
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+        <a class="nav-link" href="/login/logout">
+          Déconnexion
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+        {% else %}
+        <a
+          class="nav-link {% if request.url.path.startswith('/login') %}is-active{% endif %}"
+          href="/login"
+        >
+          Connexion
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+        {% endif %}
+      </nav>
   </header>
 
   <!-- Conteneur principal -->
   <div class="container">
     <h1>Rubriques</h1>
 
-    <!-- Filtres -->
-    <div class="filters">
-      <input type="text" id="search" placeholder="Rechercher un article…" value="{{ search }}">
-      <select id="categoryFilter">
-        <option value="">-- Toutes les catégories --</option>
+  <!-- Filtres -->
+  <div class="filters">
+    <div class="field">
+      <input class="input" type="text" id="search" placeholder="Rechercher un article…" value="{{ search }}">
+    </div>
+    <div class="field">
+      <select class="select" id="categoryFilter" aria-label="Filtrer par catégorie">
+        <option value="">Rechercher une catégorie</option>
         {% for cat in categories %}
-        <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>{{ cat }}</option>
+          <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>{{ cat }}</option>
         {% endfor %}
       </select>
     </div>
-
-    <!-- Grid des articles -->
-    <div class="articles-grid" id="articlesGrid">
-      {% for article in articles %}
-      <div class="article-card" data-category="{{ article.category }}">
-        <div class="image-wrapper">
-          <img src="{{ article.image_url }}" alt="{{ article.title }}">
-        </div>
-        <div class="content">
-          <h3>{{ article.title }}</h3>
-          <p class="subtitle">{{ article.subtitle }}</p>
-          <a class="read-more" href="/articles/{{ article.id }}">Lire l'article →</a>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
   </div>
+
+  <!-- Grid des articles -->
+  <div class="articles-grid" id="articlesGrid">
+    {% for article in articles %}
+    <article class="article-card" data-category="{{ article.category }}">
+      <a class="image-wrapper" href="/articles/{{ article.id }}" aria-label="{{ article.title }}">
+        <img src="{{ article.image_url }}" alt="{{ article.title }}">
+      </a>
+      <div class="content">
+        <p class="meta">
+          {{ article.created_at.strftime("%d/%m/%Y") }} •
+          <a
+            class="chip"
+            href="/categories?category={{ article.category }}"
+            data-category="{{ article.category|lower|replace(' ', '-') }}"
+          >
+            {{ article.category }}
+          </a>
+        </p>
+        <h3 class="title">
+          <a href="/articles/{{ article.id }}">{{ article.title }}</a>
+        </h3>
+        <p class="subtitle">{{ article.subtitle }}</p>
+        <a class="read-more" href="/articles/{{ article.id }}">Lire l'article →</a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
 
   <!-- Footer -->
   <footer class="container footer" role="contentinfo">

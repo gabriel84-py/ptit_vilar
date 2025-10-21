@@ -153,7 +153,15 @@
             {{ featured_article.category }}
           </a>
 
-          <h1 class="featured-h1">{{ featured_article.title }}</h1>
+          <h1 class="featured-h1">
+            <a
+              class="featured-title-link"
+              href="/articles/{{ featured_article.id }}"
+              aria-label="{{ featured_article.title }}"
+            >
+              {{ featured_article.title }}
+            </a>
+          </h1>
           <h3 class="featured-h3">{{ featured_article.subtitle }}</h3>
           <div class="featured-content is-clamped" id="featured-content">
             {{ featured_article.content | markdown }}

@@ -133,6 +133,15 @@ ul {
   background: var(--card);
   box-shadow: var(--shadow);
 }
+.featured-title-link {
+  text-decoration: none;
+  color: inherit; /* garde la couleur du h1 */
+}
+
+.featured-title-link:hover,
+.featured-title-link:focus {
+  text-decoration: underline; /* feedback au survol */
+}
 .featured-media {
   position: relative;
   display: block;
