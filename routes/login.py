@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 from services.auth_user import auth_user
 from itsdangerous import URLSafeSerializer
 from config import serializer
+from services.article_admin import get_article, get_all_articles
 
 router = APIRouter(prefix="/login", tags=["Auth"])
 templates = Jinja2Templates(directory="templates")
@@ -11,7 +12,8 @@ templates = Jinja2Templates(directory="templates")
 # Page de connexion
 @router.get("/", response_class=HTMLResponse)
 def show_login_form(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    articles = get_all_articles()
+    return templates.TemplateResponse("login.html", {"request": request, "articles": articles})
 
 # Vérification du login
 @router.post("/check", response_class=HTMLResponse)

@@ -264,6 +264,38 @@ body::before {
   width: 100%;
 }
 
+/* Empêche les slides cachées de capter les clics */
+.slide {
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* La slide active seule est cliquable et au-dessus */
+.slide.active {
+  pointer-events: auto;
+  z-index: 1;
+}
+
+/* Tout le contenu des slides est non cliquable par défaut */
+.slide,
+.slide * {
+  pointer-events: none !important;
+  z-index: 0;
+}
+
+/* On n'autorise que le LIEN du titre dans la slide active */
+.slide.active {
+  z-index: 1;
+}
+.slide.active .caption a {
+  pointer-events: auto !important;
+}
+
+/* (Optionnel) curseur par défaut sur l'image pour éviter l'ambiguïté */
+.slide img {
+  cursor: default;
+}
+
 /* Formulaire centré et cohérent en largeur */
 form {
   display: grid;

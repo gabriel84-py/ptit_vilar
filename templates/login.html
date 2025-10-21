@@ -43,18 +43,40 @@
         <div class="frame">
           <!-- viewport = conteneur des slides -->
           <div class="viewport" id="carousel">
-            <!-- Slide 1 (active par défaut) -->
+            {% set list_articles = (articles or []) %} {% set latest =
+            (list_articles | sort(attribute='created_at', reverse=True))[:3] %}
+            {% if latest and latest|length > 0 %} {% for article in latest %}
+            <figure class="slide {% if loop.first %}active{% endif %}">
+              <!-- Image NON cliquable -->
+              <img
+                src="{{ article.image_url }}"
+                alt="{{ article.title }}"
+                loading="{{ 'eager' if loop.first else 'lazy' }}"
+                fetchpriority="{{ 'high' if loop.first else 'low' }}"
+              />
+
+              <div class="gradient-bottom"></div>
+
+              <!-- Seul le TITRE est cliquable -->
+              <figcaption class="caption">
+                <a
+                  href="/articles/{{ article.id }}"
+                  aria-label="Lire : {{ article.title }}"
+                  style="color: inherit; text-decoration: none"
+                >
+                  {{ article.title }}
+                </a>
+              </figcaption>
+            </figure>
+            {% endfor %} {% else %}
+            <!-- Fallback statique si pas d’articles -->
             <figure class="slide active">
               <img src="/static/photo.png" alt="Dune désert au crépuscule" />
-              <!-- Voile dégradé pour améliorer la lisibilité du texte en bas -->
               <div class="gradient-bottom"></div>
-              <!-- Légende (positionnée au-dessus des tirets) -->
               <figcaption class="caption">
                 Capturer l'instant, créer des souvenirs
               </figcaption>
             </figure>
-
-            <!-- Slide 2 -->
             <figure class="slide">
               <img src="/static/hand.png" alt="Sport scolaire" />
               <div class="gradient-bottom"></div>
@@ -62,8 +84,6 @@
                 Vie du lycée, clubs & événements
               </figcaption>
             </figure>
-
-            <!-- Slide 3 -->
             <figure class="slide">
               <img src="/static/debat.png" alt="Débat écologie" />
               <div class="gradient-bottom"></div>
@@ -71,9 +91,8 @@
                 Actus, débats, reportages des élèves
               </figcaption>
             </figure>
+            {% endif %}
 
-            <!-- Bouton "Retour au site" (style pill translucide) -->
-            <!-- Le style est dans /static/login.css via .back-pill -->
             <div class="top-controls">
               <a
                 class="back-pill"
@@ -84,8 +103,11 @@
               </a>
             </div>
 
-            <!-- Indicateurs (petits tirets) pilotés en JS -->
-            <div class="dots" id="dots"></div>
+            <div
+              class="dots"
+              id="dots"
+              aria-label="Indicateurs du carrousel"
+            ></div>
           </div>
         </div>
       </section>
@@ -148,6 +170,10 @@
       const slides = [...document.querySelectorAll(".slide")];
       const dotsWrap = document.getElementById("dots");
 
+      slides.forEach((s, i) => {
+        s.inert = i !== 0;
+      });
+
       // Index de la slide affichée + timer pour l'auto-play
       let index = 0,
         timer;
@@ -169,11 +195,17 @@
       // Affiche la slide n°i (avec wrap-around)
       function go(i) {
         slides[index].classList.remove("active");
+        slides[index].setAttribute("aria-hidden", "true");
+        slides[index].inert = true;
+
         dotsWrap.children[index].classList.remove("active");
 
         index = (i + slides.length) % slides.length;
 
         slides[index].classList.add("active");
+        slides[index].setAttribute("aria-hidden", "false");
+        slides[index].inert = false;
+
         dotsWrap.children[index].classList.add("active");
 
         // Relance l'auto-play après une interaction
