@@ -46,7 +46,7 @@
 
         <label for="content">Contenu de l’article :</label>
         <!-- ✅ Zone Markdown -->
-        <textarea id="markdown-editor" name="content" required></textarea>
+        <textarea id="markdown-editor" name="content"></textarea>
 
         <label for="image">Image :</label>
         <input type="file" name="image" id="image" required>
@@ -59,15 +59,11 @@
 
 <!-- ✅ Script EasyMDE -->
 <script>
+document.addEventListener("DOMContentLoaded", () => {
     const easyMDE = new EasyMDE({
         element: document.getElementById("markdown-editor"),
         spellChecker: false,
         placeholder: "Rédigez votre article ici (Markdown pris en charge)…",
-        autosave: {
-            enabled: true,
-            uniqueId: "new-article",
-            delay: 1000,
-        },
         toolbar: [
             "bold", "italic", "heading", "|",
             "quote", "unordered-list", "ordered-list", "|",
@@ -76,6 +72,25 @@
             "guide"
         ]
     });
+
+    const form = document.querySelector("form");
+    form.addEventListener("submit", (event) => {
+        // On récupère le texte depuis l’éditeur
+        const content = easyMDE.value().trim();
+
+        // Validation manuelle (remplace le required)
+        if (!content) {
+            alert("Le contenu de l’article ne peut pas être vide !");
+            event.preventDefault();
+            return;
+        }
+
+        // On copie la valeur dans le textarea caché
+        document.querySelector("#markdown-editor").value = content;
+    });
+});
 </script>
+
+
 </body>
 </html>
