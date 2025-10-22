@@ -1,59 +1,214 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>{{ article.title }}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            padding: 40px;
-        }
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS dédié à CETTE page -->
+    <link rel="stylesheet" href="/static/article_detail.css" />
+    <link rel="stylesheet" href="/static/fixe_header.css" />
+  </head>
+  <body>
+    <!-- Barre supérieure -->
+    <header class="container header" role="banner">
+      <a class="brand" href="/">Journal du lycée</a>
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
+      <nav class="nav" aria-label="Navigation principale">
+        <a
+          class="nav-link {% if request.url.path == '/' %}is-active{% endif %}"
+          href="/"
+        >
+          Accueil
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
 
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
+        <a
+          class="nav-link {% if request.url.path.startswith('/categories') %}is-active{% endif %}"
+          href="/categories"
+        >
+          Rubriques
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
 
-        .content {
-            color: #555;
-            line-height: 1.8;
-        }
+        {% if request.state.user %}
+        <a
+          class="nav-link {% if request.url.path.startswith('/admin') %}is-active{% endif %}"
+          href="/admin"
+        >
+          Admin Panel
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+        <a class="nav-link" href="/login/logout">
+          Déconnexion
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+        {% else %}
+        <a
+          class="nav-link {% if request.url.path.startswith('/login') %}is-active{% endif %}"
+          href="/login"
+        >
+          Connexion
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+        {% endif %}
+      </nav>
+    </header>
 
-        a.back {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 10px 15px;
-            background: #6c63ff;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-        }
+    <a href="/categories" class="back">← Tous les articles</a>
 
-        a.back:hover {
-            background: #5147d6;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>{{ article.title }}</h1>
-        <div class="content">
-            {{ html_content | safe }}
-        </div>
-        <a href="/categories" class="back">← Tous les articles</a>
+    <div class="articlecontainer">
+      <figure class="media-card">
+        <img
+          src="{{ article.image_url }}"
+          alt="{{ article.title }}"
+          loading="lazy"
+        />
+
+        <!-- Overlay -->
+        <figcaption class="media-title pos-bottom pos-left overlay-bottom">
+          <div class="media-heading">
+            <h1 class="title">{{ article.title }}</h1>
+            {% if article.subtitle %}
+            <p class="subtitle">{{ article.subtitle }}</p>
+            {% endif %}
+          </div>
+        </figcaption>
+      </figure>
+
+      <div class="article-body content">{{ html_content | safe }}</div>
     </div>
-</body>
+
+    <footer class="container footer" role="contentinfo">
+      <div>© Journal du lycée Jean VILAR — Tous droits réservés</div>
+      <div class="by">© Made by Team LogicPulse</div>
+    </footer>
+    <script>
+      (function () {
+        function isLightFromImage(img, sampleStep = 10, threshold = 160) {
+          // threshold ~ 0-255 : plus haut => bascule en noir plus souvent
+          try {
+            const c = document.createElement("canvas");
+            const w = (c.width = img.naturalWidth || img.width);
+            const h = (c.height = img.naturalHeight || img.height);
+            if (!w || !h) return null;
+
+            const ctx = c.getContext("2d", { willReadFrequently: true });
+            ctx.drawImage(img, 0, 0, w, h);
+            const data = ctx.getImageData(0, 0, w, h).data;
+
+            // Échantillonnage rapide (tous les sampleStep pixels)
+            let total = 0,
+              count = 0;
+            for (let y = 0; y < h; y += sampleStep) {
+              for (let x = 0; x < w; x += sampleStep) {
+                const i = (y * w + x) * 4;
+                const r = data[i],
+                  g = data[i + 1],
+                  b = data[i + 2];
+                // luminance perçue (sRGB)
+                const Y = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                total += Y;
+                count++;
+              }
+            }
+            const avg = total / Math.max(count, 1);
+            return avg >= threshold; // true si clair
+          } catch (e) {
+            // CORS : si l'image est cross-origin sans en-têtes, on ne peut pas lire les pixels
+            return null;
+          }
+        }
+
+        function applyToneClass(figure) {
+          const img = figure.querySelector("img");
+          if (!img) return;
+          const decide = () => {
+            const light = isLightFromImage(img);
+            if (light === null) return; // fallback : ne rien changer (texte blanc par défaut)
+            figure.classList.toggle("is-bg-light", light);
+            figure.classList.toggle("is-bg-dark", !light);
+          };
+
+          if (img.complete && img.naturalWidth) {
+            decide();
+          } else {
+            img.addEventListener("load", decide, { once: true });
+            img.addEventListener("error", () => {}, { once: true });
+          }
+        }
+
+        // Ciblez vos figures média
+        document.addEventListener("DOMContentLoaded", () => {
+          document.querySelectorAll(".media-card").forEach(applyToneClass);
+        });
+      })();
+    </script>
+  </body>
 </html>
