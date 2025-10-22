@@ -4,7 +4,7 @@ from fastapi.templating import Jinja2Templates
 import os, shutil
 from config import serializer
 from services.article_admin import get_all_articles, get_article, create_article, update_article, delete_article, \
-    get_all_archive
+    get_all_archive, de_archive
 
 # ------------------- CONFIGURATION -------------------
 templates = Jinja2Templates(directory="templates")
@@ -119,3 +119,10 @@ def feature_article(article_id: int):
 def list_articles(request: Request):
     articles = get_all_archive()
     return templates.TemplateResponse("archive.html", {"request": request, "articles": articles})
+
+
+# ------------------- de_archve UN ARTICLE -------------------
+@router.post("/dearchive/{article_id}", dependencies=[Depends(require_login)])
+def process_delete_article(article_id: int):
+    de_archive(article_id)
+    return RedirectResponse("/admin/articles/archive", status_code=303)

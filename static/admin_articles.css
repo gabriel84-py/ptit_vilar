@@ -589,6 +589,11 @@ Main Content
   margin: 0 auto;
 }
 
+.archivelink {
+  max-width: 64%;
+  margin: 0 auto;
+}
+
 .back {
   display: inline-block;
   margin-top: 20px;

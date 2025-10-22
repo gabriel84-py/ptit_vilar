@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <title>Gestion des articles</title>
+    <title>Gestion des articles archivés</title>
 
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
@@ -121,7 +121,7 @@
 
     <div class="table-card">
       <div class="table-toolbar">
-        <h1>Gestion des articles</h1>
+        <h1>Gestion des articles archivés</h1>
         <a href="/admin/articles/create" class="btn pill brand"
           >+ Nouvel article</a
         >
@@ -130,29 +130,16 @@
       {% if articles and articles|length > 0 %}
       <div class="table-scroll">
         <table class="data-table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Titre</th>
-      <th>À la une</th>
-      <th style="text-align: right">Actions</th>
-    </tr>
-  </thead>
   <tbody>
     {% for article in articles %}
     <tr>
       <td>#{{ article.id }}</td>
       <td>{{ article.title }}</td>
       <td>
-        <form method="post" action="/admin/articles/feature/{{ article.id }}">
-          <input type="checkbox" name="featured" onchange="this.form.submit()" {% if article.featured %}checked{% endif %}>
-        </form>
-      </td>
-      <td>
         <div class="actions">
           <a href="/admin/articles/edit/{{ article.id }}" class="btn pill success">Modifier</a>
-          <form action="/admin/articles/delete/{{ article.id }}" method="post" onsubmit="return confirmDelete()">
-            <button type="submit" class="btn pill danger">Archiver</button>
+          <form action="/admin/articles/dearchive/{{ article.id }}" method="post" onsubmit="return confirmDelete()">
+            <button type="submit" class="btn pill danger">dé-archiver</button>
           </form>
         </div>
       </td>
@@ -176,6 +163,7 @@
 
     <div class="backcontainer">
       <a href="/admin" class="back">← Retour au dashboard</a>
+      <a href="//admin/articles/archive" class="archive">← Articles archivés</a>
     </div>
 
     <footer class="container footer" role="contentinfo">
@@ -184,7 +172,7 @@
     </footer>
     <script>
       function confirmDelete() {
-        return confirm("Êtes-vous sûr de vouloir archiver cet article ?");
+        return confirm("Êtes-vous sûr de vouloir dé-archiver cet article ?");
       }
     </script>
 

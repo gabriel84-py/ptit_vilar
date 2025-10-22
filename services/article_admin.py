@@ -57,3 +57,12 @@ def delete_article(article_id: int):
         db.commit()
     db.close()
     return article
+
+def de_archive(article_id: int):
+    db = SessionLocal()
+    article = db.query(Article).filter(Article.id == article_id).first()
+    if article:
+        article.archive = False
+        db.commit()
+    db.close()
+    return article
