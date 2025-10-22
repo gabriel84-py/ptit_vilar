@@ -58,11 +58,15 @@ async def process_create_article(
 
 # ------------------- MODIFIER UN ARTICLE -------------------
 @router.get("/edit/{article_id}", response_class=HTMLResponse, dependencies=[Depends(require_login)])
-def edit_article_page(request: Request, article_id: int):
+def edit_article_page(request: Request, article_id: int, category: str):
     article = get_article(article_id)
+    categories_list = [
+        "Vie du lycée", "Science et Progrès", "Culture et Arts",
+        "Sport", "Un oeil sur le monde", "Autres", "Orientation"
+    ]
     if not article:
         raise HTTPException(status_code=404, detail="Article non trouvé")
-    return templates.TemplateResponse("edit_article.html", {"request": request, "article": article})
+    return templates.TemplateResponse("edit_article.html", {"request": request, "article": article, "selected_category": category, "categories": categories_list})
 
 @router.post("/edit/{article_id}", dependencies=[Depends(require_login)])
 async def process_edit_article(
