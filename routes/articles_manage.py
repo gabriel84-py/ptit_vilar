@@ -3,7 +3,8 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 import os, shutil
 from config import serializer
-from services.article_admin import get_all_articles, get_article, create_article, update_article, delete_article
+from services.article_admin import get_all_articles, get_article, create_article, update_article, delete_article, \
+    get_all_archive
 
 # ------------------- CONFIGURATION -------------------
 templates = Jinja2Templates(directory="templates")
@@ -111,3 +112,10 @@ def feature_article(article_id: int):
             featured=(art.id == article_id)
         )
     return RedirectResponse("/admin/articles", status_code=303)
+
+
+# ------------------- LISTE DES ARTICLES ARCHIVÉS -------------------
+@router.get("/archive", response_class=HTMLResponse, dependencies=[Depends(require_login)])
+def list_articles(request: Request):
+    articles = get_all_archive()
+    return templates.TemplateResponse("archive.html", {"request": request, "articles": articles})

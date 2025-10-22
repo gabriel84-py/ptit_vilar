@@ -3,7 +3,13 @@ from database import SessionLocal
 
 def get_all_articles():
     db = SessionLocal()
-    articles = db.query(Article).order_by(Article.created_at.desc()).all()
+    articles = db.query(Article).filter(Article.archive == False).order_by(Article.created_at.desc()).all()
+    db.close()
+    return articles
+
+def get_all_archive():
+    db = SessionLocal()
+    articles = db.query(Article).filter(Article.archive == True).order_by(Article.created_at.desc()).all()
     db.close()
     return articles
 
@@ -47,7 +53,7 @@ def delete_article(article_id: int):
     db = SessionLocal()
     article = db.query(Article).filter(Article.id == article_id).first()
     if article:
-        db.delete(article)
+        article.archive = True
         db.commit()
     db.close()
     return article

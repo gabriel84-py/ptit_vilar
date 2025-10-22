@@ -13,3 +13,4 @@ class Article(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     category = Column(String(200))
     featured = Column(Boolean, default=False)
+    archive = Column(Boolean, default=False)
