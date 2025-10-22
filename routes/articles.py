@@ -11,24 +11,6 @@ router = APIRouter(prefix="/articles", tags=["Articles Public"])
 templates = Jinja2Templates(directory="templates")
 
 
-# ------------------- Liste des articles (publique) -------------------
-@router.get("/", response_class=HTMLResponse)
-def list_articles(request: Request):
-    articles = get_all_articles()
-
-    # Si la table est vide
-    if not articles or len(articles) == 0:
-        return templates.TemplateResponse(
-            "article_list.html",
-            {"request": request, "articles": []}
-        )
-
-    return templates.TemplateResponse(
-        "article_list.html",
-        {"request": request, "articles": articles}
-    )
-
-
 @router.get("/{article_id}", response_class=HTMLResponse)
 def view_article(request: Request, article_id: int):
     db = SessionLocal()
