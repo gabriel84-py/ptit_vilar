@@ -2,15 +2,14 @@ from models.user import User
 from database import Base, engine, SessionLocal
 import hashlib
 
-def create_user(email: str, passwd: str, admin:bool):
+def create_user(email: str, passwd: str):
     Base.metadata.create_all(bind=engine)
     passwd = bytes(passwd, "utf-8")
     hash_one = hashlib.sha512(passwd).hexdigest()
 
     db = SessionLocal()
 
-    new_user = User(email=email, hashed_password=hash_one, is_admin=admin)
-
+    new_user = User(email=email, hashed_password=hash_one)
     existing_user = db.query(User).filter_by(email=email).first()
 
     if existing_user:

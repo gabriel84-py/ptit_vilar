@@ -42,13 +42,13 @@ def create_user_page(request: Request):
     return templates.TemplateResponse("create_user.html", {"request": request})
 
 @router.get("/endpoint_create_user", response_class=HTMLResponse, dependencies=[Depends(require_login)])
-def process_create_user(request: Request, email: str, password: str, is_admin: bool):
+def process_create_user(request: Request, email: str, password: str):
     if user_exist(email):
         return templates.TemplateResponse(
             "user_created.html",
             {"request": request, "message": "Utilisateur déjà existant", "success": False},
         )
-    create_user(email=email, passwd=password, admin=is_admin)
+    create_user(email=email, passwd=password)
     return templates.TemplateResponse(
         "user_created.html",
         {"request": request, "message": "Utilisateur créé avec succès", "success": True},
