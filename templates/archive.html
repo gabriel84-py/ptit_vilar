@@ -122,47 +122,53 @@
     <div class="table-card">
       <div class="table-toolbar">
         <h1>Gestion des articles archivés</h1>
-        <a href="/admin/articles/create" class="btn pill brand"
-          >+ Nouvel article</a
-        >
       </div>
 
       {% if articles and articles|length > 0 %}
       <div class="table-scroll">
         <table class="data-table">
-  <tbody>
-    {% for article in articles %}
-    <tr>
-      <td>#{{ article.id }}</td>
-      <td>{{ article.title }}</td>
-      <td>
-        <div class="actions">
-          <a href="/admin/articles/edit/{{ article.id }}" class="btn pill success">Modifier</a>
-          <form action="/admin/articles/dearchive/{{ article.id }}" method="post" onsubmit="return confirmDelete()">
-            <button type="submit" class="btn pill danger">dé-archiver</button>
-          </form>
-        </div>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
+          <tbody>
+            {% for article in articles %}
+            <tr>
+              <td>#{{ article.id }}</td>
+              <td>{{ article.title }}</td>
+              <td>
+                <div class="actions">
+                  <a
+                    href="/admin/articles/edit/{{ article.id }}"
+                    class="btn pill success"
+                    >Modifier</a
+                  >
+                  <form
+                    action="/admin/articles/dearchive/{{ article.id }}"
+                    method="post"
+                    onsubmit="return confirmDelete()"
+                  >
+                    <button type="submit" class="btn pill danger">
+                      dé-archiver
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
       {% else %}
       <div class="empty-state">
         <div class="empty-icon">📰</div>
         <h3>Aucun article pour le moment</h3>
-        <p>Commence par en créer un pour le voir apparaître ici.</p>
-        <a href="/admin/articles/create" class="btn pill brand"
-          >Créer un article</a
-        >
+        <p>Les articles archivés apparaîtrons ici.</p>
       </div>
       {% endif %}
     </div>
 
     <div class="backcontainer">
-      <a href="/admin" class="back">← Retour au dashboard</a>
+      <a href="/admin/articles" class="backarchive"
+        >← Retour à la gestion des articles</a
+      >
+      <a href="/admin" class="back2">Retour au dashboard →</a>
     </div>
 
     <footer class="container footer" role="contentinfo">
@@ -174,6 +180,5 @@
         return confirm("Êtes-vous sûr de vouloir dé-archiver cet article ?");
       }
     </script>
-
   </body>
 </html>

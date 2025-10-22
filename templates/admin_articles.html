@@ -130,37 +130,59 @@
       {% if articles and articles|length > 0 %}
       <div class="table-scroll">
         <table class="data-table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Titre</th>
-      <th>À la une</th>
-      <th style="text-align: right">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for article in articles %}
-    <tr>
-      <td>#{{ article.id }}</td>
-      <td>{{ article.title }}</td>
-      <td>
-        <form method="post" action="/admin/articles/feature/{{ article.id }}">
-          <input type="checkbox" name="featured" onchange="this.form.submit()" {% if article.featured %}checked{% endif %}>
-        </form>
-      </td>
-      <td>
-        <div class="actions">
-          <a href="/admin/articles/edit/{{ article.id }}" class="btn pill success">Modifier</a>
-          <form action="/admin/articles/delete/{{ article.id }}" method="post" onsubmit="return confirmDelete()">
-            <button type="submit" class="btn pill danger">Archiver</button>
-          </form>
-        </div>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Titre</th>
+              <th>À la une</th>
+              <th style="text-align: right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for article in articles %}
+            <tr>
+              <td>#{{ article.id }}</td>
+              <td>{{ article.title }}</td>
+              <td>
+                <form
+                  method="post"
+                  action="/admin/articles/feature/{{ article.id }}"
+                >
+                  <input
+                    type="checkbox"
+                    name="featured"
+                    onchange="this.form.submit()"
+                    {%
+                    if
+                    article.featured
+                    %}checked{%
+                    endif
+                    %}
+                  />
+                </form>
+              </td>
+              <td>
+                <div class="actions">
+                  <a
+                    href="/admin/articles/edit/{{ article.id }}"
+                    class="btn pill success"
+                    >Modifier</a
+                  >
+                  <form
+                    action="/admin/articles/delete/{{ article.id }}"
+                    method="post"
+                    onsubmit="return confirmDelete()"
+                  >
+                    <button type="submit" class="btn pill danger">
+                      Archiver
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
       {% else %}
       <div class="empty-state">
@@ -175,8 +197,8 @@
     </div>
 
     <div class="backcontainer">
-      <a href="/admin" class="back">← Retour au dashboard</a> <br>
-      <a href="/admin/articles/archive" class="archive">← Articles archivés</a>
+      <a href="/admin" class="back">← Retour au dashboard</a>
+      <a href="/admin/articles/archive" class="archive">Articles archivés →</a>
     </div>
 
     <footer class="container footer" role="contentinfo">
@@ -188,6 +210,5 @@
         return confirm("Êtes-vous sûr de vouloir archiver cet article ?");
       }
     </script>
-
   </body>
 </html>
