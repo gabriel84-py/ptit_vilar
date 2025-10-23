@@ -1,86 +1,223 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Modifier un article</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Créer un article</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- ✅ EasyMDE (éditeur Markdown) -->
-    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/easymde/dist/easymde.min.css"
+    />
     <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
 
-    <style>
-        body{font-family:'Inter',sans-serif;background:#f4f6f8;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;}
-        .container{background:white;padding:40px;border-radius:15px;box-shadow:0 15px 35px rgba(0,0,0,0.2);width:700px;}
-        h1{margin-bottom:25px;color:#333;}
-        form{display:flex;flex-direction:column;gap:15px;}
-        input,textarea,select{padding:12px;border:1px solid #ddd;border-radius:10px;font-size:16px;}
-        button{padding:12px;background:#10b981;color:white;border:none;border-radius:10px;font-weight:600;cursor:pointer;transition:all .3s;}
-        button:hover{transform:translateY(-2px);box-shadow:0 8px 15px rgba(16,185,129,0.3);}
-        a{display:inline-block;margin-top:15px;color:#6c63ff;text-decoration:none;}
-        label{font-weight:600;color:#555;}
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>Modifier l'article</h1>
+    <!-- CSS dédié à CETTE page -->
+    <link rel="stylesheet" href="/static/create_article.css" />
+    <link rel="stylesheet" href="/static/fixe_header.css" />
+  </head>
+  <body>
+    <!-- Barre supérieure -->
+    <header class="container header" role="banner">
+      <a class="brand" href="/">Journal du lycée</a>
 
-    <form action="/admin/articles/edit/{{ article.id }}" method="post" enctype="multipart/form-data">
-        <input type="text" name="title" value="{{ article.title }}" required>
+      <nav class="nav" aria-label="Navigation principale">
+        <a
+          class="nav-link {% if request.url.path == '/' %}is-active{% endif %}"
+          href="/"
+        >
+          Accueil
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
 
-        <input type="text" name="subtitle"
-               value="{{ article.subtitle }}"
-               maxlength="42"
-               required
-               oninput="this.value = this.value.slice(0, 42)"
-               placeholder="Sous-titre (max 42 caractères)">
+        <a
+          class="nav-link {% if request.url.path.startswith('/categories') %}is-active{% endif %}"
+          href="/categories"
+        >
+          Rubriques
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+
+        {% if request.state.user %}
+        <a
+          class="nav-link {% if request.url.path.startswith('/admin') %}is-active{% endif %}"
+          href="/admin"
+        >
+          Admin Panel
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+        <a class="nav-link" href="/login/logout">
+          Déconnexion
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+        {% else %}
+        <a
+          class="nav-link {% if request.url.path.startswith('/login') %}is-active{% endif %}"
+          href="/login"
+        >
+          Connexion
+          <svg
+            class="nav-ring"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 40"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="nav-ring__stroke"
+              pathLength="100"
+              d="M50,1.5 H78.5 A18.5,18.5 0 0 1 78.5,38.5 H21.5 A18.5,18.5 0 0 1 21.5,1.5 H50 Z"
+            />
+          </svg>
+        </a>
+        {% endif %}
+      </nav>
+    </header>
+
+    <div class="inputcontainer">
+      <h1>Créer un article</h1>
+
+      <form
+        action="/admin/articles/edit/{{ article.id }}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="text" name="title" placeholder="Titre" required value="{{ article.title }}"/>
+
+        <input
+          type="text"
+          name="subtitle"
+          maxlength="42"
+          required
+          oninput="this.value = this.value.slice(0, 42)"
+          placeholder="Sous-titre (max 42 caractères)"
+          value="{{ article.subtitle }}"
+        />
 
         <label for="category">Catégorie :</label>
-        <select name="category" id="category" required>
-            {% for cat in categories %}
+          <select name="category" id="category" required>
+              {% for cat in categories %}
                 <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>{{ cat }}</option>
-            {% endfor %}
-        </select>
+              {% endfor %}
+          </select>
 
         <label for="content">Contenu de l’article :</label>
         <!-- ✅ Zone Markdown -->
-        <textarea id="markdown-editor" name="content" required>{{ article.content }}</textarea>
+        <textarea
+          class="markdown-editor"
+          id="markdown-editor"
+          name="content"
+        >{{ article.content }}</textarea>
 
         <label for="image">Modifier l'image :</label>
-        <input type="file" name="image" id="image">
+        <input type="file" name="image" id="image" />
 
-        <button type="submit">Mettre à jour</button>
-    </form>
+        <button class="btn" type="submit">Mettre à jour</button>
+      </form>
 
-    <a href="/admin/articles">← Retour</a>
-</div>
+      <a class="back" href="/admin/articles">← Retour</a>
+    </div>
 
-<!-- ✅ Script EasyMDE -->
-<script>
-    const easyMDE = new EasyMDE({
-        element: document.getElementById("markdown-editor"),
-        spellChecker: false,
-        placeholder: "Modifiez votre article ici (Markdown pris en charge)…",
-        autosave: {
-            enabled: true,
-            uniqueId: "article-{{ article.id }}",
-            delay: 1000,
-        },
-        toolbar: [
-            "bold", "italic", "heading", "|",
-            "quote", "unordered-list", "ordered-list", "|",
-            "link", "image", "table", "|",
-            "preview", "side-by-side", "fullscreen", "|",
-            "guide"
-        ]
-    });
+    <footer class="container footer" role="contentinfo">
+      <div>© Journal du lycée Jean VILAR — Tous droits réservés</div>
+      <div class="by">© Made by Team LogicPulse</div>
+    </footer>
 
-    // ✅ Assurer que le contenu EasyMDE est envoyé au serveur
-    document.querySelector("form").addEventListener("submit", function () {
-        easyMDE.codemirror.save(); // Met à jour la <textarea> avant l'envoi
-    });
-</script>
-</body>
+    <!-- ✅ Script EasyMDE -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const easyMDE = new EasyMDE({
+          element: document.getElementById("markdown-editor"),
+          spellChecker: false,
+          placeholder: "Rédigez votre article ici (Markdown pris en charge)…",
+          toolbar: [
+            "bold",
+            "italic",
+            "heading",
+            "|",
+            "quote",
+            "unordered-list",
+            "ordered-list",
+            "|",
+            "link",
+            "image",
+            "table",
+            "|",
+            "preview",
+            "side-by-side",
+            "fullscreen",
+            "|",
+            "guide",
+          ],
+        });
+
+        const form = document.querySelector("form");
+        form.addEventListener("submit", (event) => {
+          // On récupère le texte depuis l’éditeur
+          const content = easyMDE.value().trim();
+
+          // Validation manuelle (remplace le required)
+          if (!content) {
+            alert("Le contenu de l’article ne peut pas être vide !");
+            event.preventDefault();
+            return;
+          }
+
+          // On copie la valeur dans le textarea caché
+          document.querySelector("#markdown-editor").value = content;
+        });
+      });
+    </script>
+  </body>
 </html>
