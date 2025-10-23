@@ -1,0 +1,782 @@
+/* 
+====== Développé par TEAM LogicPulse ======
+| YouTube :                               |
+| Discord : https://discord.gg/efVfp5A89k |
+| Instagram : @team_LogicPulse            |
+===========================================
+*/
+
+/* ===================
+Reset léger + tokens
+=================== */
+:root {
+  --bg: #0f1117; /* fond global sombre cohérent avec la page login */
+  --surface: #151823; /* surface cartes */
+  --line: rgba(255, 255, 255, 0.08);
+  --text: #e7ecf3;
+  --muted: #9aa3b2;
+  --brand: #8e7cf8; /* gradient brand 1 */
+  --brand-2: #6c63ff; /* gradient brand 2 */
+  --accent: #9b5cff; /* accent secondaire */
+  --radius: 16px;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 16px/1.6 "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+  background: radial-gradient(
+      1100px 700px at 15% 15%,
+      #3b3650 0%,
+      transparent 60%
+    ),
+    radial-gradient(1100px 700px at 85% 85%, #2a2537 0%, transparent 60%),
+    linear-gradient(180deg, #2a2435, #201c27 60%, #1a1620);
+  color: var(--text);
+  min-height: 100dvh;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sr-only {
+  position: absolute;
+  left: -10000px;
+}
+
+/* Layout global */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 14px;
+  margin-bottom: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+.brand {
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.2px;
+  background: linear-gradient(90deg, #fff, #cfe8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.nav {
+  display: flex;
+  gap: 14px;
+}
+.nav-link {
+  color: var(--muted);
+  padding: 8px 12px;
+  overflow: hidden;
+  transition: color 0.3s ease, background 0.3s ease;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  isolation: isolate;
+  background-clip: padding-box;
+  height: 40px;
+  min-width: 100px;
+  justify-content: center;
+}
+.nav-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+.nav-link.is-active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Footer */
+.footer {
+  color: var(--muted);
+  font-size: 14px;
+  padding-block: 28px;
+  border-top: 1px solid var(--line);
+  margin-top: 28px;
+  display: grid;
+  gap: 6px;
+}
+.footer .by {
+  opacity: 0.9;
+}
+
+/* Focus visible (accessibilité) */
+:focus-visible {
+  outline: 3px solid rgba(142, 124, 248, 0.6);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Motion safe */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .container {
+    padding: 16px;
+  }
+  .featured-card {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 720px) {
+  .articles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 520px) {
+  .nav {
+    display: none;
+  }
+  .articles-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ====== Contour animé des boutons du header ====== */
+:root {
+  --violet: #9b5cff;
+  --ring-w: 1.5px; /* épaisseur du trait en px (utilisée ci-dessous) */
+  --ring-gap: 3px;
+}
+
+/* Le SVG occupe 100% du lien et suit sa forme */
+.nav-ring {
+  position: absolute;
+  inset: calc(var(--ring-w) / -2);
+  width: calc(100% + var(--ring-w));
+  height: calc(100% + var(--ring-w));
+  pointer-events: none;
+  border-radius: inherit;
+  display: block;
+}
+
+/* Le rectangle suit la taille du SVG et ses coins sont arrondis.
+   pathLength=100 => dash en pourcentage du périmètre */
+.nav-ring__stroke {
+  fill: none;
+  stroke: var(--violet);
+  stroke-width: var(--ring-w);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  shape-rendering: geometricPrecision;
+
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+/* Survol d’un bouton non actif : on dessine le contour du haut et on fait tout le tour */
+@keyframes nav-stroke-draw {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.nav-link:not(.is-active):hover .nav-ring__stroke {
+  opacity: 1;
+  animation: nav-stroke-draw 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.nav-link.is-active .nav-ring__stroke {
+  opacity: 1;
+  stroke-dashoffset: 0;
+  animation: none;
+}
+
+/* ===================
+Styles spécifiques à la page de création d'article
+=================== */
+.inputcontainer {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background-color: #2a2435;
+  max-width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 25px;
+  color: #e7ecf3;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+input,
+textarea {
+  background-color: #2a2537;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #3b3650;
+  transition: all 0.3s;
+  color: #e5e7eb;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 10px rgba(108, 99, 255, 0.3);
+  outline: none;
+}
+/* Hover/focus : pas de flash clair */
+input:hover,
+textarea:hover,
+select:hover {
+  background-color: #2a2537;
+  border-color: #5a54b8;
+}
+/* Easing & durée harmonisées */
+:root {
+  --elevate-ease: cubic-bezier(0.22, 1, 0.36, 1); /* smooth ease-out */
+  --elevate-ms: 420ms;
+}
+
+/* Bouton hero – plus sombre et plus transparent */
+.btn {
+  cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+
+  /* ↓ dé-saturé + transparent */
+  background: linear-gradient(
+    180deg,
+    rgba(142, 124, 248, 0.22),
+    rgba(108, 99, 255, 0.18)
+  );
+  border: 1px solid rgba(142, 124, 248, 0.35);
+  color: #eae8ff;
+
+  box-shadow: 0 8px 18px rgba(108, 99, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  /* Animation vraiment fluide */
+  transform: translateY(0);
+  will-change: transform, box-shadow, filter;
+  transition: transform var(--elevate-ms) var(--elevate-ease),
+    box-shadow var(--elevate-ms) var(--elevate-ease),
+    filter var(--elevate-ms) var(--elevate-ease), background 260ms ease;
+
+  /* petit glow interne discret au repos */
+  isolation: isolate;
+}
+
+/* Survol : montée douce + ombre progressive */
+.btn:hover {
+  transform: translateY(-6px);
+  filter: brightness(1.02);
+  box-shadow: 0 14px 28px rgba(108, 99, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+/* Effet de lueur douce qui “suit” le hover (très léger) */
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: radial-gradient(
+    120% 140% at 50% 10%,
+    rgba(155, 92, 255, 0.18),
+    transparent 60%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--elevate-ms) var(--elevate-ease);
+}
+.btn:hover::before {
+  opacity: 0.55;
+}
+
+/* Actif : retour sans à-coup */
+.btn:active {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(108, 99, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+a {
+  display: inline-block;
+  margin-top: 15px;
+  color: #6c63ff;
+  text-decoration: none;
+}
+label {
+  font-weight: 600;
+  color: #e7ecf3;
+}
+
+.back {
+  display: inline-block;
+  margin-top: 20px;
+  color: #6c63ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+/* ====== Thème Markdown (EasyMDE) ====== */
+:root {
+  /* Couleurs spécifiques à l’éditeur */
+  --md-bg: #2a2537; /* fond de l’éditeur */
+  --md-surface: #2f2940; /* panneaux / preview */
+  --md-border: #3b3650; /* contours */
+  --md-text: #e7ecf3; /* texte */
+  --md-muted: #aab1c3; /* sous-texte / statusbar */
+  --md-accent: #6c63ff; /* liens, focus, boutons actifs */
+  --md-code-bg: #1c1a24; /* fond blocs de code */
+}
+
+/* Conteneur EasyMDE */
+.EasyMDEContainer {
+  background: var(--md-bg);
+  border: 1px solid var(--md-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Barre d’outils */
+.EasyMDEContainer .editor-toolbar {
+  background: var(--md-surface);
+  border-bottom: 1px solid var(--md-border);
+}
+.EasyMDEContainer .editor-toolbar a {
+  color: var(--md-muted);
+}
+.EasyMDEContainer .editor-toolbar a:hover,
+.EasyMDEContainer .editor-toolbar a.active {
+  color: #fff;
+  background: rgba(108, 99, 255, 0.12);
+}
+.EasyMDEContainer .editor-toolbar.disabled-for-preview a:not(.no-disable) {
+  opacity: 0.45;
+}
+
+/* Zone d’édition (CodeMirror) */
+.cm-s-easymde.CodeMirror,
+.cm-s-easymde .CodeMirror-gutters {
+  background: var(--md-bg);
+  color: var(--md-text);
+  border: none;
+}
+.cm-s-easymde .CodeMirror-cursor {
+  border-left: 1px solid var(--md-text);
+}
+.cm-s-easymde .CodeMirror-linenumber {
+  color: var(--md-muted);
+}
+.cm-s-easymde .CodeMirror-selected {
+  background: rgba(108, 99, 255, 0.25);
+}
+
+/* Placeholder */
+.cm-s-easymde .CodeMirror-placeholder {
+  color: color-mix(in oklab, var(--md-muted) 85%, #fff 0%);
+}
+
+/* Mise en valeur Markdown dans l’éditeur */
+.cm-s-easymde .cm-header {
+  color: #f0f2ff;
+}
+.cm-s-easymde .cm-strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+.cm-s-easymde .cm-em {
+  color: #d9def8;
+  font-style: italic;
+}
+.cm-s-easymde .cm-link {
+  color: var(--md-accent);
+  text-decoration: underline;
+}
+.cm-s-easymde .cm-quote {
+  color: #c6cbe0;
+}
+.cm-s-easymde .cm-code {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.05em 0.25em;
+  border-radius: 6px;
+}
+
+/* Status bar */
+.EasyMDEContainer .editor-statusbar {
+  background: var(--md-surface);
+  color: var(--md-muted);
+  border-top: 1px solid var(--md-border);
+}
+
+/* Aperçu (preview) */
+.editor-preview,
+.editor-preview-side {
+  background: var(--md-surface);
+  color: var(--md-text);
+}
+.editor-preview h1,
+.editor-preview h2,
+.editor-preview h3,
+.editor-preview-side h1,
+.editor-preview-side h2,
+.editor-preview-side h3 {
+  color: #ffffff;
+  font-family: "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
+}
+.editor-preview a,
+.editor-preview-side a {
+  color: var(--md-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+.editor-preview code,
+.editor-preview-side code {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.15em 0.35em;
+  border-radius: 6px;
+}
+.editor-preview pre,
+.editor-preview-side pre {
+  background: var(--md-code-bg);
+  color: #e5e7eb;
+  padding: 1rem;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+/* Tableaux dans l’aperçu */
+.editor-preview table,
+.editor-preview-side table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+.editor-preview th,
+.editor-preview td,
+.editor-preview-side th,
+.editor-preview-side td {
+  border: 1px solid var(--md-border);
+  padding: 0.6rem 0.7rem;
+}
+.editor-preview th,
+.editor-preview-side th {
+  background: rgba(255, 255, 255, 0.05);
+  font-weight: 600;
+}
+
+/* Focus & bordures cohérents avec vos inputs */
+.EasyMDEContainer:focus-within {
+  outline: 0;
+  box-shadow: 0 0 10px rgba(108, 99, 255, 0.3);
+  border-color: var(--md-accent);
+}
+
+/* Taille/coins identiques à votre .markdown-editor */
+.EasyMDEContainer,
+.CodeMirror {
+  border-radius: 10px;
+}
+
+/* Mode sombre (si le système change) */
+@media (prefers-color-scheme: dark) {
+  .EasyMDEContainer .editor-toolbar a {
+    color: var(--md-muted);
+  }
+  .EasyMDEContainer .editor-toolbar a:hover,
+  .EasyMDEContainer .editor-toolbar a.active {
+    color: #fff;
+  }
+}
+
+/* Select sombre avec flèche custom */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  color: #6c737e;
+  background-color: #2a2537; /* même fond que vos inputs */
+  border: 1px solid #3b3650;
+  border-radius: 10px;
+  padding: 15px 42px 15px 15px; /* espace pour la flèche */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23e7ecf3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center; /* place la flèche à droite */
+  background-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+/* Hover/focus : pas de flash clair */
+select:hover {
+  background-color: #2a2537;
+  border-color: #5a54b8;
+}
+select:focus {
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 10px rgba(108, 99, 255, 0.3);
+}
+
+/* Cache la flèche IE */
+select::-ms-expand {
+  display: none;
+}
+
+/* Menu déroulant (options) en sombre */
+select option {
+  background: #2a2537;
+  color: #e7ecf3;
+}
+
+/* Couleurs de référence de ton thème éditeur */
+:root {
+  --md-border: #3b3650; /* même valeur que le contour de l'éditeur */
+  --md-icon: #e7ecf3; /* couleur des icônes (blanc cassé) */
+  --md-icon-dim: #bfc6d6; /* état atténué / disabled */
+  --md-hover: rgba(108, 99, 255, 0.12);
+}
+
+/* Barre d’outils : fond & bordures */
+.EasyMDEContainer .editor-toolbar {
+  background: var(--md-surface, #2f2940);
+  border-bottom: 1px solid var(--md-border);
+}
+
+/* Icônes (FontAwesome) -> blanches */
+.EasyMDEContainer .editor-toolbar a {
+  color: var(--md-icon);
+}
+.EasyMDEContainer .editor-toolbar a:hover,
+.EasyMDEContainer .editor-toolbar a.active {
+  color: #fff;
+  background: var(--md-hover);
+}
+
+/* Icônes atténuées quand preview est actif */
+.EasyMDEContainer .editor-toolbar.disabled-for-preview a:not(.no-disable) {
+  color: var(--md-icon-dim);
+  opacity: 0.65;
+}
+
+/* Séparateurs (traits verticaux) -> même couleur que la bordure */
+.EasyMDEContainer .editor-toolbar .separator {
+  /* EasyMDE/SimpleMDE dessine le trait via border ou background */
+  border-left: 1px solid var(--md-border) !important;
+  border-right: none !important;
+  background-color: var(
+    --md-border
+  ) !important; /* au cas où le thème utilise background */
+  height: 22px; /* optionnel: ajuste la hauteur si besoin */
+  margin: 0 10px;
+  opacity: 1;
+}
+
+/* Harmonise TOUTES les bordures de l'éditeur */
+:root {
+  --md-surface: #2f2940; /* garder ta valeur */
+  --md-border: #3b3650; /* même teinte que le contour éditeur */
+  --md-icon: #e7ecf3;
+  --md-hover: rgba(108, 99, 255, 0.12);
+}
+
+/* Container + coins */
+.EasyMDEContainer {
+  background: var(--md-surface);
+  border: 1px solid var(--md-border) !important;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* BARRE D’OUTILS : fond sombre, PAS d’ombre, bordure cohérente */
+.EasyMDEContainer .editor-toolbar {
+  background: var(--md-surface) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--md-border) !important;
+  box-shadow: none !important;
+}
+
+/* Icônes blanches */
+.EasyMDEContainer .editor-toolbar a {
+  color: var(--md-icon) !important;
+}
+.EasyMDEContainer .editor-toolbar a:hover,
+.EasyMDEContainer .editor-toolbar a.active {
+  color: #fff !important;
+  background: var(--md-hover) !important;
+}
+
+/* Séparateurs = même couleur que la bordure (plus de trait blanc) */
+.EasyMDEContainer .editor-toolbar .separator {
+  border-left: 1px solid var(--md-border) !important;
+  background: var(--md-border) !important;
+  height: 22px;
+  margin: 0 10px;
+}
+
+/* ÉDITEUR (CodeMirror) : supprime toute bordure/ombre claire résiduelle */
+.cm-s-easymde.CodeMirror,
+.cm-s-easymde .CodeMirror-scroll,
+.cm-s-easymde .CodeMirror-wrap,
+.cm-s-easymde .CodeMirror-gutters {
+  background: #2a2537 !important; /* ton fond d’inputs */
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Barre de statut en bas : même règle de bordure */
+.EasyMDEContainer .editor-statusbar {
+  background: var(--md-surface) !important;
+  color: #aab1c3;
+  border-top: 1px solid var(--md-border) !important;
+}
+
+/* (Optionnel) focus cohérent sans liseré clair */
+.EasyMDEContainer:focus-within {
+  border-color: #6c63ff;
+  box-shadow: 0 0 10px rgba(108, 99, 255, 0.3);
+  outline: 0;
+}
+
+/* === Input file (dark + bouton stylé) === */
+input[type="file"] {
+  width: 100%;
+  background: #2a2537; /* même fond que tes inputs */
+  border: 1px solid #3b3650;
+  border-radius: 10px;
+  padding: 10px; /* espace autour du libellé */
+  color: #aab1c3; /* texte "Aucun fichier choisi" */
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+  overflow: hidden; /* pour l’ellipsis */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+input[type="file"]:hover {
+  border-color: #5a54b8;
+}
+input[type="file"]:focus-within {
+  border-color: #6c63ff;
+  box-shadow: 0 0 10px rgba(108, 99, 255, 0.3);
+}
+
+/* Bouton "Choisir un fichier" — navigateurs modernes */
+input[type="file"]::file-selector-button {
+  cursor: pointer;
+  margin-right: 12px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+
+  color: #eae8ff;
+  border: 1px solid rgba(142, 124, 248, 0.35);
+  background: linear-gradient(
+    180deg,
+    rgba(142, 124, 248, 0.22),
+    rgba(108, 99, 255, 0.18)
+  );
+  box-shadow: 0 8px 18px rgba(108, 99, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  transition: transform var(--elevate-ms, 420ms) cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow var(--elevate-ms, 420ms) cubic-bezier(0.22, 1, 0.36, 1),
+    filter var(--elevate-ms, 420ms) cubic-bezier(0.22, 1, 0.36, 1);
+}
+input[type="file"]::file-selector-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.02);
+  box-shadow: 0 14px 28px rgba(108, 99, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+input[type="file"]::file-selector-button:active {
+  transform: translateY(0);
+  box-shadow: 0 10px 22px rgba(108, 99, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Safari/anciens WebKit */
+input[type="file"]::-webkit-file-upload-button {
+  cursor: pointer;
+  margin-right: 12px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+
+  color: #eae8ff;
+  border: 1px solid rgba(142, 124, 248, 0.35);
+  background: linear-gradient(
+    180deg,
+    rgba(142, 124, 248, 0.22),
+    rgba(108, 99, 255, 0.18)
+  );
+  box-shadow: 0 8px 18px rgba(108, 99, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+input[type="file"]::-webkit-file-upload-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.02);
+  box-shadow: 0 14px 28px rgba(108, 99, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
