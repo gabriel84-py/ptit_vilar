@@ -490,7 +490,7 @@ select {
   -moz-appearance: none;
   appearance: none;
   font-size: 16px;
-  color: #6c737e;
+  color: #e5e7eb;
   background: #2a2537;
   border: 1px solid #3b3650;
   border-radius: 10px;
@@ -500,6 +500,9 @@ select {
   background-position: right 14px center;
   background-size: 14px;
   transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+select:has(option:checked[value=""]) {
+  color: #6c737e; /* texte du champ */
 }
 select:hover {
   background: #2a2537;
