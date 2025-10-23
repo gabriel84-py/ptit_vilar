@@ -46,12 +46,16 @@ def process_create_user(request: Request, email: str, password: str):
     if user_exist(email):
         return templates.TemplateResponse(
             "user_created.html",
-            {"request": request, "message": "Utilisateur déjà existant", "success": False},
+            {"request": request,
+             "message": "Utilisateur déjà existant",
+             "success": False},
         )
     create_user(email=email, passwd=password)
     return templates.TemplateResponse(
         "user_created.html",
-        {"request": request, "message": "Utilisateur créé avec succès", "success": True},
+        {"request": request,
+         "message": "Utilisateur créé avec succès",
+         "success": True},
     )
 
 # ------------------- DELETE USER -------------------
@@ -64,7 +68,9 @@ def process_delete_user(request: Request, email: str):
     if not user_exist(email):
         return templates.TemplateResponse(
             "user_created.html",
-            {"request": request, "message": "Utilisateur n'existe pas", "success": False},
+            {"request": request,
+             "message": "Utilisateur n'existe pas",
+             "success": False},
         )
     delete_user(email=email)
     return templates.TemplateResponse(
@@ -76,9 +82,4 @@ def process_delete_user(request: Request, email: str):
 def viewusers(request: Request):
     users = get_all_users()  # récupère tous les utilisateurs
     return templates.TemplateResponse("view_users.html", {"request": request, "users": users})
-#1
-#2
-#3
-#4
-#5
-#6
+
