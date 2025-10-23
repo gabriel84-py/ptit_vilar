@@ -76,3 +76,9 @@ def process_delete_user(request: Request, email: str):
 def viewusers(request: Request):
     users = get_all_users()  # récupère tous les utilisateurs
     return templates.TemplateResponse("view_users.html", {"request": request, "users": users})
+#1
+#2
+#3
+#4
+#5
+#6
