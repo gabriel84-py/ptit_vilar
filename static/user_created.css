@@ -1,0 +1,202 @@
+/* ---- Base & thème ---- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+:root {
+  --brand: #8e7cf8;
+  --brand-weak: #6c63ff;
+  --bg: #f7f8f5;
+  --text: #222;
+  --muted: #666;
+  --error: #d63939;
+  --card: #2f2a39;
+  --ring: rgba(100, 112, 74, 0.25);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+/* ================================
+   Arrière-plan global de la page
+   ================================ */
+body {
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+  background: radial-gradient(
+      1100px 700px at 15% 15%,
+      #3b3650 0%,
+      transparent 60%
+    ),
+    radial-gradient(1100px 700px at 85% 85%, #2a2537 0%, transparent 60%),
+    linear-gradient(180deg, #2a2435, #201c27 60%, #1a1620);
+  color: var(--text);
+  display: flex;
+  place-items: center; /* Centre la grande carte */
+  padding: 32px;
+  overflow: hidden;
+}
+/* Halo animé discret derrière la page */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -30%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(142, 124, 248, 0.28),
+    rgba(108, 99, 255, 0.24),
+    transparent 40%,
+    rgba(142, 124, 248, 0.28)
+  );
+  filter: blur(80px) saturate(120%);
+  animation: spin 70s linear infinite;
+  pointer-events: none;
+  opacity: 0.6;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- Carte ---- */
+.error-card {
+  width: min(560px, 92vw);
+  background: var(--card);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  text-align: center;
+}
+
+/* halo subtil façon “ring” de nav */
+.error-card::after {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(
+      300px 280px at 20% 10%,
+      var(--ring),
+      transparent 60%
+    ),
+    radial-gradient(260px 240px at 90% 90%, var(--ring), transparent 60%);
+  pointer-events: none;
+  filter: blur(2px);
+  opacity: 0.9;
+  animation: float 16s linear infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(2px, -2px, 0) rotate(0.5deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+p {
+  margin: 0 0 18px;
+  color: var(--muted);
+}
+
+/* ---- Bouton lien ---- */
+a.back[href="/admin"] {
+  /* Palette */
+  --ring: #8b5cf6; /* violet du contour */
+  --bg: #2b2540; /* fond du bouton (même ton que la page) */
+  --bg-hover: #372e58; /* fond au survol */
+  --txt: #fff;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 999px;
+
+  background: var(--bg);
+  color: var(--txt);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+
+  /* fin liseré + halo extérieur violet + légère lueur interne */
+  border: 2px solid var(--ring);
+  box-shadow: 0 0 0 2px rgba(69, 69, 75, 0.35),
+    /* halo */ inset 0 0 0 1px rgba(255, 255, 255, 0.06); /* subtil relief */
+
+  transition: background-color 0.15s ease, box-shadow 0.2s ease,
+    transform 0.08s ease;
+}
+
+/* Survol : fond un poil plus clair + halo un peu plus fort */
+a.back[href="/admin"]:hover {
+  background: var(--bg-hover);
+  box-shadow: 0 0 0 5px rgba(139, 92, 246, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+/* Clic */
+a.back[href="/admin"]:active {
+  transform: translateY(0);
+}
+
+/* Focus clavier accessible */
+a.back[href="/admin"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15),
+    0 0 0 7px rgba(139, 92, 246, 0.65);
+}
+
+/* Retirer la flèche de la version précédente */
+a.back[href="/admin"]::before {
+  content: none;
+}
+
+/* ---- Conteneur pour structurer la page ---- */
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Aligne chaque élément (h1, bouton) au centre, avec un petit gap propre */
+.content {
+  display: grid;
+  justify-items: center; /* centre horizontalement les enfants */
+  gap: 14px; /* espace entre h1 et le bouton */
+}
+
+/* ---- Accessibilité & préférences motion ---- */
+a.back:focus-visible {
+  outline: 3px solid var(--brand-weak);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .error-card::after {
+    display: none;
+  }
+}
