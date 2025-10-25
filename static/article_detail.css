@@ -184,7 +184,6 @@ body {
   font-family: var(--font-body);
   font-size: var(--fs-body);
   line-height: var(--lh-body);
-  color: #111;
 }
 .content :where(h1, h2, h3) {
   font-family: var(--font-heading);
@@ -239,8 +238,8 @@ body {
 .content blockquote {
   margin: 1.25em 0;
   padding: 0.85em 1em;
-  border-left: 4px solid #64704a;
-  background: #f7f9f7;
+  border-left: 4px solid #74805a;
+  background: #676d56;
   border-radius: 8px;
   color: #222;
 }
@@ -296,32 +295,6 @@ body {
   margin: 1rem 0;
   border-radius: 14px;
   overflow: hidden;
-}
-
-/* Mode sombre facultatif */
-@media (prefers-color-scheme: dark) {
-  .content {
-    color: #eaeaea;
-  }
-  .content a {
-    color: #9ad0a9;
-  }
-  .content blockquote {
-    background: #162016;
-    color: #e6f1e9;
-    border-left-color: #7faa8a;
-  }
-  .content code {
-    background: #1f2937;
-    color: #e5e7eb;
-  }
-  .content table th {
-    background: #1f2937;
-  }
-  .content th,
-  .content td {
-    border-color: #374151;
-  }
 }
 
 /* ===== Bouton "Tous les articles" ===== */
