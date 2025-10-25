@@ -153,6 +153,19 @@ ul {
   .container {
     padding: 16px;
   }
+  .container {
+    max-width: 100%;
+  }
+  .table-card {
+    width: 100%;
+    margin: 16px auto;
+    border-radius: 12px;
+  }
+  .backcontainer,
+  .archivelink {
+    max-width: 100%;
+    padding-inline: 16px;
+  }
   .featured-card {
     grid-template-columns: 1fr;
   }
@@ -160,6 +173,36 @@ ul {
 @media (max-width: 720px) {
   .articles-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  /* Évite le scroll horizontal et rend les cartes fluides */
+  .table-card {
+    width: 100%;
+    margin: 12px auto;
+    border-radius: 12px;
+  }
+  .table-scroll {
+    overflow-x: hidden;
+  }
+  .table-card .data-table,
+  .table-card tbody {
+    display: block;
+    width: 100%;
+  }
+  .table-card .data-table {
+    min-width: 0 !important;
+  }
+  .table-card tbody tr {
+    margin: 10px 0;
+  }
+  .table-card tbody td {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .actions {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
   }
 }
 @media (max-width: 520px) {
@@ -543,28 +586,47 @@ Main Content
 
 /* ====== Responsive : table -> cartes lisibles ====== */
 @media (max-width: 720px) {
+  /* On cache l'en-tête et on passe en layout "cartes" */
   .table-card thead {
     display: none;
   }
+
+  /* Le tableau et le tbody restent blocs fluides */
   .table-card .data-table,
-  .table-card tbody,
-  .table-card tr,
-  .table-card td {
+  .table-card tbody {
     display: block;
     width: 100%;
   }
+
+  /* Chaque ligne devient une "carte" en grille 1 colonne avec zones nommées */
   .table-card tbody tr {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "cell-id"
+      "cell-title"
+      "cell-check"
+      "cell-actions";
+    gap: 8px;
     margin: 12px 12px;
     border: 1px solid var(--line);
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.02);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    padding: 8px; /* respiration interne */
   }
+
+  /* Les cellules deviennent des blocs 100% */
   .table-card tbody td {
+    display: block;
+    width: 100%;
     border: 0;
-    padding: 10px 14px;
+    padding: 10px 12px;
     position: relative;
+    background: transparent;
   }
+
+  /* Libellés au-dessus du contenu pour la lisibilité */
   .table-card tbody td::before {
     content: attr(data-label);
     display: block;
@@ -573,14 +635,49 @@ Main Content
     margin-bottom: 4px;
     letter-spacing: 0.2px;
   }
-  .actions {
+
+  /* Mappage des colonnes -> zones (ajustez les index si votre ordre diffère) */
+  .table-card tbody td:nth-child(1) {
+    grid-area: cell-id;
+  } /* ID */
+  .table-card tbody td:nth-child(2) {
+    grid-area: cell-title;
+  } /* Titre */
+  .table-card tbody td:nth-child(3) {
+    grid-area: cell-check;
+  } /* Checkbox */
+  .table-card tbody td:last-child {
+    grid-area: cell-actions;
+  } /* Boutons / actions */
+
+  /* Zone checkbox : centrée verticalement, laisse la case s'exprimer */
+  .table-card tbody td:nth-child(3) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Zone actions : les boutons s'organisent en ligne et wrap si besoin */
+  .table-card tbody td:last-child .actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
     justify-content: flex-start;
     padding-top: 6px;
+    width: 100%;
   }
+
+  /* Harmonise les boutons sur mobile */
+  .table-card tbody td:last-child .actions .btn {
+    padding: 9px 12px;
+  }
+
+  /* Toolbar plus compacte */
   .table-toolbar {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
+    padding: 14px;
   }
 }
 
@@ -645,4 +742,39 @@ Main Content
 
 .back2:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 420px) {
+  .table-toolbar {
+    padding: 14px;
+  }
+  .table-card tbody td {
+    padding: 10px 12px;
+  }
+  .btn {
+    padding: 9px 12px;
+  }
+}
+
+/* ===== Empile les deux boutons du bas en mobile ===== */
+@media (max-width: 520px) {
+  .backcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  /* Les deux liens occupent toute la largeur et sont centrés */
+  .backcontainer .back,
+  .backcontainer .archive {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+  /* Retire le positionnement absolu qui casse la mise en page */
+  .backcontainer .archive {
+    position: static;
+    right: auto;
+    margin-top: 0; /* l'espacement est géré par gap */
+  }
 }
