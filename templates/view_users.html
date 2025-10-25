@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Liste des utilisateurs</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
@@ -119,6 +119,59 @@
       </nav>
     </header>
 
+    <!-- Barre mobile centrée -->
+    <div class="mobile-topbar" role="region" aria-label="Menu mobile">
+      <button
+        class="nav-fab"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+        aria-label="Ouvrir le menu"
+      >
+        <span class="hamb" aria-hidden="true">
+          <span class="bar bar1"></span>
+          <span class="bar bar2"></span>
+          <span class="bar bar3"></span>
+        </span>
+      </button>
+    </div>
+    <!-- Menu déroulant mobile -->
+    <div id="mobileMenu" class="mobile-drawer" hidden>
+      <nav class="mobile-nav" aria-label="Navigation mobile">
+        <a
+          class="mobile-link"
+          href="/"
+          data-active="{{ '1' if request.url.path == '/' else '0' }}"
+          >Accueil</a
+        >
+        <a
+          class="mobile-link"
+          href="/categories"
+          data-active="{{ '1' if request.url.path.startswith('/categories') else '0' }}"
+          >Rubriques</a
+        >
+
+        {% if request.state.user %}
+        <a
+          class="mobile-link"
+          href="/admin"
+          data-active="{{ '1' if request.url.path.startswith('/admin') else '0' }}"
+          >Admin Panel</a
+        >
+        <a class="mobile-link" href="/login/logout">Déconnexion</a>
+        {% else %}
+        <a
+          class="mobile-link"
+          href="/login"
+          data-active="{{ '1' if request.url.path.startswith('/login') else '0' }}"
+          >Connexion</a
+        >
+        {% endif %}
+      </nav>
+    </div>
+
+    <!-- Backdrop -->
+    <div class="mobile-backdrop" hidden></div>
+
     <div class="tablecontainer">
       <div class="table-toolbar">
         <h1>Liste des utilisateurs</h1>
@@ -150,4 +203,40 @@
       <div class="by">© Made by Team LogicPulse</div>
     </footer>
   </body>
+  <script>
+    (function () {
+      const fab = document.querySelector(".nav-fab");
+      const drawer = document.getElementById("mobileMenu");
+      const backdrop = document.querySelector(".mobile-backdrop");
+      if (!fab || !drawer || !backdrop) return;
+
+      function setOpen(isOpen) {
+        fab.setAttribute("aria-expanded", String(isOpen));
+        drawer.toggleAttribute("hidden", !isOpen);
+        backdrop.toggleAttribute("hidden", !isOpen);
+        drawer.setAttribute("data-open", String(isOpen));
+        backdrop.setAttribute("data-open", String(isOpen));
+        document.documentElement.style.overflow = isOpen ? "hidden" : "";
+        if (isOpen) {
+          const firstLink = drawer.querySelector("a");
+          firstLink && firstLink.focus({ preventScroll: true });
+        } else {
+          fab.focus({ preventScroll: true });
+        }
+      }
+      function toggle() {
+        setOpen(fab.getAttribute("aria-expanded") !== "true");
+      }
+
+      fab.addEventListener("click", toggle);
+      backdrop.addEventListener("click", () => setOpen(false));
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setOpen(false);
+      });
+
+      // Sécurité: si on repasse en desktop, on ferme
+      const mq = window.matchMedia("(min-width: 521px)");
+      mq.addEventListener?.("change", () => setOpen(false));
+    })();
+  </script>
 </html>
