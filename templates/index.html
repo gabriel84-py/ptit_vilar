@@ -136,6 +136,7 @@
     <div class="mobile-topbar" role="region" aria-label="Menu mobile">
       <button
         class="nav-fab"
+        type="button"
         aria-expanded="false"
         aria-controls="mobileMenu"
         aria-label="Ouvrir le menu"
@@ -276,41 +277,41 @@
       <div>© Journal du lycée Jean VILAR — Tous droits réservés</div>
       <div class="by">© Made by Team LogicPulse</div>
     </footer>
-  </body>
-  <script>
-    (function () {
-      const fab = document.querySelector(".nav-fab");
-      const drawer = document.getElementById("mobileMenu");
-      const backdrop = document.querySelector(".mobile-backdrop");
-      if (!fab || !drawer || !backdrop) return;
+    <script>
+      (function () {
+        const fab = document.querySelector(".nav-fab");
+        const drawer = document.getElementById("mobileMenu");
+        const backdrop = document.querySelector(".mobile-backdrop");
+        if (!fab || !drawer || !backdrop) return;
 
-      function setOpen(isOpen) {
-        fab.setAttribute("aria-expanded", String(isOpen));
-        drawer.toggleAttribute("hidden", !isOpen);
-        backdrop.toggleAttribute("hidden", !isOpen);
-        drawer.setAttribute("data-open", String(isOpen));
-        backdrop.setAttribute("data-open", String(isOpen));
-        document.documentElement.style.overflow = isOpen ? "hidden" : "";
-        if (isOpen) {
-          const firstLink = drawer.querySelector("a");
-          firstLink && firstLink.focus({ preventScroll: true });
-        } else {
-          fab.focus({ preventScroll: true });
+        function setOpen(isOpen) {
+          fab.setAttribute("aria-expanded", String(isOpen));
+          drawer.toggleAttribute("hidden", !isOpen);
+          backdrop.toggleAttribute("hidden", !isOpen);
+          drawer.setAttribute("data-open", String(isOpen));
+          backdrop.setAttribute("data-open", String(isOpen));
+          document.documentElement.style.overflow = isOpen ? "hidden" : "";
+          if (isOpen) {
+            const firstLink = drawer.querySelector("a");
+            firstLink && firstLink.focus({ preventScroll: true });
+          } else {
+            fab.focus({ preventScroll: true });
+          }
         }
-      }
-      function toggle() {
-        setOpen(fab.getAttribute("aria-expanded") !== "true");
-      }
+        function toggle() {
+          setOpen(fab.getAttribute("aria-expanded") !== "true");
+        }
 
-      fab.addEventListener("click", toggle);
-      backdrop.addEventListener("click", () => setOpen(false));
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") setOpen(false);
-      });
+        fab.addEventListener("click", toggle);
+        backdrop.addEventListener("click", () => setOpen(false));
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") setOpen(false);
+        });
 
-      // Sécurité: si on repasse en desktop, on ferme
-      const mq = window.matchMedia("(min-width: 521px)");
-      mq.addEventListener?.("change", () => setOpen(false));
-    })();
-  </script>
+        // Sécurité: si on repasse en desktop, on ferme
+        const mq = window.matchMedia("(min-width: 521px)");
+        mq.addEventListener?.("change", () => setOpen(false));
+      })();
+    </script>
+  </body>
 </html>
