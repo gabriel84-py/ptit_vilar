@@ -121,7 +121,7 @@ html::-webkit-scrollbar {
 }
 
 /* ===== Header mobile : bouton centré et collé en haut ===== */
-@media (max-width: 712px) {
+@media (max-width: 520px) {
   :root {
     --mbar-h: 56px; /* hauteur de la barre */
     --safe-top: env(safe-area-inset-top, 0); /* encoche iOS */
