@@ -464,8 +464,29 @@ Main Content
   .filters {
     flex-direction: column;
     align-items: stretch;
+    padding: 12px;
   }
   .articles-grid {
     grid-template-columns: 1fr;
+  }
+  /* (nouveau) les champs peuvent rétrécir et prendre toute la largeur */
+  .filters .field {
+    min-width: 0;
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  /* (nouveau) on s’assure que les contrôles remplissent bien le parent */
+  .input,
+  .select {
+    width: 100%;
+  }
+}
+
+/* (optionnel mais utile sous ~420px) compacter encore un peu */
+@media (max-width: 420px) {
+  .filters {
+    padding: 10px;
+    border-radius: 12px;
   }
 }
