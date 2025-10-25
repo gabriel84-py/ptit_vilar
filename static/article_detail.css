@@ -529,3 +529,103 @@ ul {
     display: none;
   }
 }
+
+/* ====== Responsive mobile & écrans étroits ====== */
+
+/* Palier tablette/étroit */
+@media (max-width: 980px) {
+  .articlecontainer {
+    max-width: 720px; /* limite raisonnable */
+    width: calc(100% - 32px); /* respirations latérales */
+    margin: 12px auto;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .media-card {
+    border-width: 10px;
+    border-radius: 12px;
+    aspect-ratio: 16 / 9; /* garde les images correctes */
+  }
+
+  .media-title {
+    padding: 0.75rem;
+  }
+  .media-heading {
+    max-width: 100%;
+  }
+
+  .article-body {
+    padding: 1rem;
+  }
+
+  /* Titres un peu plus compacts */
+  .content h1 {
+    font-size: clamp(1.6rem, 5.5vw, 2.1rem);
+  }
+  .content h2 {
+    font-size: clamp(1.3rem, 4.4vw, 1.7rem);
+  }
+  .content h3 {
+    font-size: clamp(1.1rem, 3.8vw, 1.35rem);
+  }
+
+  /* Évite les débordements de mots très longs */
+  .content {
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+}
+
+/* Palier téléphone */
+@media (max-width: 520px) {
+  .container {
+    padding: 12px;
+  }
+
+  .articlecontainer {
+    width: calc(100% - 24px);
+    margin: 10px auto;
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .media-card {
+    border-width: 8px;
+    border-radius: 10px;
+  }
+
+  /* Réduit un peu les espacements */
+  .content p {
+    margin: 0.8em 0;
+  }
+  .content :where(ul, ol) {
+    margin: 0.6em 0;
+    padding-left: 1.1em;
+  }
+
+  /* Bouton "Tous les articles" : bas droit, hors contenu */
+  .back {
+    bottom: max(12px, env(safe-area-inset-bottom));
+    right: max(12px, env(safe-area-inset-right));
+    top: auto;
+    margin-right: 0;
+    padding: 12px 18px;
+    z-index: 30;
+  }
+
+  /* Laisse de la place au bouton pour qu'il ne masque pas le texte */
+  .articlecontainer {
+    padding-bottom: 72px;
+  }
+}
+
+/* Très petits écrans (iPhone SE, etc.) */
+@media (max-width: 360px) {
+  .content h1 {
+    font-size: clamp(1.4rem, 6.2vw, 1.9rem);
+  }
+  .content h2 {
+    font-size: clamp(1.15rem, 5vw, 1.4rem);
+  }
+}
