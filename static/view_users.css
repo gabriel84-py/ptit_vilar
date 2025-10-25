@@ -241,7 +241,7 @@ h1 {
   );
   border: 1px solid var(--line);
   border-radius: 16px;
-  width: 65%;
+  width: 80%;
   margin: 24px auto;
   box-shadow: var(--shadow);
   overflow: hidden;
@@ -340,30 +340,62 @@ h1 {
   box-shadow: inset 0 0 0 1px rgba(142, 124, 248, 0.25);
 }
 
-/* Responsive "cartes"  */
+/* Responsive "cartes" */
 @media (max-width: 720px) {
+  /* Largeur container adaptée et espace externe à gauche/droite du tableau */
+  .tablecontainer {
+    width: auto; /* laisse respirer horizontalement */
+    margin: 16px; /* espace EXTERNE à gauche/droite du tableau */
+    border-radius: 12px;
+  }
+  .table-scroll {
+    overflow-x: hidden;
+  }
+
+  /* On cache l'en-tête et on passe en layout cartes */
   .table-scroll .data-table thead {
     display: none;
   }
   .table-scroll .data-table,
-  .table-scroll .data-table tbody,
-  .table-scroll .data-table tr,
-  .table-scroll .data-table td {
+  .table-scroll .data-table tbody {
     display: block;
     width: 100%;
+    padding: 0 6px; /* pas d'espace en haut; seulement côtés + bas */
   }
+  .table-scroll .data-table {
+    min-width: 0 !important;
+  }
+
+  /* Chaque ligne devient une carte en grille 1 colonne */
   .table-scroll .data-table tbody tr {
-    margin: 12px 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "cell-id"
+      "cell-title"
+      "cell-check"
+      "cell-actions";
+    gap: 8px;
+    margin: 10px 0; /* pas de marge horizontale -> pas d'overflow */
     border: 1px solid var(--line);
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.02);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    padding: 8px;
   }
+
   .table-scroll .data-table tbody td {
+    display: block;
+    width: 100%;
     border: 0;
-    padding: 10px 14px;
+    padding: 10px 12px;
     position: relative;
+    background: transparent;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
+
+  /* Libellés de champ au-dessus du contenu */
   .table-scroll .data-table tbody td::before {
     content: attr(data-label);
     display: block;
@@ -372,9 +404,42 @@ h1 {
     margin-bottom: 4px;
     letter-spacing: 0.2px;
   }
-  .actions {
+
+  /* Mapping des colonnes -> zones (ajuster si ordre différent dans le template) */
+  .table-scroll .data-table tbody td:nth-child(1) {
+    grid-area: cell-id;
+  } /* ID */
+  .table-scroll .data-table tbody td:nth-child(2) {
+    grid-area: cell-title;
+  } /* Titre / Email */
+  .table-scroll .data-table tbody td:nth-child(3) {
+    grid-area: cell-check;
+  } /* Checkbox / Actif */
+  .table-scroll .data-table tbody td:last-child {
+    grid-area: cell-actions;
+  } /* Actions */
+
+  /* Zone checkbox : centrée verticalement avec espace */
+  .table-scroll .data-table tbody td:nth-child(3) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Zone actions : boutons flex wrap */
+  .table-scroll .data-table tbody td:last-child .actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
     justify-content: flex-start;
     padding-top: 6px;
+    width: 100%;
+  }
+
+  /* Harmonise les boutons sur mobile */
+  .table-scroll .data-table tbody td:last-child .actions .btn {
+    padding: 9px 12px;
+    max-width: 100%;
   }
 }
 
