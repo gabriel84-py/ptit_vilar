@@ -2,22 +2,19 @@
 const User = require('../models/User');
 const crypto = require('crypto');
 
-function authUser(email, passwdSent) {
-  const existingUser = User.findByEmail(email);
-  
-  if (existingUser) {
-    const passwd = Buffer.from(passwdSent, 'utf-8');
-    const hashOne = crypto.createHash('sha512').update(passwd).digest('hex');
-    
-    if (existingUser.hashed_password === hashOne) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    return false;
-  }
+async function authUser(email, passwdSent) {
+  const existingUser = await User.findByEmail(email); // <-- await important
+
+  if (!existingUser) return false;
+
+  // logging utile pour debug
+  console.log('User found:', !!existingUser);
+  console.log('Stored hash:', existingUser.hashed_password);
+
+  const hashOne = crypto.createHash('sha512').update(passwdSent, 'utf8').digest('hex');
+  console.log('Computed hash:', hashOne);
+
+  return existingUser.hashed_password === hashOne;
 }
 
 module.exports = authUser;
-
