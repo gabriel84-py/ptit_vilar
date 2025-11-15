@@ -173,10 +173,10 @@ app.use('/formation', formationMdRoutes);
 app.use('/', indexRoutes);
 
 // Démarrer le serveur
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
-  console.log(`Accédez à http://localhost:${PORT}`);
 });
+
 
 module.exports = app;
 
