@@ -188,42 +188,35 @@
 
     <main class="container main" role="main">
       <!-- HERO / À LA UNE -->
-      {% set featured_article = articles | selectattr('featured') | first %} {%
-      if featured_article %}
+      {% if featuredArticle %}
       <article class="featured-card">
-        <a href="/articles/{{ featured_article.id }}" class="featured-media">
-          <img
-            src="{{ featured_article.image_url }}"
-            alt="{{ featured_article.title }}"
-          />
+        <a href="/articles/{{ featuredArticle.id }}" class="featured-media">
+          <img src="{{ featuredArticle.image_url }}" alt="{{ featuredArticle.title }}" />
           <span class="media-chip">À la une</span>
         </a>
         <div class="featured-body">
-          <a
-            class="chip"
-            href="/categories?category={{ featured_article.category }}"
-            data-category="{{ featured_article.category|lower|replace(' ', '-') }}"
-          >
-            {{ featured_article.category }}
+          <a class="chip"
+            href="/categories?category={{ featuredArticle.category }}"
+            data-category="{{ featuredArticle.category|lower|replace(' ', '-') }}">
+            {{ featuredArticle.category }}
           </a>
 
           <h1 class="featured-h1">
-            <a
-              class="featured-title-link"
-              href="/articles/{{ featured_article.id }}"
-              aria-label="{{ featured_article.title }}"
-            >
-              {{ featured_article.title }}
+            <a class="featured-title-link"
+              href="/articles/{{ featuredArticle.id }}"
+              aria-label="{{ featuredArticle.title }}">
+              {{ featuredArticle.title }}
             </a>
           </h1>
-          <h3 class="featured-h3">{{ featured_article.subtitle }}</h3>
+
+          <h3 class="featured-h3">{{ featuredArticle.subtitle }}</h3>
           <div class="featured-content is-clamped" id="featured-content">
-            {{ featured_article.content | markdown }}
+            {{ featuredArticle.content | markdown }}
           </div>
         </div>
       </article>
       {% endif %}
-    </main>
+
 
     <!-- DERNIERS ARTICLES -->
     <section class="latest" aria-labelledby="derniers-articles">

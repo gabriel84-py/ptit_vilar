@@ -5,8 +5,10 @@ const { getAllArticles } = require('../services/article_admin');
 
 router.get('/', (req, res) => {
   const articles = getAllArticles();
-  res.render('index', { articles });
+  const featuredArticle = articles.find(a => a.featured === true);
+  res.render('index', { articles, featuredArticle });
 });
+
 
 module.exports = router;
 
