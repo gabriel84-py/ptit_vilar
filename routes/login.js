@@ -11,25 +11,25 @@ router.get('/', (req, res) => {
   res.render('login', { articles });
 });
 
-// routes/login.js (version async)
-router.post('/check', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const ok = await authUser(email, password); // <-- await ici
-
-    if (ok) {
-      const token = serializer.dumps({ email, is_admin: true });
-      res.cookie('auth', token, { httpOnly: true, maxAge: 24*60*60*1000, path: '/' });
-      return res.redirect('/admin');
-    } else {
-      return res.render('login_error', { email });
-    }
-  } catch (err) {
-    console.error('Login error:', err);
-    return res.status(500).send('Erreur serveur');
+// Vérification du login
+router.post('/check', (req, res) => {
+  const { email, password } = req.body;
+  
+  if (authUser(email, password)) {
+    // Génère un token signé (équivalent à itsdangerous)
+    const token = serializer.dumps({ email, is_admin: true });
+    
+    res.cookie('auth', token, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 1000, // 24 heures
+      path: '/'
+    });
+    
+    res.redirect('/admin');
+  } else {
+    res.render('login_error', { email });
   }
 });
-
 
 router.get('/logout', (req, res) => {
   res.clearCookie('auth', { path: '/' });
