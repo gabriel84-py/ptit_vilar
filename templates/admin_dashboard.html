@@ -40,7 +40,7 @@
         </a>
 
         <a
-          class="nav-link {% if request.url.path.startswith('/categories') %}is-active{% endif %}"
+          class="nav-link {% if request.url.path|startswith('/categories') %}is-active{% endif %}"
           href="/categories"
         >
           Rubriques
@@ -61,7 +61,7 @@
 
         {% if request.state.user %}
         <a
-          class="nav-link {% if request.url.path.startswith('/admin') %}is-active{% endif %}"
+          class="nav-link {% if request.url.path|startswith('/admin') %}is-active{% endif %}"
           href="/admin"
         >
           Admin Panel
@@ -97,7 +97,7 @@
         </a>
         {% else %}
         <a
-          class="nav-link {% if request.url.path.startswith('/login') %}is-active{% endif %}"
+          class="nav-link {% if request.url.path|startswith('/login') %}is-active{% endif %}"
           href="/login"
         >
           Connexion
@@ -146,7 +146,7 @@
         <a
           class="mobile-link"
           href="/categories"
-          data-active="{{ '1' if request.url.path.startswith('/categories') else '0' }}"
+          data-active="{{ '1' if request.url.path|startswith('/categories') else '0' }}"
           >Rubriques</a
         >
 
@@ -154,7 +154,7 @@
         <a
           class="mobile-link"
           href="/admin"
-          data-active="{{ '1' if request.url.path.startswith('/admin') else '0' }}"
+          data-active="{{ '1' if request.url.path|startswith('/admin') else '0' }}"
           >Admin Panel</a
         >
         <a class="mobile-link" href="/login/logout">Déconnexion</a>
@@ -162,7 +162,7 @@
         <a
           class="mobile-link"
           href="/login"
-          data-active="{{ '1' if request.url.path.startswith('/login') else '0' }}"
+          data-active="{{ '1' if request.url.path|startswith('/login') else '0' }}"
           >Connexion</a
         >
         {% endif %}

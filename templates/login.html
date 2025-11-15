@@ -44,7 +44,7 @@
           <!-- viewport = conteneur des slides -->
           <div class="viewport" id="carousel">
             {% set list_articles = (articles or []) %} {% set latest =
-            (list_articles | sort(attribute='created_at', reverse=True))[:3] %}
+            (list_articles | sort('created_at', true))|slice(0, 3) %}
             {% if latest and latest|length > 0 %} {% for article in latest %}
             <figure class="slide {% if loop.first %}active{% endif %}">
               <!-- Image NON cliquable -->

@@ -12,7 +12,7 @@ def delete_user(email: str):
         print("🗑️ Utilisateur supprimé :", email)
         return True
     else:
-        print("❌ Utilisateur non trouvé :", email)
+        print("Utilisateur non trouvé :", email)
         return False
 
 

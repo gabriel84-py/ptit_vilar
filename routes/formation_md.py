@@ -4,7 +4,7 @@ from fastapi.templating import Jinja2Templates
 
 router = APIRouter(prefix="/formation", tags=["md"])
 
-#On configure les templates
+# configure les templates
 templates = Jinja2Templates(directory="templates")
 
 
