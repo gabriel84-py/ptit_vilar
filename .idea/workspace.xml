@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5def55ea-ee84-459c-9302-0c2c20706b2f" name="Changes" comment="visitor count added !">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/formation_md.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/formation_md.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/delete_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/delete_user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
