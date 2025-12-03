@@ -177,6 +177,6 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });
 
-
 module.exports = app;
 
+// https://www.notion.so/HackTheBox-Beginner-Cheat-Sheet-1f4463c9990c80f58aa0f00dfbff0b16?source=copy_link
